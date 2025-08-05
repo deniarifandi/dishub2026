@@ -21,7 +21,7 @@ class Whatsapp
         "to" => $recipient,
         "type" => "template",
         "template" => [
-            "name" => "pembayaran_diterima_prod", // your approved template name
+            "name" => "pembayaran_berhasil_prod", // your approved template name
             "language" => [
                 "code" => "id"
             ],
