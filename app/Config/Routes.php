@@ -33,15 +33,15 @@ $routes->get('transaksi/invoice/(:segment)', 'Transaksi::invoice/$1');
 $routes->get('whatsapp','whatsapp::send');
 
 //POTENSI START
-$routes->get('potensi', 'potensi::index');
+$routes->get('potensi', 'Potensi::index');
 
-$routes->get('potensi/create/(:num)', 'potensi::create/$1');
-$routes->post('potensi/store', 'potensi::store');
-$routes->get('potensi/edit/(:num)', 'potensi::edit/$1');
-$routes->post('potensi/update/(:num)', 'potensi::update/$1');
-$routes->get('potensi/delete/(:num)', 'potensi::delete/$1');
+$routes->get('potensi/create/(:num)', 'Potensi::create/$1');
+$routes->post('potensi/store', 'Potensi::store');
+$routes->get('potensi/edit/(:num)', 'Potensi::edit/$1');
+$routes->post('potensi/update/(:num)', 'Potensi::update/$1');
+$routes->get('potensi/delete/(:num)', 'Potensi::delete/$1');
 
-$routes->post('potensi/data', 'potensi::data');
+$routes->post('potensi/data', 'Potensi::data');
 
-$routes->get('potensi/send/(:any)', 'potensi::send_konfirmasi/$1');
-$routes->get('potensi/invoice/(:segment)', 'potensi::invoice/$1');
+$routes->get('potensi/send/(:any)', 'Potensi::send_konfirmasi/$1');
+$routes->get('potensi/invoice/(:segment)', 'Potensi::invoice/$1');
