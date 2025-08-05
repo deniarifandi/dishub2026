@@ -9,7 +9,9 @@ class Whatsapp
     {
         //$accessToken = 'EAAcbbjv93u0BPB6mVQi5DgDnvwiiZAZCSxsJUCYWV5q2nHoHSeRBlUIPHKkScdzN7vzATkTD1BDjVeJyNsyUZAT8VCb3CE33jI5vVQwrkJ4AP9aRHItxD9YywZAbXZB2q201crYyR75wQkhAFUekX9Tp4HVPhhu2IIaDPZCZCxAWwbUMWqvKn7KcG4YFgJZC3pQ7GGVVCyIbI59IJZB8HSzTknzaCsKgiHhY6JDqxAmctkA2Y6Dv6soclLIt1fxGFjAZDZD';
         $accessToken = 'EAAcbbjv93u0BPAsJ40nIQNgj92aP0yYkDl8CTym3QnQDmUDxTz5WqfvnU5Uo9eZBXvCpcZAadMqwWuT9qiUYZBDZBvWz06LAPokDLtfivZCGxZBY6mi5KClyBQCHHtRyQQKMK3ewkBdX2i61gngioW9ctSsmCG5X7gZAvVamrGpG5RZBe4musMXOQ7MmCswHikIasxTZBxyyF5N7ZCiJTbkZBXXlAZBdcD1YBW5ZBWdWFejdzdJ64JvzQIbLzmq64rKqhtwZDZD';
-        $phoneNumberId = '631443813396840';
+        $accessToken = 'EAAcbbjv93u0BPPdS3swcVVVzBJwkrn2oLGZABP1JMZBnd7XQqyZCwE6Fa3kK1L6QFfU7WvhHXTDT32IgLY0HvFCxn0ZAZBtn1iexZAiiKkKa9y0Ve5vhJNXvpZCBNqwmHvkb9mQh7mmisCp7cnrL9KoukWGt2CrrDIajwfPkA6f8ZB8HIWm4MJ0IwEW9ZBmmGXTIjOQZDZD';//production
+        $phoneNumberId = '631443813396840'; //testing
+        $phoneNumberId = '718496908011318';//production
         ; // international format
 
         $url = "https://graph.facebook.com/v19.0/$phoneNumberId/messages";
@@ -19,7 +21,7 @@ class Whatsapp
         "to" => $recipient,
         "type" => "template",
         "template" => [
-            "name" => "pembayaran_diterima", // your approved template name
+            "name" => "pembayaran_diterima_prod", // your approved template name
             "language" => [
                 "code" => "id"
             ],
