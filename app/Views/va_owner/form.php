@@ -12,7 +12,7 @@
     <div class="card-body">
        
        <div class="container mt-4">
-    <h2 class="mb-4">Add New VA Owner</h2>
+    <h4 class="mb-4">Pencatatan VA</h4>
    <form action="<?= isset($va_owner) ? base_url('/va-owner/update/'.$va_owner['va_owner_id']) : base_url('/va-owner/store') ?>" method="post">
     <?= csrf_field() ?>
     

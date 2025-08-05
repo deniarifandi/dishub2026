@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\PotensiModel;
+use App\Models\VaOwnerModel;
+
 use App\Models\DishubAnggotaModel;
 use App\Libraries\DataTable;
 use App\Libraries\Whatsapp;
@@ -20,25 +22,31 @@ class Potensi extends BaseController
 
        public function index()
     {
-        $model = new PotensiModel();
+        $model = new VaOwnerModel();
         $data['potensi'] = $model->findAll();
         return view('potensi/index', $data);
     }
 
-    public function create()
+    public function create($va)
     {
          // $model = new VaOwnerModel();
         $anggotaModel = new DishubAnggotaModel();
        // $data['va_owner'] = $model->find($id);
-        $data['anggota'] = $anggotaModel
-        ->select('va_owner_va,anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat')
+        $data['va_owner'] = $anggotaModel
+        ->select('va_owner_id,va_owner_va,anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat, titpar_lokasi, titpar_id, senin')
         ->where('anggota_status', 3)
         ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
         ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
         ->join('va_owner','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
+        ->join('potensi','potensi.potensi_va = va_owner.va_owner_va')
+        ->where('va_owner_va',$va)
         ->groupBy('va_owner_va')
         ->findAll();
-        return view('potensi/form', $data);
+
+
+
+        // print_r($data['va_owner'][0]);
+        return view('potensi/form', ['data' => $data['va_owner'][0]]);
     }
 
     public function store()
@@ -91,8 +99,8 @@ class Potensi extends BaseController
     //custom
     public function data(){
         $db = db_connect();
-        $builder = $db->table('potensi')->select('*')
-        ->join('va_owner','va_owner.va_owner_va = potensi.potensi_va')
+        $builder = $db->table('va_owner')->select('va_owner_va,anggota_id,anggota_nama, titpar_namatempat, titpar_lokasi, senin, selasa, rabu, kamis, jumat, sabtu, minggu, mingguan, bulanan, tahunan')
+        ->join('potensi','va_owner.va_owner_va = potensi.potensi_va','left')
         ->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
         ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
         ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
@@ -100,7 +108,7 @@ class Potensi extends BaseController
     
 
         // Columns to apply search on
-        $columns = ['potensi_va'];
+        $columns = ['potensi_va','anggota_nama'];
         // $columns =  [];
         $dt = new DataTable($builder, $columns);
         $result = $dt->generate();

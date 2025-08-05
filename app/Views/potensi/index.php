@@ -32,7 +32,7 @@
 
 <div class="card">
     <div class="card-header">
-        Daftar Potensi <a class="btn btn-primary btn-sm float-end" href="<?= base_url('potensi/create') ?>">Add New</a>
+        Daftar Potensi
     </div>
     <div class="card-body">
       <div style="overflow: auto;">
@@ -101,8 +101,8 @@
           render: function(data, type, row) {
             return `
               
-                 <a class="btn btn-warning btn-sm" href="<?= base_url('va-owner/edit/') ?>${row.va_owner_id}">Edit</a> |
-                <a class="btn btn-danger btn-sm" href="<?= base_url('va-owner/delete/') ?>${row.va_owner_id}" onclick="return confirm('Delete?')">Delete</a>
+                 <a class="btn btn-warning btn-sm" href="<?= base_url('potensi/create/') ?>${row.va_owner_va}">Tambah Potensi</a> |
+                
       
             `;
           }

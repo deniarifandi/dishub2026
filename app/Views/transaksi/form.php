@@ -12,7 +12,7 @@
     <div class="card-body">
        
        <div class="container mt-4">
-    <h3 class="mb-4">Catat Transaksi Baru</h3>
+    <h4 class="mb-4">Pencatatan Transaksi</h4>
    <form action="<?= isset($transaksi) ? base_url('/transaksi/update/'.$transaksi['transaksi_id']) : base_url('/transaksi/store') ?>" method="post">
     <?= csrf_field() ?>
 

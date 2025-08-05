@@ -35,7 +35,7 @@ $routes->get('whatsapp','whatsapp::send');
 //POTENSI START
 $routes->get('potensi', 'potensi::index');
 
-$routes->get('potensi/create', 'potensi::create');
+$routes->get('potensi/create/(:num)', 'potensi::create/$1');
 $routes->post('potensi/store', 'potensi::store');
 $routes->get('potensi/edit/(:num)', 'potensi::edit/$1');
 $routes->post('potensi/update/(:num)', 'potensi::update/$1');

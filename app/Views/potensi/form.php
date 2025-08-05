@@ -3,45 +3,54 @@
 
 <div class="card">
     <div class="card-header">
-        VA Owner List 
+        Pencatatan Potensi
 
-
-            <a class="btn btn-danger btn-sm float-end" href="<?= base_url('va-owner') ?>">Cancel</a>
+        <a class="btn btn-danger btn-sm float-end" href="<?= base_url('potensi') ?>">Cancel</a>
    
     </div>
     <div class="card-body">
        
        <div class="container mt-4">
-    <h4 class="mb-4">Tambah Potesi</h4>
-   <form action="<?= isset($va_owner) ? base_url('/va-owner/update/'.$va_owner['va_owner_id']) : base_url('/va-owner/store') ?>" method="post">
+    <h4 class="mb-4">Pencatatan Potesi</h4>
+   <form action="<?= isset($data) ? base_url('/potensi/update/'.$data['va_owner_id']) : base_url('/potensi/store') ?>" method="post">
     <?= csrf_field() ?>
     
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">VA (Indeks)</label>
         <div class="col-sm-9">
             <input type="text" name="va_owner_va" class="form-control" 
-                   value="<?= isset($va_owner) ? esc($va_owner['va_owner_va']) : '' ?>">
+                   value="<?= isset($data) ? esc($data['va_owner_va']) : '' ?>">
         </div>
     </div>
 
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Anggota Dishub</label>
+        <label class="col-sm-3 col-form-label">Nama Anggota</label>
         <div class="col-sm-9">
-         <select name="va_owner_anggotaid" class="form-select select2" data-placeholder="-- Pilih Anggota --">
-            <option value="">-- Pilih Anggota --</option>
-            <?php foreach ($anggota as $a): ?>
-                <option value="<?= $a['anggota_id'] ?>" <?= isset($va_owner) && $va_owner['va_owner_anggotaid'] == $a['anggota_id'] ? 'selected' : '' ?>>
-                    <?= esc($a['anggota_nama']) ?> -- <?= esc($a['titpar_namatempat']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+            <input type="text" class="form-control" 
+                   value="<?= isset($data) ? esc($data['anggota_id']." - ".$data['anggota_nama']) : '' ?>">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Tempat Parkir</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" 
+                   value="<?= isset($data) ? esc($data['titpar_id']." - ".$data['titpar_namatempat']." - ".$data['titpar_lokasi']) : '' ?>">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Senin</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control autonumeric" 
+                   value="<?= isset($data)? $data['senin'] : ''?>">
         </div>
     </div>
 
     <!-- Add more fields here -->
 
     <div class="text-end">
-        <button type="submit" class="btn btn-primary"><?= isset($va_owner) ? 'Update' : 'Submit' ?></button>
+        <button type="submit" class="btn btn-primary"><?= isset($data) ? 'Update' : 'Submit' ?></button>
     </div>
 </form>
 
@@ -61,4 +70,14 @@
   });
 </script>
 
+<script>
+  document.querySelectorAll('.autonumeric').forEach(el => {
+    new AutoNumeric(el, {
+      digitGroupSeparator: ',',
+      decimalCharacter: '.',
+      decimalPlaces: 0,
+      unformatOnSubmit: true
+    });
+  });
+</script>
 <?php echo view('footer'); ?>
