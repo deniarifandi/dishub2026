@@ -61,10 +61,11 @@ class VaOwnerController extends BaseController
 
         $data['va_owner'] = $model->find($id);
         $data['anggota'] = $anggotaModel
-        ->select('anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat')
+        ->select('anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat, va_owner_hp')
         ->where('anggota_status', 3)
         ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
         ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
+        ->join('va_owner','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
         ->findAll();
         return view('va_owner/form', $data);
     }

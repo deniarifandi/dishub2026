@@ -36,7 +36,7 @@ $routes->get('whatsapp','whatsapp::send');
 $routes->get('potensi', 'Potensi::index');
 
 $routes->get('potensi/create/(:num)', 'Potensi::create/$1');
-$routes->post('potensi/store', 'Potensi::store');
+$routes->post('potensi/store/(:num)', 'Potensi::store/$1');
 $routes->get('potensi/edit/(:num)', 'Potensi::edit/$1');
 $routes->post('potensi/update/(:num)', 'Potensi::update/$1');
 $routes->get('potensi/delete/(:num)', 'Potensi::delete/$1');
@@ -45,3 +45,17 @@ $routes->post('potensi/data', 'Potensi::data');
 
 $routes->get('potensi/send/(:any)', 'Potensi::send_konfirmasi/$1');
 $routes->get('potensi/invoice/(:segment)', 'Potensi::invoice/$1');
+
+//Tagihan Start
+$routes->get('tagihan', 'Tagihan::index');
+
+$routes->get('tagihan/create/(:num)', 'Tagihan::create/$1');
+$routes->post('tagihan/store/(:num)', 'Tagihan::store/$1');
+$routes->get('tagihan/edit/(:num)', 'Tagihan::edit/$1');
+$routes->post('tagihan/update/(:num)', 'Tagihan::update/$1');
+$routes->get('tagihan/delete/(:num)', 'Tagihan::delete/$1');
+
+$routes->post('tagihan/data', 'Tagihan::data');
+
+$routes->get('tagihan/send/(:any)', 'Tagihan::send_konfirmasi/$1');
+$routes->get('tagihan/invoice/(:segment)', 'Tagihan::invoice/$1');

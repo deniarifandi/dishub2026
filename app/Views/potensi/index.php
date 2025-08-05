@@ -97,14 +97,25 @@
         { data: 'tahunan' },
         {
           data: null,
-          orderable: false,
+          orderable: true,
           render: function(data, type, row) {
-            return `
-              
-                 <a class="btn btn-warning btn-sm" href="<?= base_url('potensi/create/') ?>${row.va_owner_va}">Tambah Potensi</a> |
-                
-      
-            `;
+            //  const total_setoran =
+            //   (row.senin || 0) +
+            //   (row.selasa || 0) +
+            //   (row.rabu || 0) +
+            //   (row.kamis || 0) +
+            //   (row.jumat || 0) +
+            //   (row.sabtu || 0) +
+            //   (row.minggu || 0) +
+            //   (row.mingguan || 0) +
+            //   (row.bulanan || 0) +
+            //   (row.tahunan || 0);
+
+            // if (total_setoran > 0) {
+                return `<a class="btn btn-warning btn-sm" href="<?= base_url('potensi/edit/') ?>${row.va_owner_va}">Edit Potensi</a>`;
+            // } else {
+            //      return `<a class="btn btn-primary btn-sm" href="<?= base_url('potensi/create/') ?>${row.va_owner_va}">Create Potensi</a>`;
+            // }
           }
         }
       ]

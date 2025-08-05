@@ -124,7 +124,7 @@ class Transaksi extends BaseController
         $keterangan = substr($builder[0]->titpar_namatempat, 0, 30);
        
 
-        $result = $wa->sendMessage('6281805173445', $builder[0]->anggota_nama,$builder[0]->transaksi_nominal,$tanggal,$builder[0]->titpar_namatempat,$builder[0]->transaksi_id);
+        $result = $wa->sendMessage($builder[0]->va_owner_hp, $builder[0]->anggota_nama,$builder[0]->transaksi_nominal,$tanggal,$builder[0]->titpar_namatempat,$builder[0]->transaksi_id);
         // return $this->response->setJSON($result);
 
             if ($result) {

@@ -26,7 +26,7 @@
     </div>
 
     <!-- Menu 3 -->
-    <div class="col-md-4">
+ <!--    <div class="col-md-4">
       <div class="card shadow-sm text-center">
         <div class="card-body">
           <h5 class="card-title">📊 Reports</h5>
@@ -34,18 +34,27 @@
           <a href="#" class="btn btn-primary">Open</a>
         </div>
       </div>
-    </div>
-
-    <!-- Tambahkan lebih banyak card di sini -->
-  </div>
-
-  <div class="row">
-     <div class="col-md-4">
+    </div> -->
+       <div class="col-md-4">
       <div class="card shadow-sm text-center">
         <div class="card-body">
           <h5 class="card-title">📊 Potensi</h5>
           <p class="card-text">Manajemen Potensi</p>
           <a href="potensi" class="btn btn-primary">Open</a>
+        </div>
+      </div>
+    </div>
+    <!-- Tambahkan lebih banyak card di sini -->
+  </div>
+
+  <div class="row">
+    
+       <div class="col-md-4">
+      <div class="card shadow-sm text-center">
+        <div class="card-body">
+          <h5 class="card-title">💰 Tagihan</h5>
+          <p class="card-text">Manajemen Tagihan</p>
+          <a href="tagihan" class="btn btn-primary">Open</a>
         </div>
       </div>
     </div>

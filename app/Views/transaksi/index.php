@@ -11,7 +11,7 @@
         Daftar Transaksi <a class="btn btn-primary btn-sm float-end" href="<?= base_url('transaksi/create') ?>">Add New</a>
     </div>
     <div class="card-body">
-        <table id="usersTable" class="display">
+        <table id="usersTable" class="display" style="font-size: 12px; width: 100%;">
           <thead>
             <tr>
               <!-- <th>ID</th> -->

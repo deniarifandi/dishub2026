@@ -25,7 +25,7 @@
     </div>
 
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Anggota Dishub</label>
+        <label class="col-sm-3 col-form-label">Anggota Jukir</label>
         <div class="col-sm-9">
          <select name="va_owner_anggotaid" class="form-select select2" data-placeholder="-- Pilih Anggota --">
             <option value="">-- Pilih Anggota --</option>
@@ -35,6 +35,14 @@
                 </option>
             <?php endforeach; ?>
         </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">HP</label>
+        <div class="col-sm-9">
+            <input type="text" name="va_owner_hp" class="form-control" 
+                   value="<?= isset($va_owner) ? esc($va_owner['va_owner_hp']) : '' ?>">
         </div>
     </div>
 
