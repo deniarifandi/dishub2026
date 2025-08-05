@@ -16,16 +16,16 @@
    <form action="<?= isset($transaksi) ? base_url('/transaksi/update/'.$transaksi['transaksi_id']) : base_url('/transaksi/store') ?>" method="post">
     <?= csrf_field() ?>
 
+
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Virtual Account</label>
         <div class="col-sm-9">
-         <select name="transaksi_va" class="form-select select2" data-placeholder="-- Pilih Anggota --">
+        <select name="transaksi_va" class="form-select select2" data-placeholder="-- Pilih Anggota --">
             <option value="">-- Pilih Anggota --</option>
             <?php foreach ($anggota as $a): ?>
-                <option value="<?= $a['va_owner_va'] ?>" <?= isset($transaksi) && $transaksi['va_owner_va'] == $a['va_owner_va'] ? 'selected' : '' ?>>
-                    <?= esc($a['va_owner_va']) ?> --
-                    <?= esc($a['anggota_nama']) ?> -- 
-                    <?= esc($a['titpar_namatempat']) ?>
+                <option value="<?= esc($a['va_owner_va']) ?>"
+                    <?= (isset($transaksi['transaksi_va']) && $transaksi['transaksi_va'] == $a['va_owner_va']) ? 'selected' : '' ?>>
+                    <?= esc($a['va_owner_va']) ?> -- <?= esc($a['anggota_nama']) ?> -- <?= esc($a['titpar_namatempat']) ?>
                 </option>
             <?php endforeach; ?>
         </select>

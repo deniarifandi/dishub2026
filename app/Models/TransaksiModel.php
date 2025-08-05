@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class TransaksiModel extends Model
 {
     protected $table      = 'transaksi';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'transaksi_id';
    protected $allowedFields = [
     'transaksi_va',
     'transaksi_nominal',

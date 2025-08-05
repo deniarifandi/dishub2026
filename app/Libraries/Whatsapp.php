@@ -7,9 +7,10 @@ class Whatsapp
 {
      public function sendMessage($recipient, $nama, $nominal, $tanggal,$lokasi, $idtransaksi)
     {
-        $accessToken = 'EAAcbbjv93u0BPG4iGeq3HUY7FldKMfZByJ9ZCPCfPZAm5ZAgEoZA0ZCqN3Dm8rkCYuefOn8L7006u1LSB6mP4YcyGrNg5n3V71owApSwCtdAwerz4SB7REIAYzjjTNxnvCua6SMgVXNx2oZAAZCA0XsJqW3Cp4i4tnczXAXRoMZCvpKJSgEMLzka8d7RjUmI3j8Eei8v6YLBZAK9PB4ZC30X0tSZAfPIMGnZAHr2aW866clRZBlNuoPHZAfTyK4Y2q9fmsa54EZD';
+        //$accessToken = 'EAAcbbjv93u0BPB6mVQi5DgDnvwiiZAZCSxsJUCYWV5q2nHoHSeRBlUIPHKkScdzN7vzATkTD1BDjVeJyNsyUZAT8VCb3CE33jI5vVQwrkJ4AP9aRHItxD9YywZAbXZB2q201crYyR75wQkhAFUekX9Tp4HVPhhu2IIaDPZCZCxAWwbUMWqvKn7KcG4YFgJZC3pQ7GGVVCyIbI59IJZB8HSzTknzaCsKgiHhY6JDqxAmctkA2Y6Dv6soclLIt1fxGFjAZDZD';
+        $accessToken = 'EAAcbbjv93u0BPHuvr4WpHmkm0TcTjENfRlyvs4EuUZC0KZBhntFo1feEebpQNU0gzZC2C0uOJC52fIewe12EVccwtYhso4WNc2XZCtMV1tKZB65rhovXZCamz5dTIauvao1cTY1E1NaJEI92zEdvKZBEoBjZCA5zqGkhEu5i2SAe8mwfI8NqTDesZBGCZBGBmo14sBiZBiKZBw0qfFzX6hqMcyeoCbT7pRdM9CufGYZBozGn6VQkMGuTbqZCSU9dexZAQI3GgZDZDs';
         $phoneNumberId = '631443813396840';
-        $recipient = '6283834171938'; // international format
+        ; // international format
 
         $url = "https://graph.facebook.com/v19.0/$phoneNumberId/messages";
 
@@ -61,7 +62,30 @@ class Whatsapp
         if (curl_errno($ch)) {
             echo 'Curl error: ' . curl_error($ch);
         } else {
-            echo "Response:\n$response";
+            $data = json_decode($response, true);
+           // print_r($data);
+
+            if (isset($data['error']['message'])) {
+                // If there's an error, set flash message with detailed error
+               // echo "error";
+                $status = $data['error']['message'];
+                
+            } else {
+                // Success message
+                $status = $data['messages'][0]['message_status'];
+               
+            }
+
+            $db = \Config\Database::connect();
+
+            $builder = $db->table('transaksi');
+
+            $success = $builder->where('transaksi_id', $idtransaksi)
+                   ->update(['wa_konfirmasi' => $status]);
+
+            return $status;
+            
+            
         }
 
         curl_close($ch);

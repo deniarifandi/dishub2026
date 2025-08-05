@@ -1,5 +1,10 @@
 <?php echo view('header'); ?>
 
+<?php if (session()->getFlashdata('message')): ?>
+    <div class="alert alert-info">
+        <?= session()->getFlashdata('message'); ?>
+    </div>
+<?php endif; ?>
 
 <div class="card">
     <div class="card-header">
@@ -17,6 +22,7 @@
               <th>Nominal</th>
               <th>Tangal</th>
               <th>HP</th>
+              <th>Status WA</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -55,6 +61,7 @@
           return data; // raw date for sorting
         }},
         {data: 'va_owner_hp'},
+        {data: 'wa_konfirmasi'},
         {
           data: null,
           orderable: false,

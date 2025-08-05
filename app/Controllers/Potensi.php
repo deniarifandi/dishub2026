@@ -2,14 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Models\TransaksiModel;
+use App\Models\PotensiModel;
 use App\Models\DishubAnggotaModel;
 use App\Libraries\DataTable;
 use App\Libraries\Whatsapp;
 use DB;
 
 
-class Transaksi extends BaseController
+class Potensi extends BaseController
 {
     public $db;
 
@@ -20,9 +20,9 @@ class Transaksi extends BaseController
 
        public function index()
     {
-        $model = new TransaksiModel();
-        $data['transaksi'] = $model->findAll();
-        return view('transaksi/index', $data);
+        $model = new PotensiModel();
+        $data['potensi'] = $model->findAll();
+        return view('potensi/index', $data);
     }
 
     public function create()
@@ -38,7 +38,7 @@ class Transaksi extends BaseController
         ->join('va_owner','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
         ->groupBy('va_owner_va')
         ->findAll();
-        return view('transaksi/form', $data);
+        return view('potensi/form', $data);
     }
 
     public function store()
@@ -91,16 +91,16 @@ class Transaksi extends BaseController
     //custom
     public function data(){
         $db = db_connect();
-        $builder = $db->table('transaksi')->select('*')
-        ->join('va_owner','va_owner.va_owner_va = transaksi.transaksi_va')
+        $builder = $db->table('potensi')->select('*')
+        ->join('va_owner','va_owner.va_owner_va = potensi.potensi_va')
         ->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
         ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
         ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
-        ->groupBy('transaksi_id');
+        ->groupBy('potensi_id');
     
 
         // Columns to apply search on
-        $columns = ['transaksi_id','transaksi_va','jenis','transaksi_tanggal','anggota_nama','titpar_namatempat'];
+        $columns = ['potensi_va'];
         // $columns =  [];
         $dt = new DataTable($builder, $columns);
         $result = $dt->generate();
