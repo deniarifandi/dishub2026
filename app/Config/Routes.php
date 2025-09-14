@@ -47,15 +47,5 @@ $routes->get('potensi/send/(:any)', 'Potensi::send_konfirmasi/$1');
 $routes->get('potensi/invoice/(:segment)', 'Potensi::invoice/$1');
 
 //Tagihan Start
-$routes->get('tagihan', 'Tagihan::index');
-
-$routes->get('tagihan/create/(:num)', 'Tagihan::create/$1');
-$routes->post('tagihan/store/(:num)', 'Tagihan::store/$1');
-$routes->get('tagihan/edit/(:num)', 'Tagihan::edit/$1');
-$routes->post('tagihan/update/(:num)', 'Tagihan::update/$1');
-$routes->get('tagihan/delete/(:num)', 'Tagihan::delete/$1');
-
-$routes->post('tagihan/data', 'Tagihan::data');
-
-$routes->get('tagihan/send/(:any)', 'Tagihan::send_konfirmasi/$1');
-$routes->get('tagihan/invoice/(:segment)', 'Tagihan::invoice/$1');
+$routes->get('tagihan/(:any)', 'Potensi::tagihan/$1');
+$routes->post('potensi/datatagihan/(:any)', 'Potensi::datatagihan/$1');

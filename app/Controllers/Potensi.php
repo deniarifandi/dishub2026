@@ -148,7 +148,7 @@ class Potensi extends BaseController
 
 
         // Columns to apply search on
-        $columns = ['potensi_va','anggota_nama','anggota_titpar'];
+        $columns = ['potensi_va','anggota_nama','titpar_namatempat'];
         // $columns =  [];
         $dt = new DataTable($builder, $columns);
         $result = $dt->generate();
@@ -211,5 +211,28 @@ class Potensi extends BaseController
     return view('transaksi/invoice', $data);
     }
 
+    public function tagihan($field){
+        return view('potensi/tagihan');
+    }
+
+     public function datatagihan($field){
+        $db = db_connect();
+        $builder = $db->table('va_owner')->select('va_owner_va,anggota_id,anggota_nama, titpar_namatempat, titpar_lokasi, senin, selasa, rabu, kamis, jumat, sabtu, minggu, mingguan, bulanan, tahunan')
+        ->join('potensi','va_owner.va_owner_va = potensi.potensi_va','left')
+        ->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
+        ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
+        ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
+        ->where("{$field} >", 0)    
+        ->groupBy('potensi_id');
+    
+        // Columns to apply search on
+        $columns = ['potensi_va','anggota_nama','anggota_titpar'];
+        // $columns =  [];
+        $dt = new DataTable($builder, $columns);
+        $result = $dt->generate();
+
+        return $this->response->setJSON($result);
+
+    }
 
 }

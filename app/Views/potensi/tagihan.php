@@ -32,7 +32,7 @@
 
 <div class="card">
     <div class="card-header">
-        Daftar Potensi
+        Daftar Tagihan
     </div>
     <div class="card-body">
       <div style="overflow: auto;">
@@ -66,9 +66,18 @@
 
  <script>
   $(document).ready(function() {
+
+    const url = window.location.pathname;
+    const parts = url.split('/');
+
+    // Assuming the structure is: /dishub2026/public/tagihan/senin
+    const hari = parts[parts.length - 1];
+
+    console.log(hari); // Output: senin
+
     $('#potensiTable').DataTable({
       processing: true,
-      serverSide: false,
+      serverSide: true,
       scrollX: true,
       scrollCollapse: true,
       fixedColumns: {
@@ -76,7 +85,7 @@
           rightColumns : 1
       },
       ajax: {
-        url: "<?= site_url('potensi/data') ?>",
+        url: "<?= site_url('potensi/datatagihan/') ?>"+hari,
         type: "POST"
       },
       columns: [
@@ -99,23 +108,9 @@
           data: null,
           orderable: true,
           render: function(data, type, row) {
-            //  const total_setoran =
-            //   (row.senin || 0) +
-            //   (row.selasa || 0) +
-            //   (row.rabu || 0) +
-            //   (row.kamis || 0) +
-            //   (row.jumat || 0) +
-            //   (row.sabtu || 0) +
-            //   (row.minggu || 0) +
-            //   (row.mingguan || 0) +
-            //   (row.bulanan || 0) +
-            //   (row.tahunan || 0);
-
-            // if (total_setoran > 0) {
-                return `<a class="btn btn-warning btn-sm" href="<?= base_url('potensi/edit/') ?>${row.va_owner_va}">Edit Potensi</a>`;
-            // } else {
-            //      return `<a class="btn btn-primary btn-sm" href="<?= base_url('potensi/create/') ?>${row.va_owner_va}">Create Potensi</a>`;
-            // }
+          
+                return `<a class="btn btn-warning btn-sm" href="<?= base_url('potensi/edit/') ?>${row.va_owner_va}">Kirim Tagihan</a>`;
+          
           }
         }
       ]

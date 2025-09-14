@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PotensiModel extends Model
+class TagihanModel extends Model
 {
     protected $table      = 'potensi';
     protected $primaryKey = 'potensi_id';

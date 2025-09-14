@@ -211,5 +211,8 @@ class Potensi extends BaseController
     return view('transaksi/invoice', $data);
     }
 
+    public function tagihan(){
+        
+    }
 
 }

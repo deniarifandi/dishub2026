@@ -29,11 +29,19 @@ class DataTable
 
     // Filter
     if (!empty($searchValue) && !empty($this->columns)) {
-        $this->builder->groupStart();
-        foreach ($this->columns as $col) {
-            $this->builder->orLike($col, $searchValue);
+    // If FULLTEXT is available
+        if (in_array('name', $this->columns) && in_array('email', $this->columns)) {
+            $this->builder->where("MATCH(name, email) AGAINST(" .
+                $this->builder->db->escape($searchValue) .
+                " IN NATURAL LANGUAGE MODE)");
+        } else {
+            // Fallback to prefix search (index-friendly)
+            $this->builder->groupStart();
+            foreach ($this->columns as $col) {
+                $this->builder->orLike($col, $searchValue, 'after'); // LIKE 'value%'
+            }
+            $this->builder->groupEnd();
         }
-        $this->builder->groupEnd();
     }
 
     // Total filtered

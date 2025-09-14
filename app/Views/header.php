@@ -20,35 +20,198 @@
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
+
+ 
+       <style>
+      body {
+        display: flex;
+         font-family: 'Poppins', Helvetica, sans-serif;
+      }
+      .sidebar {
+          width: 265px;
+          min-height: 100vh;
+          background: white;
+          transition: all 0.3s;
+          color: #fff;
+          display: flex;
+          flex-direction: column;
+          z-index: 1050; /* stay above content */
+        }
+      .sidebar.collapsed {
+        width: 70px;
+      }
+      /* Brand area */
+      .brand {
+        height: 65px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      
+        transition: all 0.3s;
+      }
+      .brand img {
+        max-height: 100%;
+        max-width: 100%;
+      }
+      /* Hide logo when collapsed */
+      .sidebar.collapsed .brand .imglogo {
+        display: none;
+      }
+      /* Center toggle when collapsed */
+      .sidebar.collapsed .brand {
+        justify-content: center;
+      }
+      .sidebar .nav-link {
+        color: white;
+        white-space: nowrap;
+      }
+      .sidebar.collapsed .nav-link span {
+        display: none;
+      }
+      .sidebar .nav-link i {
+        margin-right: 10px;
+      }
+      .sidebar.collapsed .nav-link i {
+        margin-right: 0;
+        text-align: center;
+        width: 100%;
+      }
+      .content {
+        flex-grow: 1;
+      }
+
+        header {
+        background: #212529;
+        color: #fff;
+        height: 4rem;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    </style>  
+
+    <style type="text/css">
+     /* === Drawer behavior on small screens === */
+      @media (max-width: 768px) {
+        .sidebar {
+          position: fixed;
+          top: 0;
+          left: -220px; /* hidden off screen */
+          height: 100%;
+          width: 220px;
+          box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+        }
+        .sidebar.show {
+          left: 0; /* slide in */
+        }
+        .sidebar.collapsed {
+          width: 220px; /* drawer always full width */
+        }
+
+        /* When drawer open, show overlaySidebar */
+        .overlaySidebar {
+          display: block;
+        }
+      }
+    </style>
+
+    <style type="text/css">
+      .form-control[readonly] {
+        background-color: #d8d7d2 !important;  /* white background */
+        opacity: 1;                         /* reset Bootstrap dim */
+      }
+
+    </style>
+
   </head>
-  <body style="background-color:#f6f5f0">
+  <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #091742;">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Sisparma</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+   <div class="map-bg"></div>
+
+    <div id="sidebar" class="sidebar d-flex flex-column">
+  <div class="brand" style="display:flex; align-items:center; justify-content:center;">
+  <img class="imglogo" src="<?= base_url() ?>images/logo.png" alt="Logo">
+  <button class="btn btn-sm d-none d-md-block" id="toggleBtn">
+    <img src="<?= base_url() ?>images/arrow_icon.png">
+  </button>
+</div>
+  <ul class="nav nav-pills flex-column p-2" style="color: red;">
+    <li class="nav-item">
+      
+      <a href="https://sisparma.malangkota.go.id" class="nav-link d-flex align-items-center">
+        <i class="bi bi-house text-danger" style="font-size:18px;"></i>
+        <span style="margin-left:15px; color:black; font-size:14px">Dashboard</span>
+      </a>
+
+    </li>
+    <li class="nav-item">
+      
+      <a href="https://sisparma.malangkota.go.id" class="nav-link d-flex align-items-center">
+        <i class="bi bi-geo-alt-fill text-danger" style="font-size:18px;"></i>
+        <span style="margin-left:15px; color:black;font-size:14px">Parkir</span>
+      </a>
+
+    </li>
+    <li class="nav-item">
+        <a href="https://sisparma.malangkota.go.id" class="nav-link d-flex align-items-center">
+          <i class="bi bi-envelope text-danger" style="font-size:18px;"></i>
+          <span style="margin-left:15px; color:black;font-size:14px">Setoran</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="https://sisparma.malangkota.go.id" class="nav-link d-flex align-items-center">
+          <i class="bi bi-file-earmark-text text-danger" style="font-size:18px;"></i>
+          <span style="margin-left:15px; color:black;font-size:14px">Master Data</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="https://sisparma.malangkota.go.id" class="nav-link d-flex align-items-center">
+          <i class="bi bi-graph-up-arrow text-danger" style="font-size:18px;"></i>
+          <span style="margin-left:15px; color:black;font-size:14px">Laporan</span>
+        </a>
+    </li>
+    <li class="nav-item">
+       <a href="https://sisparma.malangkota.go.id" class="nav-link d-flex align-items-center">
+          <i class="bi bi-gear text-danger" style="font-size:18px;"></i>
+          <span style="margin-left:15px; color:black;">Manajemen</span>
+        </a>
+    </li>
+    <li class="nav-item">
+      <a href="https://sisparma.malangkota.go.id" class="nav-link d-flex align-items-center">
+          <i class="bi bi-book text-danger" style="font-size:18px;"></i>
+          <span style="margin-left:15px; color:black;">Buku Manual</span>
+        </a>
+    </li>
+    <li class="nav-item">
+      <a href="<?= base_url() ?>" class="nav-link d-flex align-items-center active">
+          <i class="bi bi-people-fill text-danger" style="font-size:18px;"></i>
+          <span style="margin-left:15px; color:black;">Virtual Account</span>
+        </a>
+    </li>
+    <li class="nav-item">
+      <a href="https://sisparma.malangkota.go.id" class="nav-link d-flex align-items-center">
+          <i class="bi bi-file-bar-graph text-danger" style="font-size:18px;"></i>
+          <span style="margin-left:15px; color:black;">Versi 3</span>
+        </a>
+    </li>
+   
+  </ul>
+</div>
+
+
+ <div class="content" id="content" style="background-color: #EEF0F8;">
+     <header style="background-color:white; color: #2d9bf1;">
+      <p class="m-0" style="font-size: 1rem"><i class="fas fa-home"></i>  <b>SISPARMA</b></p>
+        <button class="btn btn-sm d-block d-md-none ms-auto" id="toggleBtnMobile">
+      <img src="<?= base_url() ?>images/arrow_icon.png">
     </button>
+    </header>
 
-    <div class="collapse navbar-collapse" id="mainNavbar">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<?php echo base_url(); ?>">Home</a>
-        </li>
-       <!--  <li class="nav-item">
-          <a class="nav-link" href="jukir">Daftar Jukir</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Transaksi</a>
-        </li> -->
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-        <button class="btn btn-light" type="submit">Search</button>
-      </form>
+    <div id="overlaySidebar" class="overlaySidebar" 
+     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1040;">
     </div>
-  </div>
-</nav>
 
-
-    <div class="container py-5">
+    <div class="container my-4 mx-2">
