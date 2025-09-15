@@ -1,9 +1,27 @@
 <?php echo view('header'); ?>
 
-<div class="container py-4">
+<div class="container py-3">
+
+  <!-- Top Slim Banner -->
+  <div class="card shadow-sm border-0 mb-4 smart-banner">
+    <div class="card-body d-flex align-items-center justify-content-between py-2 px-3">
+      <div class="d-flex align-items-center">
+        <div class="icon-box me-2">
+          <i class="bi bi-speedometer2 text-primary fs-5"></i>
+        </div>
+        <div>
+          <small class="fw-bold d-block">Information Center Dashboard</small>
+          <small class="text-muted">Pantau & kelola data parkir</small>
+        </div>
+      </div>
+      <a href="commandcenter" class="btn btn-primary btn-sm rounded-pill px-3">
+        <i class="bi bi-arrow-right-circle"></i>
+      </a>
+    </div>
+  </div>
 
   <!-- Main Feature Cards -->
-  <div class="row g-3">
+  <div class="row g-3 mb-4">
     <div class="col-md-4">
       <div class="card smart-card text-center p-3 shadow-sm border-0 animate-card">
         <i class="bi bi-folder-fill smart-icon mb-2 text-primary fs-2"></i>
@@ -49,7 +67,26 @@
 <?php echo view('footer'); ?>
 
 <style>
-  /* Custom Card Hover & Animation */
+  /* --- Top Slim Banner --- */
+  .smart-banner {
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .smart-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  }
+  .smart-banner .icon-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(45,155,241,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* --- Main Cards --- */
   .smart-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 12px;
@@ -76,7 +113,7 @@
     }
   }
 
-  /* Button refinement */
+  /* --- Button Refinement --- */
   .btn-smart {
     background: linear-gradient(135deg, #007bff, #0056b3);
     color: #fff;

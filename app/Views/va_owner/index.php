@@ -27,7 +27,7 @@
   $(document).ready(function() {
     $('#usersTable').DataTable({
       processing: true,
-      serverSide: true,
+      serverSide: false,
 
       ajax: {
         url: "<?= site_url('va-owner/data') ?>",
@@ -52,6 +52,15 @@
             `;
           }
         }
+      ],
+        columnDefs: [
+        { width: "80px", targets: 0 },   // VA
+        { width: "150px", targets: 1 },  // Nama
+        { width: "50px", targets: 2 },   // ID Jukir
+        { width: "150px", targets: 3 },  // Tempat Parkir
+        { width: "120px", targets: 4 },  // Location
+        { width: "120px", targets: 5 },  // No Hp
+        { width: "130px", targets: 6 }   // Action
       ]
     });
   });

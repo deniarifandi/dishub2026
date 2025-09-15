@@ -11,4 +11,9 @@ class Home extends BaseController
     {
         return view('dashboard');
     }
+
+    public function commandcenter(): string
+    {
+        return view('commandcenter');
+    }
 }

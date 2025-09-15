@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->get('/commandcenter','Home::commandcenter');
 
 //VA OWNER START
 $routes->get('va-owner', 'VaOwnerController::index');
@@ -49,3 +50,9 @@ $routes->get('potensi/invoice/(:segment)', 'Potensi::invoice/$1');
 //Tagihan Start
 $routes->get('tagihan/(:any)', 'Potensi::tagihan/$1');
 $routes->post('potensi/datatagihan/(:any)', 'Potensi::datatagihan/$1');
+
+
+//API Jatim
+$routes->get('api/jatim/getaccesstoken','Jatim::get_access_token');
+$routes->get('api/jatim/signatureaccesstoken','Jatim::signature_access_token');
+$routes->get('api/jatim/getsignature','Jatim::getSignature');
