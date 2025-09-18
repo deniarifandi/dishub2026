@@ -34,7 +34,7 @@ class Jatim extends BaseController
         $this->serverUrl = "https://sriwijaya.bankjatim.co.id/snap/rest";
         //$this->tokenUrl = "https://sriwijaya.bankjatim.co.id/snap/rest/access_token/v1.0/b2b";
 
-        $this->tokenUrl = "https://sriwijaya.bankjatim.co.id/access_token/v1.0/b2b";
+        $this->tokenUrl = "https://sriwijaya.bankjatim.co.id/snap/rest/access_token/v1.0/b2b";
 
         //$this->serverUrl = "https://sisparma.com/public"; //simulator
         //$this->tokenUrl = "https://sisparma.com/public/snap/rest/access_token/v1/b2b"; //simulator
