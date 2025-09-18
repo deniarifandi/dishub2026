@@ -44,7 +44,7 @@ class Jatim
     ///////////////////////////////////////
 
    // public function createVA($customerNo, $vaNo, $vaName, $expired, $vaEmail, $vaPhone){
-    public function createVA($customerNo, $vaNo, $vaName, $expired, $vaEmail){
+    public function createVA($customerNo, $vaNo, $vaName, $expired, $vaEmail, $vaPhone){
 
         $method = "POST";
         $url = "/api/v1.0/transfer-va/create-va";
