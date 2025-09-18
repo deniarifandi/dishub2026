@@ -44,7 +44,7 @@ class Jatim extends BaseController
     
     ///////////////////////////////////////
 
-    function create_va(){
+    function createva(){
 
         $method = "POST";
         $url = "/api/v1/transfer-va/create-va";

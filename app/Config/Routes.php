@@ -61,6 +61,7 @@ $routes->get('api/jatim/signatureaccesstoken','Jatim::signature_access_token');
 $routes->get('api/jatim/getsignature','Jatim::getSignature');
 
 $routes->get('api/jatim/inquiry-va','Jatim::inquiryva');
+$routes->get('api/jatim/create-va','Jatim::createva');
 
 //API Sisparma
 $routes->post('api/v1.0/transfer-va/va-notify','Sisparma::va_notify');
