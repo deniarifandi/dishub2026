@@ -70,14 +70,14 @@ class VaOwnerController extends BaseController
         ];
 
         //HERE
-         $this->jatim->createVA(
-            $data['va_owner_anggotaid'],
-            $data['va_owner_va'],
-            $data['va_owner_nama'],
-            $postData['tanggal'],
-            $this->request->getPost('va_owner_email'),
-            $data['va_owner_hp']
-        );
+        //  $this->jatim->createVA(
+        //     $data['va_owner_anggotaid'],
+        //     $data['va_owner_va'],
+        //     $data['va_owner_nama'],
+        //     $postData['tanggal'],
+        //     $this->request->getPost('va_owner_email'),
+        //     $data['va_owner_hp']
+        // );
 
         $model->save($data);
         //return redirect()->to('/va-owner');
