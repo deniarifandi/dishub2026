@@ -58,7 +58,7 @@ class Jatim
         // $vaEmail = "testemail@mail.test";
         // $vaPhone = "081805173445";
 
-        $value = "1000000000.00";
+        $value = "100000000.00";
         $accessToken = $this->get_access_token();
 
         $requestBody = [
@@ -90,8 +90,8 @@ class Jatim
         $method = "POST";  // Can be 'GET', 'POST', '', etc.
 
         $response = $this->callApi($baseUrl, $headers, $method, $requestBody);
-         //echo $response;
-        return $response;
+         echo $response;
+        //return $response;
 
         //$result = json_decode($response,true);
         // // print_r($result);
