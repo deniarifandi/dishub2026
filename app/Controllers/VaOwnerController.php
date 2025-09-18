@@ -47,6 +47,7 @@ class VaOwnerController extends BaseController
     {
         $model = new VaOwnerModel();
         $tanggal = $this->request->getPost('tanggal'); // example: 2025-12-31
+        list($anggotaId, $anggotaNama) = explode(';', $this->request->getPost('va_owner_anggota'));
 
         // handle tanggal
         if (!empty($postData['tanggal'])) {
@@ -59,9 +60,9 @@ class VaOwnerController extends BaseController
         }
         $data = [
             'va_owner_id'        => $this->request->getPost('va_owner_id'),
-            'va_owner_anggotaid' => $this->request->getPost('va_owner_anggotaid'),
+            'va_owner_anggotaid' => $anggotaId,
             'va_owner_va'        => $this->request->getPost('va_owner_va'),
-            'va_owner_nama'      => $this->request->getPost('va_owner_nama'),
+            'va_owner_nama'      => $anggotaNama,
             'va_owner_berita_1'  => $this->request->getPost('va_owner_berita_1'),
             'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
             'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
@@ -71,9 +72,9 @@ class VaOwnerController extends BaseController
 
         //HERE
          $this->jatim->createVA(
-            $data['va_owner_anggotaid'],
+            $anggotaId,
             $data['va_owner_va'],
-            $data['va_owner_nama'],
+            $anggotaNama,
             $postData['tanggal'],
             $this->request->getPost('va_owner_email'),
             $data['va_owner_hp']

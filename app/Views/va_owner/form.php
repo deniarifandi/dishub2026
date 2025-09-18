@@ -19,10 +19,10 @@
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Anggota Jukir</label>
         <div class="col-sm-9">
-         <select name="va_owner_anggotaid" class="form-select select2" data-placeholder="-- Pilih Anggota --">
+         <select name="va_owner_anggota" class="form-select select2" data-placeholder="-- Pilih Anggota --">
             <option value="">-- Pilih Anggota --</option>
             <?php foreach ($anggota as $a): ?>
-                <option value="<?= $a['anggota_id'] ?>" <?= isset($va_owner) && $va_owner['va_owner_anggotaid'] == $a['anggota_id'] ? 'selected' : '' ?>>
+                <option value="<?= $a['anggota_id'] ?>;<?= $a['anggota_nama'] ?>" <?= isset($va_owner) && $va_owner['va_owner_anggotaid'] == $a['anggota_id'] ? 'selected' : '' ?>>
                     <?= esc($a['anggota_nama']) ?> -- <?= esc($a['titpar_namatempat']) ?>
                 </option>
             <?php endforeach; ?>
