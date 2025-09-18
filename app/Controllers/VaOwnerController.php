@@ -67,7 +67,7 @@ class VaOwnerController extends BaseController
             'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
             'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
             'va_owner_hp'        => $this->request->getPost('va_owner_hp')
-            //'va_owner_expired'   => $tanggal
+            'va_owner_expired'   => $tanggal
         ];
 
         //HERE
@@ -146,6 +146,7 @@ return view('va_owner/form', $data);
     public function update($id)
     {
         $postData = $this->request->getPost();
+        $tanggal = $this->request->getPost('va_owner_expired'); 
         list($anggotaId, $anggotaNama) = explode(';', $this->request->getPost('va_owner_anggota'));
 
         // handle tanggal
@@ -167,7 +168,7 @@ return view('va_owner/form', $data);
             'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
             'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
             'va_owner_hp'        => $this->request->getPost('va_owner_hp')
-            //'va_owner_expired'   => $tanggal
+            'va_owner_expired'   => $tanggal
         ];
 
         //HERE
