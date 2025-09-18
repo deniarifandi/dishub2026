@@ -104,9 +104,8 @@ class Jatim
                 'custNo' => $customerNo,
                 'vaNo' => $vaNo,
                 'vaName' => $vaName,
-                'idjukir' => $_POST['idjukir'],
-                'vaEmail' => $_POST['vaEmail'],
-                'vaPhone' => $_POST['vaPhone'],
+                'vaEmail' => $vaEmail,
+                'vaPhone' => $vaPhone,
                 'response' => $result['responseMessage'],
                 'expired' => $expired
             ];
