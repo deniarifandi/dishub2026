@@ -66,7 +66,7 @@ class VaOwnerController extends BaseController
             'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
             'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
             'va_owner_hp'        => $this->request->getPost('va_owner_hp'),
-            'va_owner_expired'   => $formattedDate
+            'va_owner_expired'   => $postData['tanggal']
         ];
 
         //HERE
