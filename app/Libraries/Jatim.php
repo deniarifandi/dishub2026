@@ -2,8 +2,6 @@
 
 namespace App\Libraries;
 
-class Whatsapp
-
 class Jatim
 {
 
