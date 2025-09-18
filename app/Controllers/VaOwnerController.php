@@ -84,7 +84,9 @@ class VaOwnerController extends BaseController
         
         if ($result['responseMessage'] == "Success") {
             $model->save($data);
-            return redirect()->to('/va-owner')->with('success', 'Data berhasil disimpan');
+            session()->setFlashdata('message', $result['responseMessage']);
+            
+            return redirect()->to('/va-owner');
         } else {
             return redirect()->back()
                              ->withInput()
