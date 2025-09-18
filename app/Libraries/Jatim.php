@@ -111,8 +111,8 @@ class Jatim
         //$vaNo = "1111112345678906789";
         $vaName = "test nama";
         // $expired = "2026-12-31T23:59:59+07:00";
-        $vaEmail = "testemail@mail.test";
-        $vaPhone = "081805173445";
+        // $vaEmail = "testemail@mail.test";
+        // $vaPhone = "081805173445";
 
         $accessToken = $this->get_access_token();
 
