@@ -23,16 +23,12 @@
    <div class="row mb-3">
     <label class="col-sm-3 col-form-label">Anggota Jukir</label>
     <div class="col-sm-9">
-        <select name="va_owner_anggota" class="form-select select2" 
-        data-placeholder="-- Pilih Anggota --"
-        <?= isset($va_owner) ? 'onfocus="this.defaultIndex=this.selectedIndex;" onchange="this.selectedIndex=this.defaultIndex;"' : '' ?>>
-
+        <select class="form-select select2" data-placeholder="-- Pilih Anggota --"
+                name="va_owner_anggota" <?= isset($va_owner) ? 'disabled' : '' ?>>
             <option value="">-- Pilih Anggota --</option>
             <?php foreach ($anggota as $a): ?>
                 <?php 
-                    // nilai option
                     $optValue = $a['anggota_id'].';'.$a['anggota_nama'];
-                    // cek selected
                     $selected = (old('va_owner_anggota') == $optValue) ||
                                 (!old('va_owner_anggota') && isset($va_owner) && $va_owner['va_owner_anggotaid'] == $a['anggota_id'])
                                 ? 'selected' : '';
@@ -42,6 +38,12 @@
                 </option>
             <?php endforeach; ?>
         </select>
+
+        <?php if (isset($va_owner)): ?>
+            <!-- Hidden supaya value tetap terkirim -->
+            <input type="hidden" name="va_owner_anggota" 
+                   value="<?= $va_owner['va_owner_anggotaid'].';'.$va_owner['va_owner_nama'] ?>">
+        <?php endif; ?>
     </div>
 </div>
 
