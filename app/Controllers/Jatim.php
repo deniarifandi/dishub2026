@@ -191,9 +191,9 @@ class Jatim extends BaseController
 
         $response = $this->callApi($url, $headers, $method, $data);
         //$tokenArray = json_decode($response, true);
-        print_r($response);
-        //$this->accessToken = $tokenArray['accessToken'];
-        //return $tokenArray['accessToken'];
+        //print_r($response);
+        $this->accessToken = $tokenArray['accessToken'];
+        return $tokenArray['accessToken'];
         
     }
 
