@@ -71,7 +71,7 @@ class VaOwnerController extends BaseController
         ];
 
         //HERE
-         $this->jatim->createVA(
+        $this->jatim->createVA(
             $anggotaId,
             $data['va_owner_va'],
             $anggotaNama,
@@ -80,7 +80,7 @@ class VaOwnerController extends BaseController
             $data['va_owner_hp']
         );
 
-        $model->save($data);
+        //$model->save($data);
         //return redirect()->to('/va-owner');
     }
 

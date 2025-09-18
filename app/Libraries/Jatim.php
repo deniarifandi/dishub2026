@@ -91,29 +91,17 @@ class Jatim
 
         $response = $this->callApi($baseUrl, $headers, $method, $requestBody);
          //echo $response;
+        return $response;
 
-
-        $result = json_decode($response,true);
+        //$result = json_decode($response,true);
         // // print_r($result);
-        if ($result['responseMessage'] == "Success") {
-            echo "berhasil";
-        //     $this->saveToVaOwner($result['virtualAccountData']['virtualAccountNo'],$vaName,$_POST['idjukir'], $_POST['idtitpar'] ,$vaPhone);
-        }else{
-        //     // print_r($result);
-            $parameters = [
-                'custNo' => $customerNo,
-                'vaNo' => $vaNo,
-                'vaName' => $vaName,
-                'vaEmail' => $vaEmail,
-                'vaPhone' => $vaPhone,
-                'response' => $result['responseMessage'],
-                'expired' => $expired
-            ];
-            $previous_url = $_SERVER['HTTP_REFERER'];
-            $query_string = http_build_query($parameters);
-            header('Location: ' . base_url() . 'api/view_add_va_bank?' . $query_string);
-            exit();
-        }
+        // if ($result['responseMessage'] == "Success") {
+        //     return $result['responseMessage']
+        // //     $this->saveToVaOwner($result['virtualAccountData']['virtualAccountNo'],$vaName,$_POST['idjukir'], $_POST['idtitpar'] ,$vaPhone);
+        // }else{
+        // //     // print_r($result);
+        //     return $result['responseMessage'];
+        // }
     }
 
     function inquiryva(){
