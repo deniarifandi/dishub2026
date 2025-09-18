@@ -176,7 +176,7 @@ class Jatim extends BaseController
 
     function get_access_token(){
         $url = $this->tokenUrl;
-      $url = "https://sriwijaya.bankjatim.co.id/snap/rest/access_token/v1/b2b";
+     // $url = "https://sriwijaya.bankjatim.co.id/snap/rest/access_token/v1/b2b";
         $headers = [
             "Content-Type: application/json",
             "X-CLIENT-KEY: 6992973c-c890-468e-9f14-c436c71bf5e2",
