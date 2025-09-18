@@ -145,6 +145,7 @@ return view('va_owner/form', $data);
 
     public function update($id)
     {
+        $model = new VaOwnerModel();
         $postData = $this->request->getPost();
         $tanggal = $this->request->getPost('va_owner_expired'); 
         list($anggotaId, $anggotaNama) = explode(';', $this->request->getPost('va_owner_anggota'));
@@ -185,6 +186,7 @@ return view('va_owner/form', $data);
         
         if ($result['responseMessage'] == "Success") {
             $model->save($data);
+            //$this->vaModel->update($id, $postData);
             session()->setFlashdata('message', $result['responseMessage']);
             
             return redirect()->to('/va-owner');
@@ -194,11 +196,6 @@ return view('va_owner/form', $data);
                              ->withInput();
         }
 
-
-
-        //$this->vaModel->update($id, $postData);
-
-        //return redirect()->to('/va-owner');
     }
 
     public function delete($id)
