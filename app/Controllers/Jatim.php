@@ -46,13 +46,13 @@ class Jatim extends BaseController
 
     function inquiryva(){
 
-
+        $vaNo = "1111112548164517";
         
         $method = "POST";
         $url = "/api/v1.0/transfer-va/inquiry-va";
         $baseUrl = $this->serverUrl.$url;
         $customerNo = substr($vaNo, 5);
-        $vaNo = "1111112548164517";
+        
         $trxId = "johnlenon";
 
         $accessToken = $this->get_access_token();
