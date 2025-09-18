@@ -32,7 +32,9 @@ class Jatim extends BaseController
 
         //jatim
         $this->serverUrl = "https://sriwijaya.bankjatim.co.id/snap/rest";
-        $this->tokenUrl = "https://sriwijaya.bankjatim.co.id/snap/rest/access_token/v1.0/b2b";
+        //$this->tokenUrl = "https://sriwijaya.bankjatim.co.id/snap/rest/access_token/v1.0/b2b";
+
+        $this->tokenUrl = "https://sriwijaya.bankjatim.co.id/access_token/v1.0/b2b";
 
         //$this->serverUrl = "https://sisparma.com/public"; //simulator
         //$this->tokenUrl = "https://sisparma.com/public/snap/rest/access_token/v1/b2b"; //simulator
@@ -47,7 +49,7 @@ class Jatim extends BaseController
     function createva(){
 
         $method = "POST";
-        $url = "/api/v1/transfer-va/create-va";
+        $url = "/api/v1.0/transfer-va/create-va";
 
         $baseUrl = $this->serverUrl.$url;
      
@@ -189,9 +191,9 @@ class Jatim extends BaseController
 
         $response = $this->callApi($url, $headers, $method, $data);
         $tokenArray = json_decode($response, true);
-        // print_r($tokenArray);
-        $this->accessToken = $tokenArray['accessToken'];
-        return $tokenArray['accessToken'];
+        print_r($tokenArray);
+        //$this->accessToken = $tokenArray['accessToken'];
+        //return $tokenArray['accessToken'];
         
     }
 
