@@ -38,16 +38,17 @@
         </div>
     </div>
 
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">HP</label>
-        <div class="col-sm-9">
-            <input type="text" name="va_owner_hp" class="form-control"
-               pattern="^(0|62)[0-9]+$"
-               inputmode="numeric"
-               title="Nomor HP harus dimulai dengan 0 atau 62 dan hanya angka"
-               value="<?= isset($va_owner) ? esc($va_owner['va_owner_hp']) : '' ?>">
-        </div>
+<div class="row mb-3">
+    <label class="col-sm-3 col-form-label">HP</label>
+    <div class="col-sm-9">
+        <input type="text" name="va_owner_hp" class="form-control"
+            pattern="^(0|62)[0-9]+$"
+            inputmode="numeric"
+            title="Nomor HP harus dimulai dengan 0 atau 62 dan hanya angka"
+            value="<?= isset($va_owner) ? esc($va_owner['va_owner_hp']) : '' ?>">
     </div>
+</div>
+
 
      <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Email</label>

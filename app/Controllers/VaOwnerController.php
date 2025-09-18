@@ -71,7 +71,7 @@ class VaOwnerController extends BaseController
         ];
 
         //HERE
-        echo $this->jatim->createVA(
+        $jatimresult = $this->jatim->createVA(
             $anggotaId,
             $data['va_owner_va'],
             $anggotaNama,
@@ -80,7 +80,17 @@ class VaOwnerController extends BaseController
             $data['va_owner_hp']
         );
 
-        //$model->save($data);
+        $result = json_decode($jatimresult,true);
+        
+        if ($result['responseMessage'] == "Success") {
+            $model->save($data);
+            return redirect()->to('/va-owner')->with('success', 'Data berhasil disimpan');
+        } else {
+            return redirect()->back()
+                             ->withInput()
+                             ->with('error', $result['responseMessage']);
+        }
+
         //return redirect()->to('/va-owner');
     }
 
