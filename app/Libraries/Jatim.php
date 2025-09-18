@@ -25,6 +25,7 @@ class Jatim
         $this->clientID = "6992973c-c890-468e-9f14-c436c71bf5e2";
         $this->clientSecret = "59242d81-0b43-4062-a393-1543cb97c934";
         $this->partnerID = "8d15dece-f183-483b-92e5-f2ef8a2dffaf";
+        $this->partnerServiceId = "   11111";
         $this->getTimestamp();
 
         //jatim
@@ -62,7 +63,7 @@ class Jatim
         $accessToken = $this->get_access_token();
 
         $requestBody = [
-            "partnerServiceId" => "   11111",
+            "partnerServiceId" => $this->partnerServiceId,
             "customerNo" => $customerNo,
             "virtualAccountNo" => $vaNo,
             "virtualAccountName" => $vaName,
@@ -117,7 +118,7 @@ class Jatim
         $accessToken = $this->get_access_token();
 
         $requestBody = [
-            "partnerServiceId" => "   11111",
+            "partnerServiceId" => $this->partnerServiceId,
             "customerNo" => $customerNo,
             "virtualAccountNo" => $vaNo,
             "virtualAccountName" => $vaName,
@@ -152,12 +153,12 @@ class Jatim
 
     function deleteVA(){
 
+        $url = "/api/v1.0/transfer-va/delete-va";
+        $baseUrl = $this->serverUrl.$url;
+        $method = "DELETE";
 
-       $baseUrl = "https://sriwijaya.bankjatim.co.id/snap/rest/api/v1/transfer-va/delete-va";
-       $method = "DELETE";
-       $url = "/api/v1/transfer-va/delete-va";
-       $customerNo = $_POST["custNo"];
-       $vaNo = $_POST["vaNo"];
+        $customerNo = $_POST["custNo"];
+        $vaNo = $_POST["vaNo"];
 
 
        $accessToken = $this->get_access_token();

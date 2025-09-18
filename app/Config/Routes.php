@@ -5,20 +5,24 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+
+//HOME
 $routes->get('/', 'Home::index');
 $routes->get('/commandcenter','Home::commandcenter');
 
 //HOME DATA
 $routes->get('/pendapatanhariini','Home::getPendapatanHariIni');
 
-//VA OWNER START
+//Syn
+$routes->get('/syncdata','Home::syncdata');
+
+//VA OWNER
 $routes->get('va-owner', 'VaOwnerController::index');
 $routes->get('va-owner/create', 'VaOwnerController::create');
 $routes->post('va-owner/store', 'VaOwnerController::store');
 $routes->get('va-owner/edit/(:num)', 'VaOwnerController::edit/$1');
 $routes->post('va-owner/update/(:num)', 'VaOwnerController::update/$1');
 $routes->get('va-owner/delete/(:num)', 'VaOwnerController::delete/$1');
-
 $routes->post('va-owner/data', 'VaOwnerController::data');
 
 $routes->get('va-owner/getaccesstoken','VaOwnerController::getaccesstoken');
