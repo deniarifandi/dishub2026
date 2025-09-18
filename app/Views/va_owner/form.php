@@ -34,40 +34,40 @@
         </div>
     </div>
 
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">VA (Indeks)</label>
-        <div class="col-sm-9">
-            <input type="text" name="va_owner_va" class="form-control" 
-                   value="<?= isset($va_owner) ? esc($va_owner['va_owner_va']) : '' ?>">
-        </div>
+   <div class="row mb-3">
+    <label class="col-sm-3 col-form-label">VA (Indeks)</label>
+    <div class="col-sm-9">
+        <input type="text" name="va_owner_va" class="form-control" 
+               value="<?= old('va_owner_va', isset($va_owner) ? esc($va_owner['va_owner_va']) : '') ?>">
     </div>
+</div>
 
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">HP</label>
-        <div class="col-sm-9">
-            <input type="text" me="va_owner_hp" class="form-control"
+<div class="row mb-3">
+    <label class="col-sm-3 col-form-label">HP</label>
+    <div class="col-sm-9">
+        <input type="text" name="va_owner_hp" class="form-control"
                pattern="^(0|62)[0-9]+$"
-               inputmoede="numeric"
+               inputmode="numeric"
                title="Nomor HP harus dimulai dengan 0 atau 62 dan hanya angka"
-               valaeouue="<?= isset($va_owner) ? esc($va_owner['va_owner_hp']) : '' ?>">
-        </div>
+               value="<?= old('va_owner_hp', isset($va_owner) ? esc($va_owner['va_owner_hp']) : '') ?>">
     </div>
+</div>
 
-     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Email</label>
-        <div class="col-sm-9">
-            <input type="text" name="va_owner_email" class="form-control" 
-                   value="<?= isset($va_owner) ? esc($va_owner['va_owner_email']) : 'example@gmail.com' ?>">
-        </div>
+<div class="row mb-3">
+    <label class="col-sm-3 col-form-label">Email</label>
+    <div class="col-sm-9">
+        <input type="text" name="va_owner_email" class="form-control" 
+               value="<?= old('va_owner_email', isset($va_owner) ? esc($va_owner['va_owner_email']) : 'example@gmail.com') ?>">
     </div>
+</div>
 
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Tanggal</label>
-        <div class="col-sm-9">
-            <input type="date" name="va_owner_expired" class="form-control" 
-                   value="<?= esc($va_owner['va_owner_expired'] ?? date('Y-m-d', strtotime('+1 year'))) ?>">
-        </div>
+<div class="row mb-3">
+    <label class="col-sm-3 col-form-label">Tanggal</label>
+    <div class="col-sm-9">
+        <input type="date" name="va_owner_expired" class="form-control" 
+               value="<?= old('va_owner_expired', $va_owner['va_owner_expired'] ?? date('Y-m-d', strtotime('+1 year'))) ?>">
     </div>
+</div>
 
     <!-- Add more fields here -->
 
