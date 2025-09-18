@@ -70,7 +70,7 @@ class VaOwnerController extends BaseController
         ];
 
         //HERE
-         $jatim->createVA(
+         $this->jatim->createVA(
             $data['va_owner_anggotaid'],
             $data['va_owner_va'],
             $data['va_owner_nama'],
