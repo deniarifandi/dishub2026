@@ -46,17 +46,17 @@ class VaOwnerController extends BaseController
     public function store()
     {
         $model = new VaOwnerModel();
-        $tanggal = $this->request->getPost('tanggal'); // example: 2025-12-31
+        $tanggal = $this->request->getPost('va_owner_expired'); // example: 2025-12-31
         list($anggotaId, $anggotaNama) = explode(';', $this->request->getPost('va_owner_anggota'));
 
         // handle tanggal
-        if (!empty($postData['tanggal'])) {
-            $dt = new \DateTime($postData['tanggal'], new \DateTimeZone('Asia/Jakarta'));
-            $postData['tanggal'] = $dt->format('Y-m-d\T00:00:00P'); // 2025-12-31T00:00:00+07:00
+        if (!empty($tanggal)) {
+            $dt = new \DateTime($tanggal, new \DateTimeZone('Asia/Jakarta'));
+            $tanggal = $dt->format('Y-m-d\T00:00:00P'); // 2025-12-31T00:00:00+07:00
         } else {
             // if empty, default 1 year from today
             $dt = new \DateTime('+1 year', new \DateTimeZone('Asia/Jakarta'));
-            $postData['tanggal'] = $dt->format('Y-m-d\T00:00:00P');
+            $tanggal = $dt->format('Y-m-d\T00:00:00P');
         }
         $data = [
             'va_owner_id'        => $this->request->getPost('va_owner_id'),
@@ -67,7 +67,7 @@ class VaOwnerController extends BaseController
             'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
             'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
             'va_owner_hp'        => $this->request->getPost('va_owner_hp')
-            //'va_owner_expired'   => $postData['tanggal']
+            //'va_owner_expired'   => $tanggal
         ];
 
         //HERE
@@ -75,7 +75,7 @@ class VaOwnerController extends BaseController
             $anggotaId,
             $data['va_owner_va'],
             $anggotaNama,
-            $postData['tanggal'],
+            $tanggal,
             $this->request->getPost('va_owner_email'),
             $data['va_owner_hp']
         );
@@ -167,7 +167,7 @@ return view('va_owner/form', $data);
             'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
             'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
             'va_owner_hp'        => $this->request->getPost('va_owner_hp')
-            //'va_owner_expired'   => $postData['tanggal']
+            //'va_owner_expired'   => $tanggal
         ];
 
         //HERE
@@ -175,7 +175,7 @@ return view('va_owner/form', $data);
             $anggotaId,
             $data['va_owner_va'],
             $anggotaNama,
-            $postData['tanggal'],
+            $tanggal,
             $this->request->getPost('va_owner_email'),
             $data['va_owner_hp']
         );
