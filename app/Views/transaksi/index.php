@@ -32,14 +32,6 @@
 </div>
 
 
-<div id="overlaySpinner" 
-     class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-50"
-     style="z-index: 2000; pointer-events: all;">
-  <div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-</div>
-
  <script>
   $(document).ready(function() {
     $('#usersTable').DataTable({

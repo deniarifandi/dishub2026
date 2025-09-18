@@ -70,14 +70,14 @@
           </select>
         </div>
         <div class="col-md-2">
-          <button id="btnFilter" class="btn btn-primary">Filter</button>
-          <button id="btnReset" class="btn btn-secondary">Reset</button>
+          <button id="btnFilter" class="btn btn-primary sendBtn">Filter</button>
+          <button id="btnReset" class="btn btn-secondary sendBtn">Reset</button>
         </div>
       </div>
-
-      <div style="overflow: auto;">
-  <!-- <table id="myTable" class="display nowrap" style="width:100%"> -->
-        <table id="potensiTable" class="display nowrap table-bordered" style="font-size: 12px; width: 100%;">
+      <div style="overflow: auto; margin-top: 15px;">
+       <table id="potensiTable" 
+       class="table table-striped table-bordered table-hover nowrap" 
+       style="font-size: 12px; width: 100%;">
           <thead>
              <tr>
                   <th class="highlight-col">VA</th>
@@ -96,7 +96,7 @@
 
  <script>
   $(document).ready(function() {
-    $('#potensiTable').DataTable({
+    var table = $('#potensiTable').DataTable({
       processing: true,
       serverSide: false,
       scrollX: true,
@@ -154,25 +154,45 @@
         width: '100px',
         orderable: true,
         render: (data, type, row) =>
-          `<a class="btn btn-warning btn-sm" href="<?= base_url('potensi/edit/') ?>${row.va_owner_va}">Kirim Tagihan</a>`
+          `<a class="btn btn-warning btn-sm" href="<?= base_url('potensi/edit/') ?>${row.va_owner_va}">Detail</a>`
       }
     ],
     });
 
     // Filter button
     $('#btnFilter').on('click', function() {
-      $('#btnReset').data('reset', 0);
-      $('#potensiTable').DataTable().ajax.reload();
+        $('#btnReset').data('reset', 0);
+        table.ajax.reload(function(json) {
+              overlay.classList.add("d-none");
+        });
     });
 
     // Reset button
+   
     $('#btnReset').on('click', function() {
-      $('#filterBulan').val('');
-      $('#filterTahun').val('');
-      $(this).data('reset', 1);
-      $('#potensiTable').DataTable().ajax.reload();
+        $('#filterBulan').val('');
+        $('#filterTahun').val('');
+        $(this).data('reset', 1);
+        table.ajax.reload(function(json) {
+             overlay.classList.add("d-none");
+        });
     });
   });
 </script>
+
+<script type="text/javascript">
+  const overlay = document.getElementById("overlaySpinner");
+
+ $(document).on("click", ".sendBtn", function() {
+  // Show overlay spinner right away
+  overlay.classList.remove("d-none");
+
+  // The browser will continue with the link (redirect) immediately
+  // No need for setTimeout, page will change and overlay stays until load
+});
+
+
+</script>
+
 
 <?php echo view('footer'); ?>

@@ -21,14 +21,7 @@
 
   <!-- Main Feature Cards -->
   <div class="row g-3 mb-4">
-    <div class="col-md-4">
-      <div class="card smart-card text-center p-3 shadow-sm border-0 animate-card">
-        <i class="bi bi-folder-fill smart-icon mb-2 text-primary fs-2"></i>
-        <h6 class="fw-bold mb-1">Data Transaksi</h6>
-        <p class="text-muted small mb-3">Manajemen Data Transaksi Parkir</p>
-        <a href="transaksi" class="btn btn-smart btn-sm w-100">Lihat Data</a>
-      </div>
-    </div>
+   
     <div class="col-md-4">
       <div class="card smart-card text-center p-3 shadow-sm border-0 animate-card">
         <i class="bi bi-people-fill smart-icon mb-2 text-success fs-2"></i>
@@ -43,6 +36,14 @@
         <h6 class="fw-bold mb-1">Potensi</h6>
         <p class="text-muted small mb-3">Kelola Potensi Parkir</p>
         <a href="potensi" class="btn btn-smart btn-sm w-100">Lihat Potensi</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card smart-card text-center p-3 shadow-sm border-0 animate-card">
+        <i class="bi bi-folder-fill smart-icon mb-2 text-primary fs-2"></i>
+        <h6 class="fw-bold mb-1">Data Transaksi</h6>
+        <p class="text-muted small mb-3">Manajemen Data Transaksi Parkir</p>
+        <a href="transaksi" class="btn btn-smart btn-sm w-100">Lihat Data</a>
       </div>
     </div>
   </div>
