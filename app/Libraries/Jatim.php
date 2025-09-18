@@ -90,7 +90,7 @@ class Jatim
         $method = "POST";  // Can be 'GET', 'POST', '', etc.
 
         $response = $this->callApi($baseUrl, $headers, $method, $requestBody);
-         echo $response;
+         return $response;
 
 
         // $result = json_decode($response,true);
