@@ -26,7 +26,7 @@ class VaOwnerController extends BaseController
     }
 
     public function getaccesstoken(){
-        $this->jatim->get_access_token();
+        echo $this->jatim->get_access_token();
     }
 
     public function create()
