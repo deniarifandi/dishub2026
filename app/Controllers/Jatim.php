@@ -30,19 +30,66 @@ class Jatim extends BaseController
         $this->partnerID = "8d15dece-f183-483b-92e5-f2ef8a2dffaf";
         $this->getTimestamp();
 
-        $this->serverUrl = "https://sriwijaya.bankjatim.co.id/snap/rest"; //real
+        //jatim
+        $this->serverUrl = "https://sriwijaya.bankjatim.co.id/snap/rest";
+        $this->tokenUrl = "https://sriwijaya.bankjatim.co.id/snap/rest/access_token/v1.0/b2b";
+
         //$this->serverUrl = "https://sisparma.com/public"; //simulator
-        $this->tokenUrl = "https://sriwijaya.bankjatim.co.id/snap/rest/access_token/v1.0/b2b"; //real
         //$this->tokenUrl = "https://sisparma.com/public/snap/rest/access_token/v1/b2b"; //simulator
         //trying
 
         // $this->serverUrl = "localhost/sisparmacustom/public";
         
     }
+    
+    ///////////////////////////////////////
+
+    function inquiryva(){
+
+
+        
+        $method = "POST";
+        $url = "/api/v1.0/transfer-va/inquiry-va";
+        $baseUrl = $this->serverUrl.$url;
+        $customerNo = substr($vaNo, 5);
+        $vaNo = "1111112548164517";
+        $trxId = "johnlenon";
+
+        $accessToken = $this->get_access_token();
+        
+        $requestBody = [
+            "partnerServiceId" => "   11111",
+            "customerNo" => $customerNo,
+            "virtualAccountNo" => $vaNo,
+            "trxId" => $trxId
+        ];
+
+        $headers = [
+            "Content-Type: application/json",
+            "Authorization: Bearer ".$accessToken,
+            // "X-CLIENT-KEY: 6992973c-c890-468e-9f14-c436c71bf5e2",
+            "X-SIGNATURE: ".$this->signature_service($method, $url, $requestBody, $accessToken),
+            "X-TIMESTAMP: $this->timestamp",
+            "X-PARTNER-ID: 8d15dece-f183-483b-92e5-f2ef8a2dffaf",
+            "X-EXTERNAL-ID: ".date('YmdHis'),
+            "CHANNEL-ID: 00002"
+        ];
+
+
+        $method = "POST";  // Can be 'GET', 'POST', 'PUT', etc.
+
+        $response = $this->callApi($baseUrl, $headers, $method, $requestBody);
+        return $response;
+        // print_r($response);
+    }
+
+    ///////////////////////////////
 
     public function getSignature(){
         echo "test";
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     function get_access_token(){
         $url = $this->tokenUrl;
