@@ -26,7 +26,7 @@ class VaOwnerController extends BaseController
     }
 
     public function getaccesstoken(){
-        echo $this->jatim->get_access_token();
+        $this->jatim->get_access_token();
     }
 
     public function create()
@@ -70,9 +70,17 @@ class VaOwnerController extends BaseController
         ];
 
         //HERE
+         $jatim->createVA(
+            $data['va_owner_anggotaid'],
+            $data['va_owner_va'],
+            $data['va_owner_nama'],
+            $data['va_owner_expired'],
+            $this->request->getPost('va_owner_email'),
+            $data['va_owner_hp']
+        );
 
         $model->save($data);
-        return redirect()->to('/va-owner');
+        //return redirect()->to('/va-owner');
     }
 
     public function edit($id)
