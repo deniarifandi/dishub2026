@@ -21,7 +21,7 @@ $routes->get('va-owner/delete/(:num)', 'VaOwnerController::delete/$1');
 
 $routes->post('va-owner/data', 'VaOwnerController::data');
 
-$routes->get('va-owner/testLibrary','VaOwnerController::getaccesstoken');
+$routes->get('va-owner/getaccesstoken','VaOwnerController::getaccesstoken');
 
 //transaksi START
 $routes->get('transaksi', 'Transaksi::index');
