@@ -44,6 +44,85 @@ class Jatim extends BaseController
     
     ///////////////////////////////////////
 
+    function create_va(){
+
+        $method = "POST";
+        $url = "/api/v1/transfer-va/create-va";
+
+        $baseUrl = $this->serverUrl.$url;
+     
+        // $customerNo = $_POST["cust"];
+        // $vaNo = $_POST["va"];
+        // $vaName = $_POST["nama"];
+        // $expired = $_POST["expired"];
+        // $vaEmail = $_POST["vaEmail"];
+        // $vaPhone = $_POST["vaPhone"];
+
+        $customerNo = "1234567890123456999";
+        $vaNo = "111111234567890123456999";
+        $vaName = "test nama";
+        $expired = "2024-12-31T23:59:59+07:00";
+        $vaEmail = "testemail@mail.test";
+        $vaPhone = "081805173445";
+
+
+        $value = "100000000.00";
+        $accessToken = $this->get_access_token();
+
+        $requestBody = [
+            "partnerServiceId" => "   11111",
+            "customerNo" => $customerNo,
+            "virtualAccountNo" => $vaNo,
+            "virtualAccountName" => $vaName,
+            "virtualAccountEmail" => $vaEmail,
+            "virtualAccountPhone" => $vaPhone,
+            "trxId" => date('YmdHis'),
+            "totalAmount" => [
+                "value" => $value,
+                "currency" => "IDR"
+            ],
+            "virtualAccountTrxType" => "I",
+            "expiredDate" => $expired
+        ];
+        $headers = [
+            "Content-Type: application/json",
+            "Authorization: Bearer ".$accessToken,
+            "X-CLIENT-KEY: 6992973c-c890-468e-9f14-c436c71bf5e2",
+            "X-SIGNATURE: ".$this->signature_service($method, $url, $requestBody, $accessToken),
+            "X-TIMESTAMP: $this->timestamp",
+            "X-PARTNER-ID: 8d15dece-f183-483b-92e5-f2ef8a2dffaf",
+            "X-EXTERNAL-ID: ".date('YmdHis'),
+            "CHANNEL-ID: 00002"
+        ];
+
+        $method = "POST";  // Can be 'GET', 'POST', '', etc.
+
+        $response = $this->callApi($baseUrl, $headers, $method, $requestBody);
+        // echo $response;
+        $result = json_decode($response,true);
+        // print_r($result);
+        if ($result['responseMessage'] == "Success") {
+            // echo "berhasil";
+            $this->saveToVaOwner($result['virtualAccountData']['virtualAccountNo'],$vaName,$_POST['idjukir'], $_POST['idtitpar'] ,$vaPhone);
+        }else{
+            // print_r($result);
+            $parameters = [
+                'custNo' => $customerNo,
+                'vaNo' => $vaNo,
+                'vaName' => $vaName,
+                'idjukir' => $_POST['idjukir'],
+                'vaEmail' => $_POST['vaEmail'],
+                'vaPhone' => $_POST['vaPhone'],
+                'response' => $result['responseMessage'],
+                'expired' => $expired
+            ];
+            $previous_url = $_SERVER['HTTP_REFERER'];
+            $query_string = http_build_query($parameters);
+            header('Location: ' . base_url() . 'api/view_add_va_bank?' . $query_string);
+            exit();
+        }
+    }
+
     function inquiryva(){
 
         $vaNo = "1111112548164517";
@@ -58,7 +137,7 @@ class Jatim extends BaseController
         $accessToken = $this->get_access_token();
         
         $requestBody = [
-            "partnerServiceId" => "   11111",
+            "partnerServiceId" => " 11111",
             "customerNo" => $customerNo,
             "virtualAccountNo" => $vaNo,
             "trxId" => $trxId
