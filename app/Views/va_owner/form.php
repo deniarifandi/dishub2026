@@ -20,19 +20,28 @@
    <form action="<?= isset($va_owner) ? base_url('/va-owner/update/'.$va_owner['va_owner_id']) : base_url('/va-owner/store') ?>" method="post">
     <?= csrf_field() ?>
     
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Anggota Jukir</label>
-        <div class="col-sm-9">
-         <select name="va_owner_anggota" class="form-select select2" data-placeholder="-- Pilih Anggota --">
+   <div class="row mb-3">
+    <label class="col-sm-3 col-form-label">Anggota Jukir</label>
+    <div class="col-sm-9">
+        <select name="va_owner_anggota" class="form-select select2" data-placeholder="-- Pilih Anggota --">
             <option value="">-- Pilih Anggota --</option>
             <?php foreach ($anggota as $a): ?>
-                <option value="<?= $a['anggota_id'] ?>;<?= $a['anggota_nama'] ?>" <?= isset($va_owner) && $va_owner['va_owner_anggotaid'] == $a['anggota_id'] ? 'selected' : '' ?>>
+                <?php 
+                    // nilai option
+                    $optValue = $a['anggota_id'].';'.$a['anggota_nama'];
+                    // cek selected
+                    $selected = (old('va_owner_anggota') == $optValue) ||
+                                (!old('va_owner_anggota') && isset($va_owner) && $va_owner['va_owner_anggotaid'] == $a['anggota_id'])
+                                ? 'selected' : '';
+                ?>
+                <option value="<?= $optValue ?>" <?= $selected ?>>
                     <?= esc($a['anggota_nama']) ?> -- <?= esc($a['titpar_namatempat']) ?>
                 </option>
             <?php endforeach; ?>
         </select>
-        </div>
     </div>
+</div>
+
 
    <div class="row mb-3">
     <label class="col-sm-3 col-form-label">VA (Indeks)</label>
