@@ -1,7 +1,7 @@
 <?php echo view('header'); ?>
 
 <?php if (session()->getFlashdata('message')): ?>
-    <div class="alert alert-info">
+    <div class="alert alert-danger">
         <?= session()->getFlashdata('message'); ?>
     </div>
 <?php endif; ?>
