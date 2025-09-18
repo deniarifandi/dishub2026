@@ -53,7 +53,7 @@
         <label class="col-sm-3 col-form-label">Email</label>
         <div class="col-sm-9">
             <input type="text" name="va_owner_email" class="form-control" 
-                   value="<?= esc($va_owner['va_owner_email'] ?? 'example@gmail.com'?>">
+                   value="<?= esc($va_owner['va_owner_email']) ?? 'example@gmail.com'?>">
         </div>
     </div>
 
