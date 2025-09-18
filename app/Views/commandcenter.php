@@ -89,26 +89,42 @@ canvas { background: transparent; }
 <div class="dashboard-container">
   <div class="row g-4">
     <div class="col-md-4">
-      <div class="card p-3 text-center">
-        <i class="fas fa-tachometer-alt card-icon mb-2"></i>
-        <div class="card-title">Pendapatan Hari Ini</div>
-        <div class="card-text">Rp. 56.700.000</div>
-      </div>
+      <a href="<?= base_url('transaksi') ?>" style="text-decoration: none; color: inherit;">
+        <div class="card p-3 text-center">
+          <i class="fas fa-tachometer-alt card-icon mb-2"></i>
+          <div class="card-title">Pendapatan Hari Ini</div>
+          <div class="card-text" style="font-size:24px">Rp. <?= number_format($pendapatanHariIni, 0, ',', '.') ?></div>
+        </div>
+      </a>
     </div>
     <div class="col-md-4">
-      <div class="card p-3 text-center">
-        <i class="fas fa-network-wired card-icon mb-2"></i>
-        <div class="card-title">Target Setoran Hari Ini</div>
-        <div class="card-text">Rp. 75.700.000</div>
-      </div>
+      <a href="<?= base_url('potensi') ?>" style="text-decoration: none; color: inherit;">
+        <div class="card p-3 text-center">
+          <i class="fas fa-network-wired card-icon mb-2"></i>
+          <div class="card-title">Target Setoran Hari Ini</div>
+          <div class="card-text" style="font-size:24px">Rp. <?= number_format($targetHariIni, 0, ',', '.') ?></div>
+        </div>
+      </a>
     </div>
     <div class="col-md-4">
-      <div class="card p-3 text-center">
-        <i class="fas fa-network-wired card-icon mb-2"></i>
-        <div class="card-title">Prosentase Pendapatan Harian</div>
-       <div class="progress mt-2" style="height: 10px; border-radius:5px;">
-      <div class="progress-bar" role="progressbar" style="width: 75%; background-color: red;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
+       <div class="card p-3 text-center">
+        
+          <div class="card-title">Prosentase Pendapatan Harian</div>
+          
+          <div class="progress mt-2" style="height: 12px; border-radius:5px;">
+              <div class="progress-bar" role="progressbar" 
+                   style="width: <?= number_format($persentase, 0, ',', '.') ?>%; 
+                          background-color: red;" 
+                   aria-valuenow="<?= number_format($persentase, 0, ',', '.') ?>" 
+                   aria-valuemin="0" 
+                   aria-valuemax="100">
+              </div>
+          </div>
+
+          <!-- Teks persentase -->
+          <div class="card-text mt-1" style="font-size:24px">
+              <?= number_format($persentase, 2, ',', '.') ?>%
+          </div>
       </div>
     </div>
   
@@ -120,18 +136,22 @@ canvas { background: transparent; }
         <div class="card-title mb-2 text-center">Statistic</div>
         <div class="row">
           <div class="col-md-6">
-          <div class="card p-2 text-center">
-            <i class="fas fa-tachometer-alt card-icon mb-2"></i>
-            <div class="card-title">VA Terdaftar</div>
-            <div class="card-text">750</div>
+            <a href="<?= base_url('va-owner') ?>" style="text-decoration: none; color: inherit;">
+              <div class="card p-2 text-center">
+                <i class="fas fa-tachometer-alt card-icon mb-2"></i>
+                <div class="card-title">VA Terdaftar</div>
+                <div class="card-text"><?= number_format($totalVa, 0, ',', '.') ?></div>
+              </div>
+            </a>
           </div>
-        </div>
          <div class="col-md-6">
-          <div class="card p-2 text-center">
-            <i class="fas fa-tachometer-alt card-icon mb-2"></i>
-            <div class="card-title">Potensi</div>
-            <div class="card-text">750</div>
-          </div>
+          <a href="<?= base_url('potensi') ?>" style="text-decoration: none; color: inherit;">
+            <div class="card p-2 text-center">
+              <i class="fas fa-tachometer-alt card-icon mb-2"></i>
+              <div class="card-title">Potensi Terdaftar</div>
+              <div class="card-text">   <?= number_format($totalPotensi, 0, ',', '.') ?></div>
+            </div>
+          </a>
         </div>
         </div>
       </div>

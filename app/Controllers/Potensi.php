@@ -138,15 +138,14 @@ class Potensi extends BaseController
     //custom
     public function data(){
         $db = db_connect();
-        $builder = $db->table('va_owner')->select('va_owner_va,anggota_id,anggota_nama, titpar_namatempat, titpar_lokasi, senin, selasa, rabu, kamis, jumat, sabtu, minggu, mingguan, bulanan, tahunan')
+        // $builder = $db->table('va_owner')->select('va_owner_va,anggota_id,anggota_nama, titpar_namatempat, titpar_lokasi, senin, selasa, rabu, kamis, jumat, sabtu, minggu, mingguan, bulanan, tahunan')
+         $builder = $db->table('va_owner')->select('*')
         ->join('potensi','va_owner.va_owner_va = potensi.potensi_va','left')
-        ->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
-        ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
-        ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
-        ->groupBy('potensi_id');
+        ->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id','left')
+        ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id','left')
+        ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid','left')
+        ->groupBy('va_owner.va_owner_va');
     
-
-
         // Columns to apply search on
         $columns = ['potensi_va','anggota_nama','titpar_namatempat'];
         // $columns =  [];
@@ -211,13 +210,99 @@ class Potensi extends BaseController
     return view('transaksi/invoice', $data);
     }
 
-    public function tagihan($field){
+    public function realisasi(){
         return view('potensi/tagihan');
     }
 
-     public function datatagihan($field){
+    public function datatagihan(){
+   $request = service('request');
+    $bulan = $request->getPost('bulan');
+    $tahun = $request->getPost('tahun');
+    $reset = $request->getPost('reset');
+
+    // reset filter → show all
+    if ($reset == '1') {
+        $bulan = null;
+        $tahun = null;
+    }
+
+    // default → current month/year
+    if (empty($bulan)) {
+        $bulan = date('n');
+    }
+    if (empty($tahun)) {
+        $tahun = date('Y');
+    }
+
+    $db = \Config\Database::connect();
+    $builder = $db->table('va_owner');
+
+    $builder->select("
+        va_owner.va_owner_va,
+        dishub_anggota.anggota_id,
+        dishub_anggota.anggota_nama,
+        dishub_titpar.titpar_namatempat,
+        dishub_titpar.titpar_lokasi,
+        potensi.potensi_id,
+        CASE 
+            WHEN tahunan IS NOT NULL AND tahunan > 0 THEN ROUND(tahunan / 12, 0)
+            WHEN mingguan IS NOT NULL AND mingguan > 0 THEN mingguan * 4
+            WHEN (COALESCE(senin,0)+COALESCE(selasa,0)+COALESCE(rabu,0)+
+                  COALESCE(kamis,0)+COALESCE(jumat,0)+COALESCE(sabtu,0)+COALESCE(minggu,0)) > 0
+                 THEN (COALESCE(senin,0)+COALESCE(selasa,0)+COALESCE(rabu,0)+
+                       COALESCE(kamis,0)+COALESCE(jumat,0)+COALESCE(sabtu,0)+COALESCE(minggu,0)) * 4
+            ELSE bulanan
+        END as tagihanBulanan,
+        COALESCE(SUM(transaksi.transaksi_nominal), 0) as total_setoran
+    ", false);
+
+    $builder->join('potensi','va_owner.va_owner_va = potensi.potensi_va','left');
+    $builder->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id');
+    $builder->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id');
+    $builder->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid');
+
+    // join transaksi with/without filter
+    if ($reset == '1') {
+        $builder->join('transaksi','va_owner.va_owner_va = transaksi.transaksi_va','left');
+    } else {
+        $builder->join(
+            'transaksi',
+            "va_owner.va_owner_va = transaksi.transaksi_va 
+             AND YEAR(transaksi.transaksi_tanggal) = {$tahun} 
+             AND MONTH(transaksi.transaksi_tanggal) = {$bulan}",
+            'left'
+        );
+    }
+
+    $builder->groupBy('va_owner.va_owner_va, dishub_anggota.anggota_id, dishub_anggota.anggota_nama, dishub_titpar.titpar_namatempat, dishub_titpar.titpar_lokasi, potensi.potensi_id');
+
+    $columns = ['potensi_va','anggota_nama','titpar_namatempat'];
+    $dt = new \App\Libraries\DataTable($builder, $columns);
+    $result = $dt->generate();
+
+    return $this->response->setJSON($result);
+    }
+
+    public function datatagihan2($field){
         $db = db_connect();
-        $builder = $db->table('va_owner')->select('va_owner_va,anggota_id,anggota_nama, titpar_namatempat, titpar_lokasi, senin, selasa, rabu, kamis, jumat, sabtu, minggu, mingguan, bulanan, tahunan')
+        
+        $builder = $db->table('va_owner')
+        ->select('va_owner_va, anggota_id, anggota_nama, titpar_namatempat, titpar_lokasi, 
+                  senin, selasa, rabu, kamis, jumat, sabtu, minggu, mingguan, bulanan, tahunan,
+                  potensi.potensi_id')
+        ->select("
+            CASE 
+                WHEN tahunan IS NOT NULL AND tahunan > 0 
+                    THEN ROUND(tahunan / 12, 0)
+                WHEN mingguan IS NOT NULL AND mingguan > 0 
+                    THEN mingguan * 4
+                WHEN (COALESCE(senin,0) + COALESCE(selasa,0) + COALESCE(rabu,0) + 
+                      COALESCE(kamis,0) + COALESCE(jumat,0) + COALESCE(sabtu,0) + COALESCE(minggu,0)) > 0
+                    THEN (COALESCE(senin,0) + COALESCE(selasa,0) + COALESCE(rabu,0) + 
+                          COALESCE(kamis,0) + COALESCE(jumat,0) + COALESCE(sabtu,0) + COALESCE(minggu,0)) * 4
+                ELSE bulanan
+            END as tagihanBulanan
+        ", false)
         ->join('potensi','va_owner.va_owner_va = potensi.potensi_va','left')
         ->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
         ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
@@ -226,7 +311,7 @@ class Potensi extends BaseController
         ->groupBy('potensi_id');
     
         // Columns to apply search on
-        $columns = ['potensi_va','anggota_nama','anggota_titpar'];
+        $columns = ['potensi_va','anggota_nama','titpar_namatempat'];
         // $columns =  [];
         $dt = new DataTable($builder, $columns);
         $result = $dt->generate();

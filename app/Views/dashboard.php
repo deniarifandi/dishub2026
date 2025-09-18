@@ -1,6 +1,5 @@
 <?php echo view('header'); ?>
 
-<div class="container py-3">
 
   <!-- Top Slim Banner -->
   <div class="card shadow-sm border-0 mb-4 smart-banner">
@@ -42,7 +41,7 @@
       <div class="card smart-card text-center p-3 shadow-sm border-0 animate-card">
         <i class="bi bi-graph-up smart-icon mb-2 text-warning fs-2"></i>
         <h6 class="fw-bold mb-1">Potensi</h6>
-        <p class="text-muted small mb-3">Analisis Potensi Parkir</p>
+        <p class="text-muted small mb-3">Kelola Potensi Parkir</p>
         <a href="potensi" class="btn btn-smart btn-sm w-100">Lihat Potensi</a>
       </div>
     </div>
@@ -55,14 +54,13 @@
     <div class="col-md-3">
       <div class="card smart-card text-center p-2 shadow-sm border-0 animate-card">
         <i class="bi bi-cash-stack smart-icon mb-2 text-danger fs-4"></i>
-        <h6 class="fw-bold mb-1">Tagihan Senin</h6>
+        <h6 class="fw-bold mb-1">Potensi X Realisasi</h6>
         <p class="text-muted small mb-2">Data Tagihan</p>
-        <a href="tagihan/senin" class="btn btn-smart btn-sm w-100">Buka</a>
+        <a href="potensi/realisasi" class="btn btn-smart btn-sm w-100">Buka</a>
       </div>
     </div>
   </div>
 
-</div>
 
 <?php echo view('footer'); ?>
 

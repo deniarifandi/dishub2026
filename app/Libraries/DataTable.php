@@ -20,52 +20,45 @@ class DataTable
     public function generate()
     {
         $draw = intval($this->request->getPost('draw'));
-    $start = intval($this->request->getPost('start'));
-    $length = intval($this->request->getPost('length'));
-    $searchValue = $this->request->getPost('search')['value'] ?? '';
+        $start = intval($this->request->getPost('start'));
+        $length = intval($this->request->getPost('length'));
+        $searchValue = $this->request->getPost('search')['value'] ?? '';
 
-    // Clone builder for counting
-    $countBuilder = clone $this->builder;
+        // Clone builder for counting
+        $countBuilder = clone $this->builder;
 
-    // Filter
-    if (!empty($searchValue) && !empty($this->columns)) {
-    // If FULLTEXT is available
-        if (in_array('name', $this->columns) && in_array('email', $this->columns)) {
-            $this->builder->where("MATCH(name, email) AGAINST(" .
-                $this->builder->db->escape($searchValue) .
-                " IN NATURAL LANGUAGE MODE)");
-        } else {
-            // Fallback to prefix search (index-friendly)
+        // Filter
+        if (!empty($searchValue) && !empty($this->columns)) {
             $this->builder->groupStart();
             foreach ($this->columns as $col) {
-                $this->builder->orLike($col, $searchValue, 'after'); // LIKE 'value%'
+                // Contain search -> LIKE '%value%'
+                $this->builder->orLike($col, $searchValue, 'both');
             }
             $this->builder->groupEnd();
         }
-    }
 
-    // Total filtered
-    $filteredBuilder = clone $this->builder;
-    $recordsFiltered = $filteredBuilder->countAllResults(false);
+        // Total filtered
+        $filteredBuilder = clone $this->builder;
+        $recordsFiltered = $filteredBuilder->countAllResults(false);
 
-    // Ordering
-    $order = $this->request->getPost('order');
-    if (!empty($order) && isset($this->columns[$order[0]['column']])) {
-        $orderColumn = $this->columns[$order[0]['column']];
-        $orderDir = $order[0]['dir'] === 'desc' ? 'desc' : 'asc';
-        $this->builder->orderBy($orderColumn, $orderDir);
-    }
+        // Ordering
+        $order = $this->request->getPost('order');
+        if (!empty($order) && isset($this->columns[$order[0]['column']])) {
+            $orderColumn = $this->columns[$order[0]['column']];
+            $orderDir = $order[0]['dir'] === 'desc' ? 'desc' : 'asc';
+            $this->builder->orderBy($orderColumn, $orderDir);
+        }
 
-    // Limit and get data
-    $this->builder->limit($length, $start);
-    $query = $this->builder->get();
-    $data = $query->getResultArray();
+        // Limit and get data
+        $this->builder->limit($length, $start);
+        $query = $this->builder->get();
+        $data = $query->getResultArray();
 
-    return [
-        'draw' => $draw,
-        'recordsTotal' => $countBuilder->countAllResults(),
-        'recordsFiltered' => $recordsFiltered,
-        'data' => $data
-    ];
+        return [
+            'draw' => $draw,
+            'recordsTotal' => $countBuilder->countAllResults(),
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $data
+        ];
     }
 }

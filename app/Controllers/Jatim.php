@@ -45,14 +45,14 @@ class Jatim extends BaseController
     }
 
     function get_access_token(){
-    $url = $this->tokenUrl;
+        $url = $this->tokenUrl;
      // $url = "https://sriwijaya.bankjatim.co.id/snap/rest/access_token/v1/b2b";
-    $headers = [
-        "Content-Type: application/json",
-        "X-CLIENT-KEY: 6992973c-c890-468e-9f14-c436c71bf5e2",
-        "X-SIGNATURE: ".$this->signature_access_token(),
-        "X-TIMESTAMP: $this->timestamp"
-    ];
+        $headers = [
+            "Content-Type: application/json",
+            "X-CLIENT-KEY: 6992973c-c890-468e-9f14-c436c71bf5e2",
+            "X-SIGNATURE: ".$this->signature_access_token(),
+            "X-TIMESTAMP: $this->timestamp"
+        ];
         $method = "POST";  // Can be 'GET', 'POST', 'PUT', etc.
         $data = [
             "grantType" => "client_credentials",
@@ -67,7 +67,7 @@ class Jatim extends BaseController
         
     }
 
-     function getTimestamp(){
+    function getTimestamp(){
         $this->timestamp = (new \DateTime())->format(\DateTime::ATOM);
     }
 
@@ -77,7 +77,7 @@ class Jatim extends BaseController
         return $base64Hash;
     }
 
-     function signature_access_token(){
+    function signature_access_token(){
 
         $stringtosign = $this->clientID."|".$this->timestamp;
         $signature_access_token = $this->encryptWithHmacSHA512($stringtosign, $this->clientSecret);
@@ -105,7 +105,7 @@ class Jatim extends BaseController
 
     }
 
-      function callApi($url, $headers = [], $method = 'GET', $data = null) {
+    function callApi($url, $headers = [], $method = 'GET', $data = null) {
     // Add X-TIMESTAMP with ISO 8601 date
     //$timestamp = (new DateTime())->format(DateTime::ATOM); // ISO 8601 format
     //$headers[] = "X-TIMESTAMP: $timestamp";

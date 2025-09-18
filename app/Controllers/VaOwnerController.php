@@ -38,7 +38,17 @@ class VaOwnerController extends BaseController
     public function store()
     {
         $model = new VaOwnerModel();
-        
+        $tanggal = $this->request->getPost('tanggal'); // example: 2025-12-31
+
+        // handle tanggal
+        if (!empty($postData['tanggal'])) {
+            $dt = new \DateTime($postData['tanggal'], new \DateTimeZone('Asia/Jakarta'));
+            $postData['tanggal'] = $dt->format('Y-m-d\T00:00:00P'); // 2025-12-31T00:00:00+07:00
+        } else {
+            // if empty, default 1 year from today
+            $dt = new \DateTime('+1 year', new \DateTimeZone('Asia/Jakarta'));
+            $postData['tanggal'] = $dt->format('Y-m-d\T00:00:00P');
+        }
         $data = [
             'va_owner_id'        => $this->request->getPost('va_owner_id'),
             'va_owner_anggotaid' => $this->request->getPost('va_owner_anggotaid'),
@@ -47,7 +57,8 @@ class VaOwnerController extends BaseController
             'va_owner_berita_1'  => $this->request->getPost('va_owner_berita_1'),
             'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
             'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
-            'va_owner_hp'        => $this->request->getPost('va_owner_hp')
+            'va_owner_hp'        => $this->request->getPost('va_owner_hp'),
+            'va_owner_expired'   => $formattedDate
         ];
 
         $model->save($data);
@@ -56,23 +67,70 @@ class VaOwnerController extends BaseController
 
     public function edit($id)
     {
-        $model = new VaOwnerModel();
-        $anggotaModel = new DishubAnggotaModel();
+      $model = new VaOwnerModel();
+$anggotaModel = new DishubAnggotaModel();
 
-        $data['va_owner'] = $model->find($id);
-        $data['anggota'] = $anggotaModel
-        ->select('anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat, va_owner_hp')
-        ->where('anggota_status', 3)
-        ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
-        ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
-        ->join('va_owner','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
-        ->findAll();
-        return view('va_owner/form', $data);
+$data['va_owner'] = $model->find($id);
+
+// Convert expired date for single record (edit)
+if (!empty($data['va_owner']['va_owner_expired'])) {
+    try {
+        $dt = new \DateTime($data['va_owner']['va_owner_expired']);
+        $data['va_owner']['va_owner_expired'] = $dt->format('Y-m-d');
+    } catch (\Exception $e) {
+        $data['va_owner']['va_owner_expired'] = date('Y-m-d', strtotime('+1 year'));
+    }
+} else {
+    $data['va_owner']['va_owner_expired'] = date('Y-m-d', strtotime('+1 year'));
+}
+
+// Get anggota list
+$data['anggota'] = $anggotaModel
+    ->select('anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat, va_owner_hp, va_owner_expired')
+    ->where('anggota_status', 3)
+    ->join('dishub_titpargrup', 'dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
+    ->join('dishub_titpar', 'dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
+    ->join('va_owner', 'va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
+    ->findAll();
+
+// Convert expired date for anggota list
+foreach ($data['anggota'] as &$row) {
+    if (!empty($row['va_owner_expired'])) {
+        try {
+            $dt = new \DateTime($row['va_owner_expired']);
+            $row['va_owner_expired'] = $dt->format('Y-m-d');
+        } catch (\Exception $e) {
+            $row['va_owner_expired'] = date('Y-m-d', strtotime('+1 year'));
+        }
+    } else {
+        $row['va_owner_expired'] = date('Y-m-d', strtotime('+1 year'));
+    }
+}
+unset($row);
+
+return view('va_owner/form', $data);
+
     }
 
     public function update($id)
     {
-        $this->vaModel->update($id, $this->request->getPost());
+        $postData = $this->request->getPost();
+
+        // handle tanggal
+        if (!empty($postData['va_owner_expired'])) {
+            $dt = new \DateTime($postData['va_owner_expired'], new \DateTimeZone('Asia/Jakarta'));
+            $postData['va_owner_expired'] = $dt->format('Y-m-d\T00:00:00P'); // 2025-12-31T00:00:00+07:00
+        } else {
+            // if empty, default 1 year from today
+            $dt = new \DateTime('+1 year', new \DateTimeZone('Asia/Jakarta'));
+            $postData['va_owner_expired'] = $dt->format('Y-m-d\T00:00:00P');
+        }
+
+        //dd($postData['tanggal']);
+
+        // // update with modified data
+        $this->vaModel->update($id, $postData);
+
         return redirect()->to('/va-owner');
     }
 

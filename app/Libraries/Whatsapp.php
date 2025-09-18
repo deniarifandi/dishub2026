@@ -10,6 +10,7 @@ class Whatsapp
         //$accessToken = 'EAAcbbjv93u0BPB6mVQi5DgDnvwiiZAZCSxsJUCYWV5q2nHoHSeRBlUIPHKkScdzN7vzATkTD1BDjVeJyNsyUZAT8VCb3CE33jI5vVQwrkJ4AP9aRHItxD9YywZAbXZB2q201crYyR75wQkhAFUekX9Tp4HVPhhu2IIaDPZCZCxAWwbUMWqvKn7KcG4YFgJZC3pQ7GGVVCyIbI59IJZB8HSzTknzaCsKgiHhY6JDqxAmctkA2Y6Dv6soclLIt1fxGFjAZDZD';
         $accessToken = 'EAAcbbjv93u0BPAsJ40nIQNgj92aP0yYkDl8CTym3QnQDmUDxTz5WqfvnU5Uo9eZBXvCpcZAadMqwWuT9qiUYZBDZBvWz06LAPokDLtfivZCGxZBY6mi5KClyBQCHHtRyQQKMK3ewkBdX2i61gngioW9ctSsmCG5X7gZAvVamrGpG5RZBe4musMXOQ7MmCswHikIasxTZBxyyF5N7ZCiJTbkZBXXlAZBdcD1YBW5ZBWdWFejdzdJ64JvzQIbLzmq64rKqhtwZDZD';
         $accessToken = 'EAAcbbjv93u0BPPdS3swcVVVzBJwkrn2oLGZABP1JMZBnd7XQqyZCwE6Fa3kK1L6QFfU7WvhHXTDT32IgLY0HvFCxn0ZAZBtn1iexZAiiKkKa9y0Ve5vhJNXvpZCBNqwmHvkb9mQh7mmisCp7cnrL9KoukWGt2CrrDIajwfPkA6f8ZB8HIWm4MJ0IwEW9ZBmmGXTIjOQZDZD';//production
+        //$accessToken = "blablabasteuhsoaethusau";
         $phoneNumberId = '631443813396840'; //testing
         $phoneNumberId = '718496908011318';//production
         ; // international format
@@ -64,28 +65,30 @@ class Whatsapp
         if (curl_errno($ch)) {
             echo 'Curl error: ' . curl_error($ch);
         } else {
-            $data = json_decode($response, true);
-           // print_r($data);
+          $data = json_decode($response, true);
 
-            if (isset($data['error']['message'])) {
-                // If there's an error, set flash message with detailed error
-               // echo "error";
-                $status = $data['error']['message'];
-                
-            } else {
-                // Success message
-                $status = $data['messages'][0]['message_status'];
-               
-            }
+        if (isset($data['error']['message'])) {
+            // If there's an error, set flash message with detailed error
+            $status = [
+                'status'  => 'error',
+                'message' => $data['error']['message'] ?? 'Something went wrong!'
+            ];
+        } else {
+            // Success message
+            $status = [
+                'status'  => 'accepted',
+                'message' => $data['messages'][0]['message_status'] ?? 'Message sent'
+            ];
+        }
 
-            $db = \Config\Database::connect();
+        $db = \Config\Database::connect();
+        $builder = $db->table('transaksi');
 
-            $builder = $db->table('transaksi');
+        // save only the status string into DB
+        $builder->where('transaksi_id', $idtransaksi)
+                ->update(['wa_konfirmasi' => $status['status']]);
 
-            $success = $builder->where('transaksi_id', $idtransaksi)
-                   ->update(['wa_konfirmasi' => $status]);
-
-            return $status;
+        return $status;
             
             
         }

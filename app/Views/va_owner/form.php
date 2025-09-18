@@ -17,14 +17,6 @@
     <?= csrf_field() ?>
     
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">VA (Indeks)</label>
-        <div class="col-sm-9">
-            <input type="text" name="va_owner_va" class="form-control" 
-                   value="<?= isset($va_owner) ? esc($va_owner['va_owner_va']) : '' ?>">
-        </div>
-    </div>
-
-    <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Anggota Jukir</label>
         <div class="col-sm-9">
          <select name="va_owner_anggotaid" class="form-select select2" data-placeholder="-- Pilih Anggota --">
@@ -39,10 +31,29 @@
     </div>
 
     <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">VA (Indeks)</label>
+        <div class="col-sm-9">
+            <input type="text" name="va_owner_va" class="form-control" 
+                   value="<?= isset($va_owner) ? esc($va_owner['va_owner_va']) : '' ?>">
+        </div>
+    </div>
+
+    <div class="row mb-3">
         <label class="col-sm-3 col-form-label">HP</label>
         <div class="col-sm-9">
-            <input type="text" name="va_owner_hp" class="form-control" 
-                   value="<?= isset($va_owner) ? esc($va_owner['va_owner_hp']) : '' ?>">
+            <input type="text" name="va_owner_hp" class="form-control"
+               pattern="^(0|62)[0-9]+$"
+               inputmode="numeric"
+               title="Nomor HP harus dimulai dengan 0 atau 62 dan hanya angka"
+               value="<?= isset($va_owner) ? esc($va_owner['va_owner_hp']) : '' ?>">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Tanggal</label>
+        <div class="col-sm-9">
+            <input type="date" name="va_owner_expired" class="form-control" 
+                   value="<?= esc($va_owner['va_owner_expired'] ?? '') ?>">
         </div>
     </div>
 

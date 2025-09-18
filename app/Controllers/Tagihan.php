@@ -67,7 +67,7 @@ class Potensi extends BaseController
             'tahunan'   => $this->request->getPost('tahunan')
         ];
 
-        print_r($data);
+        // print_r($data);
 
         $existing = $model->where('potensi_va', $va)->first();
 

@@ -1,6 +1,13 @@
 <?php echo view('header'); ?>
 
 <style type="text/css">
+
+  .wrap-text {
+    white-space: normal !important;
+    word-break: break-word;   /* will wrap long words */
+    max-width: 200px;         /* adjust column width */
+  }
+
   table.dataTable {
     width: 100% !important;
   }
@@ -32,32 +39,22 @@
 
 <div class="card">
     <div class="card-header">
-        Daftar Tagihan
+        Daftar Potensi
     </div>
     <div class="card-body">
       <div style="overflow: auto;">
   <!-- <table id="myTable" class="display nowrap" style="width:100%"> -->
         <table id="potensiTable" class="display nowrap table-bordered" style="font-size: 12px; width: 100%;">
           <thead>
-            <tr>
-              <!-- <th>ID</th> -->
-              <th class="highlight-col">VA</th>
-              <th class="highlight-col">Nama</th>
-              <th>id jukir</th>
-              <th>Tempat Parkir</th>
-              <th>Location</th>
-              <th class="green-col">Senin</th>
-              <th class="green-col">selasa</th>
-              <th class="green-col">rabu</th>
-              <th class="green-col" >kamis</th>
-              <th class="green-col">jumat</th>
-              <th class="green-col">sabtu</th>
-              <th class="green-col">minggu</th>
-              <th class="green-col">mingguan</th>
-              <th class="green-col">bulanan</th>
-              <th class="green-col">tahunan</th>
-              <th>Action</th>
-            </tr>
+             <tr>
+                  <th class="highlight-col">VA</th>
+                  <th class="highlight-col">Nama(ID Jukir)</th>
+                  <th>Tempat Parkir (Alamat)</th>
+                  <th class="green-col">Tagihan Bulanan</th>
+                  <th>Realisasi Setoran</th>
+                  <th>Prosentase</th>
+                  <th>Action</th>
+                </tr>
           </thead>
         </table>
       </div>
@@ -66,18 +63,9 @@
 
  <script>
   $(document).ready(function() {
-
-    const url = window.location.pathname;
-    const parts = url.split('/');
-
-    // Assuming the structure is: /dishub2026/public/tagihan/senin
-    const hari = parts[parts.length - 1];
-
-    console.log(hari); // Output: senin
-
     $('#potensiTable').DataTable({
       processing: true,
-      serverSide: true,
+      serverSide: false,
       scrollX: true,
       scrollCollapse: true,
       fixedColumns: {
@@ -85,35 +73,51 @@
           rightColumns : 1
       },
       ajax: {
-        url: "<?= site_url('potensi/datatagihan/') ?>"+hari,
+        url: "<?= site_url('potensi/datatagihan') ?>",
         type: "POST"
       },
       columns: [
-        { data: 'va_owner_va' },
-        { data: 'anggota_nama' },
-        { data: 'anggota_id' },
-        { data: 'titpar_namatempat' },
-        { data: 'titpar_lokasi' },
-        { data: 'senin' },
-        { data: 'selasa' },
-        { data: 'rabu' },
-        { data: 'kamis' },
-        { data: 'jumat' },
-        { data: 'sabtu' },
-        { data: 'minggu' },
-        { data: 'mingguan' },
-        { data: 'bulanan' },
-        { data: 'tahunan' },
-        {
-          data: null,
-          orderable: true,
-          render: function(data, type, row) {
-          
-                return `<a class="btn btn-warning btn-sm" href="<?= base_url('potensi/edit/') ?>${row.va_owner_va}">Kirim Tagihan</a>`;
-          
-          }
+      { data: 'va_owner_va', width: '80px' },
+      {
+        data: null,
+        className: 'wrap-text',
+        width: '150px',
+        render: (data, type, row) => `${row.anggota_nama} (${row.anggota_id})`
+      },
+      {
+        data: null,
+        className: 'wrap-text',
+        width: '200px',
+        render: (data, type, row) => `${row.titpar_namatempat} (${row.titpar_lokasi})`
+      },
+      { data: 'tagihanBulanan', width: '50px', render: $.fn.dataTable.render.number(',', '.', 0) },
+      { data: 'total_setoran', width: '50px', render: $.fn.dataTable.render.number(',', '.', 0) },
+      {
+        data: null,
+        width: '180px',
+        render: (data, type, row) => {
+          const tagihan = parseFloat(row.tagihanBulanan) || 0;
+          const setoran = parseFloat(row.total_setoran) || 0;
+          const percent = tagihan > 0 ? Math.min((setoran / tagihan) * 100, 100) : 0;
+          return `
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar"
+                   style="width: ${percent}%;" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100">
+                ${percent.toFixed(0)}%
+              </div>
+            </div>
+            <small>${setoran.toLocaleString()} / ${tagihan.toLocaleString()}</small>
+          `;
         }
-      ]
+      },
+      {
+        data: null,
+        width: '100px',
+        orderable: true,
+        render: (data, type, row) =>
+          `<a class="btn btn-warning btn-sm" href="<?= base_url('potensi/edit/') ?>${row.va_owner_va}">Kirim Tagihan</a>`
+      }
+    ],
     });
   });
 </script>

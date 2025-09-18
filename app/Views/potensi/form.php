@@ -43,7 +43,7 @@
     <label class="col-sm-3 col-form-label">Senin</label>
     <div class="col-sm-9">
         <input type="text" name="senin" class="form-control autonumeric" 
-               value="<?= isset($data) ? $data['senin'] : '' ?>">
+              value="<?= isset($data['senin']) ? $data['senin'] : 0 ?>" required>
     </div>
 </div>
 
@@ -51,7 +51,7 @@
     <label class="col-sm-3 col-form-label">Selasa</label>
     <div class="col-sm-9">
         <input type="text" name="selasa" class="form-control autonumeric" 
-               value="<?= isset($data) ? $data['selasa'] : '' ?>">
+               value="<?= isset($data['selasa']) ? $data['selasa'] : 0 ?>" required>
     </div>
 </div>
 
@@ -59,7 +59,7 @@
     <label class="col-sm-3 col-form-label">Rabu</label>
     <div class="col-sm-9">
         <input type="text" name="rabu" class="form-control autonumeric" 
-               value="<?= isset($data) ? $data['rabu'] : '' ?>">
+               value="<?= isset($data['rabu']) ? $data['rabu'] : 0 ?>" required>
     </div>
 </div>
 
@@ -67,7 +67,7 @@
     <label class="col-sm-3 col-form-label">Kamis</label>
     <div class="col-sm-9">
         <input type="text" name="kamis" class="form-control autonumeric" 
-               value="<?= isset($data) ? $data['kamis'] : '' ?>">
+              value="<?= isset($data['kamis']) ? $data['kamis'] : 0 ?>" required>
     </div>
 </div>
 
@@ -75,7 +75,7 @@
     <label class="col-sm-3 col-form-label">Jumat</label>
     <div class="col-sm-9">
         <input type="text" name="jumat" class="form-control autonumeric" 
-               value="<?= isset($data) ? $data['jumat'] : '' ?>">
+              value="<?= isset($data['jumat']) ? $data['jumat'] : 0 ?>" required>
     </div>
 </div>
 
@@ -83,7 +83,7 @@
     <label class="col-sm-3 col-form-label">Sabtu</label>
     <div class="col-sm-9">
         <input type="text" name="sabtu" class="form-control autonumeric" 
-               value="<?= isset($data) ? $data['sabtu'] : '' ?>">
+               value="<?= isset($data['sabtu']) ? $data['sabtu'] : 0 ?>" required>
     </div>
 </div>
 
@@ -91,7 +91,7 @@
     <label class="col-sm-3 col-form-label">Minggu</label>
     <div class="col-sm-9">
         <input type="text" name="minggu" class="form-control autonumeric" 
-               value="<?= isset($data) ? $data['minggu'] : '' ?>">
+               value="<?= isset($data['minggu']) ? $data['minggu'] : 0 ?>" required>
     </div>
 </div>
 
@@ -99,7 +99,7 @@
     <label class="col-sm-3 col-form-label">Mingguan</label>
     <div class="col-sm-9">
         <input type="text" name="mingguan" class="form-control autonumeric" 
-               value="<?= isset($data) ? $data['mingguan'] : '' ?>">
+               value="<?= isset($data['mingguan']) ? $data['mingguan'] : 0 ?>" required>
     </div>
 </div>
 
@@ -107,18 +107,9 @@
     <label class="col-sm-3 col-form-label">Bulanan</label>
     <div class="col-sm-9">
         <input type="text" name="bulanan" class="form-control autonumeric" 
-               value="<?= isset($data) ? $data['bulanan'] : '' ?>">
+               value="<?= isset($data['bulanan']) ? $data['bulanan'] : 0 ?>" required>
     </div>
 </div>
-
-<div class="row mb-3">
-    <label class="col-sm-3 col-form-label">Tahunan</label>
-    <div class="col-sm-9">
-        <input type="text" name="tahunan" class="form-control autonumeric" 
-               value="<?= isset($data) ? $data['tahunan'] : '' ?>">
-    </div>
-</div>
-
 
     <!-- Add more fields here -->
 
@@ -153,4 +144,48 @@
     });
   });
 </script>
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+    const bulanan = document.querySelector("input[name='bulanan']");
+    const otherFields = document.querySelectorAll("input[name='senin'], input[name='selasa'], input[name='rabu'], input[name='kamis'], input[name='jumat'], input[name='sabtu'], input[name='minggu'], input[name='mingguan']");
+
+    function toggleFields() {
+        if (bulanan.value && bulanan.value != 0) {
+            // Disable daily & weekly if bulanan is filled
+            otherFields.forEach(f => {
+                f.disabled = true;
+                f.value = 0; // reset to 0 if you want
+            });
+        } else {
+            // Enable daily & weekly if bulanan is empty
+            otherFields.forEach(f => f.disabled = false);
+        }
+    }
+
+    function toggleBulanan() {
+        let anyFilled = false;
+        otherFields.forEach(f => {
+            if (f.value && f.value != 0) {
+                anyFilled = true;
+            }
+        });
+        if (anyFilled) {
+            bulanan.disabled = true;
+            bulanan.value = 0; // reset to 0 if you want
+        } else {
+            bulanan.disabled = false;
+        }
+    }
+
+    // Run on page load
+    toggleFields();
+    toggleBulanan();
+
+    // Event listeners
+    bulanan.addEventListener("input", toggleFields);
+    otherFields.forEach(f => f.addEventListener("input", toggleBulanan));
+});
+</script>
+
 <?php echo view('footer'); ?>

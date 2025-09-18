@@ -8,6 +8,9 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('/commandcenter','Home::commandcenter');
 
+//HOME DATA
+$routes->get('/pendapatanhariini','Home::getPendapatanHariIni');
+
 //VA OWNER START
 $routes->get('va-owner', 'VaOwnerController::index');
 $routes->get('va-owner/create', 'VaOwnerController::create');
@@ -27,6 +30,7 @@ $routes->post('transaksi/update/(:num)', 'Transaksi::update/$1');
 $routes->get('transaksi/delete/(:num)', 'Transaksi::delete/$1');
 
 $routes->post('transaksi/data', 'Transaksi::data');
+$routes->get('transaksi/gettransaksibulanan/(:num)/(:num)','Transaksi::getTransaksiBulanan/$1/$2');
 
 $routes->get('transaksi/send/(:any)', 'Transaksi::send_konfirmasi/$1');
 $routes->get('transaksi/invoice/(:segment)', 'Transaksi::invoice/$1');
@@ -48,11 +52,13 @@ $routes->get('potensi/send/(:any)', 'Potensi::send_konfirmasi/$1');
 $routes->get('potensi/invoice/(:segment)', 'Potensi::invoice/$1');
 
 //Tagihan Start
-$routes->get('tagihan/(:any)', 'Potensi::tagihan/$1');
-$routes->post('potensi/datatagihan/(:any)', 'Potensi::datatagihan/$1');
-
+$routes->get('potensi/realisasi', 'Potensi::realisasi');
+$routes->post('potensi/datatagihan', 'Potensi::datatagihan');
 
 //API Jatim
 $routes->get('api/jatim/getaccesstoken','Jatim::get_access_token');
 $routes->get('api/jatim/signatureaccesstoken','Jatim::signature_access_token');
 $routes->get('api/jatim/getsignature','Jatim::getSignature');
+
+//API Sisparma
+$routes->post('api/v1.0/transfer-va/va-notify','Sisparma::va_notify');
