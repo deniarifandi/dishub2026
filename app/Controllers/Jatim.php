@@ -98,29 +98,31 @@ class Jatim extends BaseController
         $method = "POST";  // Can be 'GET', 'POST', '', etc.
 
         $response = $this->callApi($baseUrl, $headers, $method, $requestBody);
-        // echo $response;
-        $result = json_decode($response,true);
-        // print_r($result);
-        if ($result['responseMessage'] == "Success") {
-            // echo "berhasil";
-            $this->saveToVaOwner($result['virtualAccountData']['virtualAccountNo'],$vaName,$_POST['idjukir'], $_POST['idtitpar'] ,$vaPhone);
-        }else{
-            // print_r($result);
-            $parameters = [
-                'custNo' => $customerNo,
-                'vaNo' => $vaNo,
-                'vaName' => $vaName,
-                'idjukir' => $_POST['idjukir'],
-                'vaEmail' => $_POST['vaEmail'],
-                'vaPhone' => $_POST['vaPhone'],
-                'response' => $result['responseMessage'],
-                'expired' => $expired
-            ];
-            $previous_url = $_SERVER['HTTP_REFERER'];
-            $query_string = http_build_query($parameters);
-            header('Location: ' . base_url() . 'api/view_add_va_bank?' . $query_string);
-            exit();
-        }
+         echo $response;
+
+
+        // $result = json_decode($response,true);
+        // // print_r($result);
+        // if ($result['responseMessage'] == "Success") {
+        //     // echo "berhasil";
+        //     $this->saveToVaOwner($result['virtualAccountData']['virtualAccountNo'],$vaName,$_POST['idjukir'], $_POST['idtitpar'] ,$vaPhone);
+        // }else{
+        //     // print_r($result);
+        //     $parameters = [
+        //         'custNo' => $customerNo,
+        //         'vaNo' => $vaNo,
+        //         'vaName' => $vaName,
+        //         'idjukir' => $_POST['idjukir'],
+        //         'vaEmail' => $_POST['vaEmail'],
+        //         'vaPhone' => $_POST['vaPhone'],
+        //         'response' => $result['responseMessage'],
+        //         'expired' => $expired
+        //     ];
+        //     $previous_url = $_SERVER['HTTP_REFERER'];
+        //     $query_string = http_build_query($parameters);
+        //     header('Location: ' . base_url() . 'api/view_add_va_bank?' . $query_string);
+        //     exit();
+        // }
     }
 
     function inquiryva(){
