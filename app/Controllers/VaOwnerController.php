@@ -25,7 +25,7 @@ class VaOwnerController extends BaseController
         return view('va_owner/index', $data);
     }
 
-    public function testLibrary(){
+    public function getaccesstoken(){
         $jatim->get_access_token();
     }
 

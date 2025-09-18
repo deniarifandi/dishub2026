@@ -21,6 +21,8 @@ $routes->get('va-owner/delete/(:num)', 'VaOwnerController::delete/$1');
 
 $routes->post('va-owner/data', 'VaOwnerController::data');
 
+$routes->get('va-owner/testLibrary','VaOwnerController::getaccesstoken');
+
 //transaksi START
 $routes->get('transaksi', 'Transaksi::index');
 $routes->get('transaksi/create', 'Transaksi::create');
@@ -36,6 +38,8 @@ $routes->get('transaksi/send/(:any)', 'Transaksi::send_konfirmasi/$1');
 $routes->get('transaksi/invoice/(:segment)', 'Transaksi::invoice/$1');
 
 $routes->get('whatsapp','whatsapp::send');
+
+
 
 //POTENSI START
 $routes->get('potensi', 'Potensi::index');
