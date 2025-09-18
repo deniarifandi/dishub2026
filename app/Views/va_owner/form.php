@@ -53,7 +53,7 @@
         <label class="col-sm-3 col-form-label">Tanggal</label>
         <div class="col-sm-9">
             <input type="date" name="va_owner_expired" class="form-control" 
-                   value="<?= esc($va_owner['va_owner_expired'] ?? '') ?>">
+                   value="<?= esc($va_owner['va_owner_expired'] ?? date('Y-m-d', strtotime('+1 year'))) ?>">
         </div>
     </div>
 

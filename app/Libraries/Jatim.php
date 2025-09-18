@@ -44,7 +44,7 @@ class Jatim
     ///////////////////////////////////////
 
    // public function createVA($customerNo, $vaNo, $vaName, $expired, $vaEmail, $vaPhone){
-    public function createVA($customerNo, $vaNo, $vaName){
+    public function createVA($customerNo, $vaNo, $vaName, $expired, $vaEmail){
 
         $method = "POST";
         $url = "/api/v1.0/transfer-va/create-va";
@@ -54,11 +54,11 @@ class Jatim
         //$customerNo = "1234567890123456999";
         //$vaNo = "1111112345678906789";
         //$vaName = "test nama";
-        $expired = "2026-12-31T23:59:59+07:00";
-        $vaEmail = "testemail@mail.test";
-        $vaPhone = "081805173445";
+        // $expired = "2026-12-31T23:59:59+07:00";
+        // $vaEmail = "testemail@mail.test";
+        // $vaPhone = "081805173445";
 
-        $value = "100000000.00";
+        $value = "1000000000.00";
         $accessToken = $this->get_access_token();
 
         $requestBody = [
@@ -90,15 +90,15 @@ class Jatim
         $method = "POST";  // Can be 'GET', 'POST', '', etc.
 
         $response = $this->callApi($baseUrl, $headers, $method, $requestBody);
-         echo $response;
+         //echo $response;
 
 
-        // $result = json_decode($response,true);
+        $result = json_decode($response,true);
         // // print_r($result);
-        // if ($result['responseMessage'] == "Success") {
-        //     // echo "berhasil";
+        if ($result['responseMessage'] == "Success") {
+            echo "berhasil";
         //     $this->saveToVaOwner($result['virtualAccountData']['virtualAccountNo'],$vaName,$_POST['idjukir'], $_POST['idtitpar'] ,$vaPhone);
-        // }else{
+        }else{
         //     // print_r($result);
         //     $parameters = [
         //         'custNo' => $customerNo,
@@ -110,11 +110,11 @@ class Jatim
         //         'response' => $result['responseMessage'],
         //         'expired' => $expired
         //     ];
-        //     $previous_url = $_SERVER['HTTP_REFERER'];
-        //     $query_string = http_build_query($parameters);
-        //     header('Location: ' . base_url() . 'api/view_add_va_bank?' . $query_string);
-        //     exit();
-        // }
+            $previous_url = $_SERVER['HTTP_REFERER'];
+            $query_string = http_build_query($parameters);
+            header('Location: ' . base_url() . 'api/view_add_va_bank?' . $query_string);
+            exit();
+        }
     }
 
     function inquiryva(){
