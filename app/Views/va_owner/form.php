@@ -23,7 +23,10 @@
    <div class="row mb-3">
     <label class="col-sm-3 col-form-label">Anggota Jukir</label>
     <div class="col-sm-9">
-        <select name="va_owner_anggota" class="form-select select2" data-placeholder="-- Pilih Anggota --">
+        <select name="va_owner_anggota" class="form-select select2" 
+        data-placeholder="-- Pilih Anggota --"
+        <?= isset($va_owner) ? 'onfocus="this.defaultIndex=this.selectedIndex;" onchange="this.selectedIndex=this.defaultIndex;"' : '' ?>>
+
             <option value="">-- Pilih Anggota --</option>
             <?php foreach ($anggota as $a): ?>
                 <?php 
