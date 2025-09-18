@@ -65,8 +65,8 @@ class VaOwnerController extends BaseController
             'va_owner_berita_1'  => $this->request->getPost('va_owner_berita_1'),
             'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
             'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
-            'va_owner_hp'        => $this->request->getPost('va_owner_hp'),
-            'va_owner_expired'   => $postData['tanggal']
+            'va_owner_hp'        => $this->request->getPost('va_owner_hp')
+            //'va_owner_expired'   => $postData['tanggal']
         ];
 
         //HERE
@@ -74,7 +74,7 @@ class VaOwnerController extends BaseController
             $data['va_owner_anggotaid'],
             $data['va_owner_va'],
             $data['va_owner_nama'],
-            $data['va_owner_expired'],
+            $postData['tanggal'],
             $this->request->getPost('va_owner_email'),
             $data['va_owner_hp']
         );
