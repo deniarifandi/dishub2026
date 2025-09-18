@@ -107,10 +107,10 @@ class Jatim
         // $vaEmail = $_POST['vaEmail'];
         // $vaPhone = $_POST['hp'];
 
-        $customerNo = "1234567890123456999";
+        // $customerNo = "1234567890123456999";
         //$vaNo = "1111112345678906789";
         $vaName = "test nama";
-        $expired = "2026-12-31T23:59:59+07:00";
+        // $expired = "2026-12-31T23:59:59+07:00";
         $vaEmail = "testemail@mail.test";
         $vaPhone = "081805173445";
 
@@ -148,6 +148,51 @@ class Jatim
         $response = $this->callApi($baseUrl, $headers, $method, $requestBody);
         return $response;
             
+    }
+
+    function deleteVA(){
+
+
+       $baseUrl = "https://sriwijaya.bankjatim.co.id/snap/rest/api/v1/transfer-va/delete-va";
+       $method = "DELETE";
+       $url = "/api/v1/transfer-va/delete-va";
+       $customerNo = $_POST["custNo"];
+       $vaNo = $_POST["vaNo"];
+
+
+       $accessToken = $this->get_access_token();
+
+       $requestBody = [
+        "partnerServiceId" => "   11111",
+        "customerNo" => $customerNo,
+        "virtualAccountNo" => $vaNo,
+        "trxId" => date('YmdHis')
+    ];
+
+            // echo json_encode($requestBody);
+    $headers = [
+        "Content-Type: application/json",
+        "Authorization: Bearer ".$accessToken,
+        "X-CLIENT-KEY: 6992973c-c890-468e-9f14-c436c71bf5e2",
+        "X-SIGNATURE: ".$this->signature_service($method, $url, $requestBody, $accessToken),
+        "X-TIMESTAMP: $this->timestamp",
+        "X-PARTNER-ID: 8d15dece-f183-483b-92e5-f2ef8a2dffaf",
+        "X-EXTERNAL-ID: ".date('YmdHis'),
+        "CHANNEL-ID: 00002"
+    ];
+
+            // $method = "DELETE";  // Can be 'GET', 'POST', 'PUT', etc.
+
+    $response = $this->callApi($baseUrl, $headers, $method, $requestBody);
+            // echo $response;
+
+    $result = json_decode($response,true);
+    if ($result['responseMessage'] == "Success") {
+                // echo "berhasil";
+     $this->deleteToVaOwner($result['virtualAccountData']['virtualAccountNo']);
+    }else{
+        echo $response;
+    }
     }
 
     function inquiryva(){
