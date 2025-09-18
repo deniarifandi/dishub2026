@@ -146,6 +146,7 @@ return view('va_owner/form', $data);
     public function update($id)
     {
         $postData = $this->request->getPost();
+        list($anggotaId, $anggotaNama) = explode(';', $this->request->getPost('va_owner_anggota'));
 
         // handle tanggal
         if (!empty($postData['va_owner_expired'])) {
