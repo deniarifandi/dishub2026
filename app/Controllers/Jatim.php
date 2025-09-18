@@ -63,7 +63,7 @@ class Jatim extends BaseController
         $customerNo = "1234567890123456999";
         $vaNo = "111111234567890123456999";
         $vaName = "test nama";
-        $expired = "2024-12-31T23:59:59+07:00";
+        $expired = "2026-12-31T23:59:59+07:00";
         $vaEmail = "testemail@mail.test";
         $vaPhone = "081805173445";
 
