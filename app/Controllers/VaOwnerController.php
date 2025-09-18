@@ -185,8 +185,8 @@ return view('va_owner/form', $data);
         $result = json_decode($jatimresult,true);
         
         if ($result['responseMessage'] == "Success") {
-            $model->save($data);
-            //$this->vaModel->update($id, $postData);
+         // force update using the primary key from route
+            $model->update($id, $data);
             session()->setFlashdata('message', $result['responseMessage']);
             
             return redirect()->to('/va-owner');
