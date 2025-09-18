@@ -44,7 +44,7 @@ class Jatim
     ///////////////////////////////////////
 
    // public function createVA($customerNo, $vaNo, $vaName, $expired, $vaEmail, $vaPhone){
-    public function createVA($customerNo, $vaNo, $vaName, $expired, $vaEmail){
+    public function createVA($customerNo, $vaNo, $vaName, $expired, $vaEmail,$vaPhone){
 
         $method = "POST";
         $url = "/api/v1.0/transfer-va/create-va";
@@ -56,7 +56,7 @@ class Jatim
         //$vaName = "test nama";
         //$expired = "2026-12-31T23:59:59+07:00";
         //$vaEmail = "testemail@mail.test";
-        $vaPhone = "081805173445";
+        //$vaPhone = "081805173445";
 
         $value = "100000000.00";
         $accessToken = $this->get_access_token();
@@ -91,30 +91,56 @@ class Jatim
 
         $response = $this->callApi($baseUrl, $headers, $method, $requestBody);
          return $response;
+    }
 
+    function updateVA($customerNo, $vaNo, $vaName, $expired, $vaEmail,$vaPhone){
 
-        // $result = json_decode($response,true);
-        // // print_r($result);
-        // if ($result['responseMessage'] == "Success") {
-        //     // echo "berhasil";
-        //     $this->saveToVaOwner($result['virtualAccountData']['virtualAccountNo'],$vaName,$_POST['idjukir'], $_POST['idtitpar'] ,$vaPhone);
-        // }else{
-        //     // print_r($result);
-        //     $parameters = [
-        //         'custNo' => $customerNo,
-        //         'vaNo' => $vaNo,
-        //         'vaName' => $vaName,
-        //         'idjukir' => $_POST['idjukir'],
-        //         'vaEmail' => $_POST['vaEmail'],
-        //         'vaPhone' => $_POST['vaPhone'],
-        //         'response' => $result['responseMessage'],
-        //         'expired' => $expired
-        //     ];
-        //     $previous_url = $_SERVER['HTTP_REFERER'];
-        //     $query_string = http_build_query($parameters);
-        //     header('Location: ' . base_url() . 'api/view_add_va_bank?' . $query_string);
-        //     exit();
-        // }
+        $url = "/api/v1.0/transfer-va/update-va";
+        $baseUrl = $this->serverUrl.$url;
+        $method = "PUT";
+       
+        // $customerNo = $_POST["custNo"];
+        // $vaNo = $_POST["vaNo"];
+        // $vaName = $_POST["vaName"];
+         $value = "100000000.00";
+        // $expired = $_POST['expired'];
+        // $vaEmail = $_POST['vaEmail'];
+        // $vaPhone = $_POST['hp'];
+
+        $accessToken = $this->get_access_token();
+
+        $requestBody = [
+            "partnerServiceId" => "   11111",
+            "customerNo" => $customerNo,
+            "virtualAccountNo" => $vaNo,
+            "virtualAccountName" => $vaName,
+            "virtualAccountEmail" => $vaEmail,
+            "virtualAccountPhone" => $vaPhone,
+            "trxId" => date('YmdHis'),
+            "totalAmount" => [
+                "value" => $value,
+                "currency" => "IDR"
+            ],
+
+            "virtualAccountTrxType" => "I",
+            "expiredDate" => $expired,
+        ];
+        $headers = [
+            "Content-Type: application/json",
+            "Authorization: Bearer ".$accessToken,
+            "X-CLIENT-KEY: 6992973c-c890-468e-9f14-c436c71bf5e2",
+            "X-SIGNATURE: ".$this->signature_service($method, $url, $requestBody, $accessToken),
+            "X-TIMESTAMP: $this->timestamp",
+            "X-PARTNER-ID: 8d15dece-f183-483b-92e5-f2ef8a2dffaf",
+            "X-EXTERNAL-ID: ".date('YmdHis'),
+            "CHANNEL-ID: 00002"
+        ];
+
+        $method = "PUT";  // Can be 'GET', 'POST', 'PUT', etc.
+
+        $response = $this->callApi($baseUrl, $headers, $method, $requestBody);
+        return $response;
+            
     }
 
     function inquiryva(){

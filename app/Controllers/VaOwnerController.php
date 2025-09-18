@@ -157,12 +157,46 @@ return view('va_owner/form', $data);
             $postData['va_owner_expired'] = $dt->format('Y-m-d\T00:00:00P');
         }
 
-        //dd($postData['tanggal']);
+       $data = [
+            'va_owner_id'        => $this->request->getPost('va_owner_id'),
+            'va_owner_anggotaid' => $anggotaId,
+            'va_owner_va'        => $this->request->getPost('va_owner_va'),
+            'va_owner_nama'      => $anggotaNama,
+            'va_owner_berita_1'  => $this->request->getPost('va_owner_berita_1'),
+            'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
+            'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
+            'va_owner_hp'        => $this->request->getPost('va_owner_hp')
+            //'va_owner_expired'   => $postData['tanggal']
+        ];
 
-        // // update with modified data
-        $this->vaModel->update($id, $postData);
+        //HERE
+        $jatimresult = $this->jatim->updateVA(
+            $anggotaId,
+            $data['va_owner_va'],
+            $anggotaNama,
+            $postData['tanggal'],
+            $this->request->getPost('va_owner_email'),
+            $data['va_owner_hp']
+        );
 
-        return redirect()->to('/va-owner');
+        $result = json_decode($jatimresult,true);
+        
+        if ($result['responseMessage'] == "Success") {
+            $model->save($data);
+            session()->setFlashdata('message', $result['responseMessage']);
+            
+            return redirect()->to('/va-owner');
+        } else {
+            session()->setFlashdata('message', $result['responseMessage']);
+            return redirect()->back()
+                             ->withInput();
+        }
+
+
+
+        //$this->vaModel->update($id, $postData);
+
+        //return redirect()->to('/va-owner');
     }
 
     public function delete($id)
