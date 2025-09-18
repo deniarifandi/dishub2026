@@ -1,6 +1,5 @@
 <?php
 
-// app/Libraries/WAService.php
 namespace App\Libraries;
 
 class Whatsapp

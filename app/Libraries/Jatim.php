@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Libraries;
 
-use App\Libraries\DataTable;
+class Whatsapp
 
-
-class Jatim extends BaseController
+class Jatim
 {
 
     private $db = null;

@@ -5,20 +5,28 @@ namespace App\Controllers;
 use App\Models\VaOwnerModel;
 use App\Models\DishubAnggotaModel;
 use App\Libraries\DataTable;
+use App\Libraries\Jatim;
+use App\Controllers\VaController;
 
 class VaOwnerController extends BaseController
 {
     protected $vaModel;
+    private $jatim;
 
     public function __construct()
     {
-        $this->vaModel = new VaOwnerModel();
+        $this->vaModel = new VaOwnerModel(); 
+        $jatim = new Jatim();
     }
 
     public function index()
     {
         $data['owners'] = $this->vaModel->findAll();
         return view('va_owner/index', $data);
+    }
+
+    public function testLibrary(){
+        $jatim->get_access_token();
     }
 
     public function create()
@@ -60,6 +68,8 @@ class VaOwnerController extends BaseController
             'va_owner_hp'        => $this->request->getPost('va_owner_hp'),
             'va_owner_expired'   => $formattedDate
         ];
+
+        //HERE
 
         $model->save($data);
         return redirect()->to('/va-owner');
