@@ -1,5 +1,10 @@
 <?php echo view('header'); ?>
 
+<?php if (session()->getFlashdata('message')): ?>
+    <div class="alert alert-info">
+        <?= session()->getFlashdata('message'); ?>
+    </div>
+<?php endif; ?>
 
 <div class="card">
     <div class="card-header">

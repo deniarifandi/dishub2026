@@ -88,10 +88,9 @@ class VaOwnerController extends BaseController
             
             return redirect()->to('/va-owner');
         } else {
-              session()->setFlashdata('message', $result['responseMessage']);
+            session()->setFlashdata('message', $result['responseMessage']);
             return redirect()->back()
-                             ->withInput()
-                             ->with('error', $result['responseMessage']);
+                             ->withInput();
         }
 
         //return redirect()->to('/va-owner');
