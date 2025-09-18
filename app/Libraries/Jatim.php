@@ -44,15 +44,15 @@ class Jatim
     ///////////////////////////////////////
 
    // public function createVA($customerNo, $vaNo, $vaName, $expired, $vaEmail, $vaPhone){
-    public function createVA(){
+    public function createVA($customerNo, $vaNo){
 
         $method = "POST";
         $url = "/api/v1.0/transfer-va/create-va";
 
         $baseUrl = $this->serverUrl.$url;
     
-        $customerNo = "1234567890123456999";
-        $vaNo = "1111112345678906789";
+        //$customerNo = "1234567890123456999";
+        //$vaNo = "1111112345678906789";
         $vaName = "test nama";
         $expired = "2026-12-31T23:59:59+07:00";
         $vaEmail = "testemail@mail.test";
