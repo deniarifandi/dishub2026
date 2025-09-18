@@ -16,7 +16,7 @@ class VaOwnerController extends BaseController
     public function __construct()
     {
         $this->vaModel = new VaOwnerModel(); 
-        $jatim = new Jatim();
+        $this->jatim = new Jatim();
     }
 
     public function index()
@@ -26,7 +26,7 @@ class VaOwnerController extends BaseController
     }
 
     public function getaccesstoken(){
-        $jatim->get_access_token();
+        $this->jatim->get_access_token();
     }
 
     public function create()
