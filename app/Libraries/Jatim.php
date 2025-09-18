@@ -44,7 +44,7 @@ class Jatim
     ///////////////////////////////////////
 
    // public function createVA($customerNo, $vaNo, $vaName, $expired, $vaEmail, $vaPhone){
-    public function createVA($customerNo, $vaNo){
+    public function createVA($customerNo, $vaNo, $vaName){
 
         $method = "POST";
         $url = "/api/v1.0/transfer-va/create-va";
@@ -53,7 +53,7 @@ class Jatim
     
         //$customerNo = "1234567890123456999";
         //$vaNo = "1111112345678906789";
-        $vaName = "test nama";
+        //$vaName = "test nama";
         $expired = "2026-12-31T23:59:59+07:00";
         $vaEmail = "testemail@mail.test";
         $vaPhone = "081805173445";
