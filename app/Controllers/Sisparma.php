@@ -9,10 +9,12 @@ class Sisparma extends BaseController
 {
 
     public function va_notify(){
-            $clientID = "d3f92b7e-8a4c-4e6a-9f21-3b2d1c5e8a7f";
-            $secretKey = "4a7c9e2f1b6d8f0a3c5e7b9d2f6a1c8b";
+            $clientID = "6992973c-c890-468e-9f14-c436c71bf5e2"; // 
+            $secretKey = "59242d81-0b43-4062-a393-1543cb97c934";
 
                 header("Content-Type: application/json");
+
+    // Get headers
                 $headers = getallheaders();
 
                 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
