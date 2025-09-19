@@ -55,7 +55,7 @@ class Jatim
         //trying
 
         // $this->serverUrl = "localhost/sisparmacustom/public";
-        
+        $this->value = "1000.00";
     }
     
     ///////////////////////////////////////
@@ -75,7 +75,7 @@ class Jatim
         //$vaEmail = "testemail@mail.test";
         //$vaPhone = "081805173445";
 
-        $value = "1000.00";
+       
         $accessToken = $this->get_access_token();
 
         $requestBody = [
@@ -87,7 +87,7 @@ class Jatim
             "virtualAccountPhone" => $vaPhone,
             "trxId" => date('YmdHis'),
             "totalAmount" => [
-                "value" => $value,
+                "value" => $this->value,
                 "currency" => "IDR"
             ],
             "virtualAccountTrxType" => "I",
@@ -119,7 +119,7 @@ class Jatim
         // $customerNo = $_POST["custNo"];
         // $vaNo = $_POST["vaNo"];
         // $vaName = $_POST["vaName"];
-         $value = "1000.00";
+    
         // $expired = $_POST['expired'];
         // $vaEmail = $_POST['vaEmail'];
         // $vaPhone = $_POST['hp'];
@@ -142,7 +142,7 @@ class Jatim
             "virtualAccountPhone" => $vaPhone,
             "trxId" => date('YmdHis'),
             "totalAmount" => [
-                "value" => $value,
+                "value" => $this->value,
                 "currency" => "IDR"
             ],
 
