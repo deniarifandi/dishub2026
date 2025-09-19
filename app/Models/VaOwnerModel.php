@@ -17,6 +17,7 @@ class VaOwnerModel extends Model
         'va_owner_berita_2',
         'va_owner_berita_3',
         'va_owner_hp',
-        'va_owner_expired'
+        'va_owner_expired',
+        'va_owner_email'
     ];
 }
