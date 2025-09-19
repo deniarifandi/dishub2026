@@ -133,7 +133,7 @@ class Home extends BaseController
     }
 
     public function getPotensiCek(){
-        
+        echo "test";
     }
 
    
