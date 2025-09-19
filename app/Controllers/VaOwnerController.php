@@ -147,20 +147,25 @@ return view('va_owner/form', $data);
     {
         $model = new VaOwnerModel();
         $postData = $this->request->getPost();
-        $tanggal = $this->request->getPost('va_owner_expired'); 
-        list($anggotaId, $anggotaNama) = explode(';', $this->request->getPost('va_owner_anggota'));
 
-        // handle tanggal
+        // Handle tanggal
         if (!empty($postData['va_owner_expired'])) {
             $dt = new \DateTime($postData['va_owner_expired'], new \DateTimeZone('Asia/Jakarta'));
-            $postData['va_owner_expired'] = $dt->format('Y-m-d\T00:00:00P'); // 2025-12-31T00:00:00+07:00
         } else {
-            // if empty, default 1 year from today
             $dt = new \DateTime('+1 year', new \DateTimeZone('Asia/Jakarta'));
-            $postData['va_owner_expired'] = $dt->format('Y-m-d\T00:00:00P');
+        }
+        $formattedTanggal = $dt->format('Y-m-d\T00:00:00P'); // 2025-12-31T00:00:00+07:00
+
+        // Handle anggota safely
+        $anggotaRaw = $this->request->getPost('va_owner_anggota');
+        if (!empty($anggotaRaw) && strpos($anggotaRaw, ';') !== false) {
+            list($anggotaId, $anggotaNama) = explode(';', $anggotaRaw);
+        } else {
+            $anggotaId = null;
+            $anggotaNama = null;
         }
 
-       $data = [
+        $data = [
             'va_owner_id'        => $this->request->getPost('va_owner_id'),
             'va_owner_anggotaid' => $anggotaId,
             'va_owner_va'        => $this->request->getPost('va_owner_va'),
@@ -169,32 +174,30 @@ return view('va_owner/form', $data);
             'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
             'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
             'va_owner_hp'        => $this->request->getPost('va_owner_hp'),
-            'va_owner_expired'   => $tanggal
+            'va_owner_expired'   => $formattedTanggal
         ];
 
-        //HERE
+        // Update via external API
         $jatimresult = $this->jatim->updateVA(
             $anggotaId,
             $data['va_owner_va'],
             $anggotaNama,
-            $tanggal,
+            $formattedTanggal,
             $this->request->getPost('va_owner_email'),
             $data['va_owner_hp']
         );
 
-        $result = json_decode($jatimresult,true);
-        
+        $result = json_decode($jatimresult, true);
+
         if ($result['responseMessage'] == "Success") {
-         // force update using the primary key from route
             $model->update($id, $data);
             session()->setFlashdata('message', $result['responseMessage']);
-            
             return redirect()->to('/va-owner');
         } else {
             session()->setFlashdata('message', $result['responseMessage']);
-            return redirect()->back()
-                             ->withInput();
+            return redirect()->back()->withInput();
         }
+
 
     }
 
