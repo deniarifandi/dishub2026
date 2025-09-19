@@ -151,19 +151,19 @@ class Transaksi extends BaseController
       print_r($builder);
 
         setlocale(LC_TIME, 'id_ID.utf8'); // Use Indonesian locale
-        $tanggal = strftime('%e %B %Y', strtotime($builder[0]->transaksi_tanggal));
+        //$tanggal = strftime('%e %B %Y', strtotime($builder[0]->transaksi_tanggal));
         
-    $data = [
-        'invoiceNumber' => $builder[0]->transaksi_id,
+        // $data = [
+        //     'invoiceNumber' => $builder[0]->transaksi_id,
 
-        'nama' => $builder[0]->anggota_nama,
-        'amount' => $builder[0]->transaksi_nominal,
-        'titpar' => $builder[0]->titpar_namatempat,
-        'alamat' => $builder[0]->titpar_lokasi,
-        'tanggal' => $tanggal,
-    ];
+        //     'nama' => $builder[0]->anggota_nama,
+        //     'amount' => $builder[0]->transaksi_nominal,
+        //     'titpar' => $builder[0]->titpar_namatempat,
+        //     'alamat' => $builder[0]->titpar_lokasi,
+        //     'tanggal' => $tanggal,
+        // ];
 
-    return view('transaksi/invoice', $data);
+        return view('transaksi/invoice', $data);
     }
 
     function formatPhoneNumber($recipient) {

@@ -20,7 +20,7 @@ class Jatim
     function __construct(){
         $this->db = db_connect();
         $this->db = db_connect();
-        $this->service_url = "https://sriwijaya.bankjatim.co.id/snap/rest";
+        $this->service_url = "https://majapahit.bankjatim.co.id/snap/rest";
         date_default_timezone_set("Asia/Bangkok");
         
         // //Dev
@@ -45,10 +45,10 @@ class Jatim
         $this->getTimestamp();
 
         //jatim
-        $this->serverUrl = "https://sriwijaya.bankjatim.co.id/snap/rest";
+        $this->serverUrl = "https://majapahit.bankjatim.co.id/snap/rest";
         //$this->tokenUrl = "https://sriwijaya.bankjatim.co.id/snap/rest/access_token/v1.0/b2b";
 
-        $this->tokenUrl = "https://sriwijaya.bankjatim.co.id/snap/rest/access_token/v1.0/b2b";
+        $this->tokenUrl = "https://majapahit.bankjatim.co.id/snap/rest/access_token/v1.0/b2b";
 
         //$this->serverUrl = "https://sisparma.com/public"; //simulator
         //$this->tokenUrl = "https://sisparma.com/public/snap/rest/access_token/v1/b2b"; //simulator
