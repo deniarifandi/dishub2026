@@ -14,7 +14,7 @@ $routes->get('/commandcenter','Home::commandcenter');
 $routes->get('/pendapatanhariini','Home::getPendapatanHariIni');
 $routes->get('/targetsetoranbulanan','Home::targetSetoranBulanan');
 
-$routes->get('/getPotensiCek','Home::getPotensiCek');
+$routes->get('/getpotensicek','Home::getPotensiCek');
 
 //Syn
 $routes->get('/syncdata','Home::syncdata');
