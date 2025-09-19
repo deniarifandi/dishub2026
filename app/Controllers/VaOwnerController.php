@@ -204,8 +204,30 @@ return view('va_owner/form', $data);
 
     public function delete($id)
     {
-        $this->vaModel->delete($id);
-        return redirect()->to('/va-owner');
+        $record = $this->vaModel->find($id);
+
+        if ($record) {
+
+            $jatimresult = $this->jatim->deleteVA(
+                $anggotaId,
+                $data['va_owner_va']
+            );
+
+            $result = json_decode($jatimresult, true);
+
+            if ($result['responseMessage'] == "Success") {
+                
+                $this->vaModel->delete($id);
+                session()->setFlashdata('message', $result['responseMessage']);
+                return redirect()->to('/va-owner');
+            } else {
+                session()->setFlashdata('message', $result['responseMessage']);
+                return redirect()->back()->withInput();
+            }
+        } else {
+            session()->setFlashdata('message', 'Data tidak ditemukan atau gagal dihapus.');
+        }
+          return redirect()->to('/va-owner');
     }
 
     //custom

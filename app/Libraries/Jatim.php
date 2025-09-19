@@ -151,20 +151,16 @@ class Jatim
             
     }
 
-    function deleteVA(){
+    function deleteVA($customerNo, $vaNo){
 
         $url = "/api/v1.0/transfer-va/delete-va";
         $baseUrl = $this->serverUrl.$url;
         $method = "DELETE";
 
-        $customerNo = $_POST["custNo"];
-        $vaNo = $_POST["vaNo"];
-
-
        $accessToken = $this->get_access_token();
 
        $requestBody = [
-        "partnerServiceId" => "   11111",
+        "partnerServiceId" => $this->partnerServiceId,
         "customerNo" => $customerNo,
         "virtualAccountNo" => $vaNo,
         "trxId" => date('YmdHis')
@@ -185,15 +181,8 @@ class Jatim
             // $method = "DELETE";  // Can be 'GET', 'POST', 'PUT', etc.
 
     $response = $this->callApi($baseUrl, $headers, $method, $requestBody);
-            // echo $response;
-
-    $result = json_decode($response,true);
-    if ($result['responseMessage'] == "Success") {
-                // echo "berhasil";
-     $this->deleteToVaOwner($result['virtualAccountData']['virtualAccountNo']);
-    }else{
-        echo $response;
-    }
+    return $response;            
+    
     }
 
     function inquiryva(){
