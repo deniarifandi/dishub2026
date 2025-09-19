@@ -119,7 +119,7 @@ class Jatim
         // $customerNo = $_POST["custNo"];
         // $vaNo = $_POST["vaNo"];
         // $vaName = $_POST["vaName"];
-         $value = "100000000.00";
+         $value = "1100.00";
         // $expired = $_POST['expired'];
         // $vaEmail = $_POST['vaEmail'];
         // $vaPhone = $_POST['hp'];
@@ -152,10 +152,10 @@ class Jatim
         $headers = [
             "Content-Type: application/json",
             "Authorization: Bearer ".$accessToken,
-            "X-CLIENT-KEY: 6992973c-c890-468e-9f14-c436c71bf5e2",
+            "X-CLIENT-KEY: $this->clientID",
             "X-SIGNATURE: ".$this->signature_service($method, $url, $requestBody, $accessToken),
             "X-TIMESTAMP: $this->timestamp",
-            "X-PARTNER-ID: 8d15dece-f183-483b-92e5-f2ef8a2dffaf",
+            "X-PARTNER-ID: $this->partnerID",
             "X-EXTERNAL-ID: ".date('YmdHis'),
             "CHANNEL-ID: 00002"
         ];
@@ -186,10 +186,10 @@ class Jatim
     $headers = [
         "Content-Type: application/json",
         "Authorization: Bearer ".$accessToken,
-        "X-CLIENT-KEY: 6992973c-c890-468e-9f14-c436c71bf5e2",
+        "X-CLIENT-KEY: $this->clientID",
         "X-SIGNATURE: ".$this->signature_service($method, $url, $requestBody, $accessToken),
         "X-TIMESTAMP: $this->timestamp",
-        "X-PARTNER-ID: 8d15dece-f183-483b-92e5-f2ef8a2dffaf",
+        "X-PARTNER-ID: $this->partnerID",
         "X-EXTERNAL-ID: ".date('YmdHis'),
         "CHANNEL-ID: 00002"
     ];
