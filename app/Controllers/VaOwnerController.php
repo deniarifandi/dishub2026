@@ -205,12 +205,13 @@ return view('va_owner/form', $data);
     public function delete($id)
     {
         $record = $this->vaModel->find($id);
-
         if ($record) {
+            $recordId = $record['va_owner_id'];       // primary key
+            $vaOwnerVa = $record['va_owner_va'];      // VA value
 
             $jatimresult = $this->jatim->deleteVA(
-                $anggotaId,
-                $data['va_owner_va']
+                $recordId,
+                $vaOwnerVa
             );
 
             $result = json_decode($jatimresult, true);
