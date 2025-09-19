@@ -24,16 +24,16 @@ class Jatim
         date_default_timezone_set("Asia/Bangkok");
         
         //Dev
-        $this->clientID = "6992973c-c890-468e-9f14-c436c71bf5e2";
-        $this->clientSecret = "59242d81-0b43-4062-a393-1543cb97c934";
-        $this->partnerID = "8d15dece-f183-483b-92e5-f2ef8a2dffaf";
-        $this->partnerServiceId = "   11111";
+        // $this->clientID = "6992973c-c890-468e-9f14-c436c71bf5e2";
+        // $this->clientSecret = "59242d81-0b43-4062-a393-1543cb97c934";
+        // $this->partnerID = "8d15dece-f183-483b-92e5-f2ef8a2dffaf";
+        // $this->partnerServiceId = "   11111";
 
         //Prod
-        // $this->clientID = "6fa131de-dd46-41d5-8046-238ca5b468d2";
-        // $this->clientSecret = "b9cc47be-3174-4b2b-82c5-e85ad3648501";
-        // $this->partnerID = "382465f8-a134-43eb-bbe0-03a50683b5aa";
-        // $this->partnerServiceId = "   10325";
+        $this->clientID = "6fa131de-dd46-41d5-8046-238ca5b468d2";
+        $this->clientSecret = "b9cc47be-3174-4b2b-82c5-e85ad3648501";
+        $this->partnerID = "382465f8-a134-43eb-bbe0-03a50683b5aa";
+        $this->partnerServiceId = "   10325";
 
         
         $this->getTimestamp();
@@ -247,7 +247,7 @@ class Jatim
      // $url = "https://sriwijaya.bankjatim.co.id/snap/rest/access_token/v1/b2b";
         $headers = [
             "Content-Type: application/json",
-            "X-CLIENT-KEY: ".$this->clientSecret,
+            "X-CLIENT-KEY: 6992973c-c890-468e-9f14-c436c71bf5e2",
             "X-SIGNATURE: ".$this->signature_access_token(),
             "X-TIMESTAMP: $this->timestamp"
         ];
