@@ -133,7 +133,15 @@ class Home extends BaseController
     }
 
     public function getPotensiCek(){
-        echo "test";
+        $db = \Config\Database::connect();
+        $tahunIni = date('Y');
+
+        // Hitung total potensi (sama tiap bulan)
+        $potensiTotal = $db->table('potensi')
+        ->select("(SUM(senin+selasa+rabu+kamis+jumat+sabtu+minggu)*4 + mingguan*4 + bulanan) AS potensi")
+        ->get()
+        ->getRowArray();
+
     }
 
    
