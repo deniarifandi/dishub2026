@@ -159,7 +159,7 @@ canvas { background: transparent; }
     <div class="col-9">
       <div class="card p-4">
         <div class="card-title mb-2">Monthly Activity</div>
-        <canvas id="activityChart" height="250"></canvas>
+         <canvas id="myChart" height="200"></canvas>
       </div>
     </div>
   </div>
@@ -184,9 +184,10 @@ toggle.addEventListener('click', () => {
     localStorage.setItem('theme','dark');
   }
 });
+</script>
 
-// Chart.js
-const ctx = document.getElementById('activityChart').getContext('2d');
+
+<script>
 
 function getChartColors() {
   return {
@@ -197,28 +198,33 @@ function getChartColors() {
 
 let chartColors = getChartColors();
 
-let chart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Okt','Nov','Des'],
-    datasets: [{
-      label: 'Activity',
-      data: [65,59,80,81,56,55,78,99,56,56,79,50],
-      borderColor: chartColors.borderColor,
-      backgroundColor: chartColors.backgroundColor,
-      tension: 0.3,
-      fill: true
-    }]
-  },
-  options: {
-    plugins: { legend: { labels: { color: getComputedStyle(document.body).getPropertyValue('--text-color') } } },
-    scales: {
-      x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-color') }, grid: { color: getComputedStyle(document.body).getPropertyValue('--grid-color') } },
-      y: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-color') }, grid: { color: getComputedStyle(document.body).getPropertyValue('--grid-color') } }
-    }
-  }
+fetch('<?= base_url() ?>targetsetoranbulanan')
+.then(res => res.json())
+.then(data => {
+    const labels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Okt','Nov','Des'];
+    
+    const potensiData = labels.map((_, i) => data[i].potensi);
+    const transaksiData = labels.map((_, i) => data[i].transaksi);
+
+    new Chart(document.getElementById('myChart'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                { label: 'Potensi', data: potensiData, backgroundColor: 'rgba(54,162,235,0.5)' },
+                { label: 'Transaksi', data: transaksiData, backgroundColor: 'rgba(255,99,132,0.5)' }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: { y: { beginAtZero:true } }
+        }
+    });
 });
 
+</script>
+
+<script>
 // Update chart colors when theme toggled
 toggle.addEventListener('click', () => {
   let newColors = getChartColors();

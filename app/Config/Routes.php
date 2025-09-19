@@ -12,6 +12,7 @@ $routes->get('/commandcenter','Home::commandcenter');
 
 //HOME DATA
 $routes->get('/pendapatanhariini','Home::getPendapatanHariIni');
+$routes->get('/targetsetoranbulanan','Home::targetSetoranBulanan');
 
 //Syn
 $routes->get('/syncdata','Home::syncdata');

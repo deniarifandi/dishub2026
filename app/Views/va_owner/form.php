@@ -20,7 +20,7 @@
    <form action="<?= isset($va_owner) ? base_url('/va-owner/update/'.$va_owner['va_owner_id']) : base_url('/va-owner/store') ?>" method="post">
     <?= csrf_field() ?>
     
-   <div class="row mb-3">
+  <div class="row mb-3">
     <label class="col-sm-3 col-form-label">Anggota Jukir</label>
     <div class="col-sm-9">
         <select class="form-select select2" data-placeholder="-- Pilih Anggota --"
@@ -29,9 +29,12 @@
             <?php foreach ($anggota as $a): ?>
                 <?php 
                     $optValue = $a['anggota_id'].';'.$a['anggota_nama'];
-                    $selected = (old('va_owner_anggota') == $optValue) ||
-                                (!old('va_owner_anggota') && isset($va_owner) && $va_owner['va_owner_anggotaid'] == $a['anggota_id'])
-                                ? 'selected' : '';
+
+                    // Prefer old() if exists, otherwise use $va_owner
+                    $currentValue = old('va_owner_anggota') 
+                        ?: (isset($va_owner) ? $va_owner['va_owner_anggotaid'].';'.$va_owner['va_owner_nama'] : '');
+
+                    $selected = ($currentValue === $optValue) ? 'selected' : '';
                 ?>
                 <option value="<?= $optValue ?>" <?= $selected ?>>
                     <?= esc($a['anggota_nama']) ?> -- <?= esc($a['titpar_namatempat']) ?>
@@ -48,11 +51,13 @@
 </div>
 
 
-   <div class="row mb-3">
+
+  <div class="row mb-3">
     <label class="col-sm-3 col-form-label">VA (Indeks)</label>
     <div class="col-sm-9">
-        <input type="text" name="va_owner_va" class="form-control" 
-               value="<?= old('va_owner_va', isset($va_owner) ? esc($va_owner['va_owner_va']) : '') ?>">
+        <input type="text" name="va_owner_va" class="form-control bg-light" 
+               value="<?= old('va_owner_va', isset($va_owner) ? esc($va_owner['va_owner_va']) : '') ?>" 
+               readonly>
     </div>
 </div>
 
