@@ -52,12 +52,13 @@
 
 
 
-  <div class="row mb-3">
+   <div class="row mb-3">
     <label class="col-sm-3 col-form-label">VA (Indeks)</label>
     <div class="col-sm-9">
-        <input type="text" name="va_owner_va" class="form-control bg-light" 
+        <input type="text" name="va_owner_va" 
+               class="form-control <?= isset($va_owner) ? 'bg-light text-muted' : '' ?>" 
                value="<?= old('va_owner_va', isset($va_owner) ? esc($va_owner['va_owner_va']) : '') ?>" 
-               readonly>
+               <?= isset($va_owner) ? 'readonly' : '' ?>>
     </div>
 </div>
 
