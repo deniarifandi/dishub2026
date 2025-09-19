@@ -89,9 +89,25 @@ class Sisparma extends BaseController
     ]);
     }
 
-    public function store_payment($latestTransactionStatus, $transactionStatusDesc,$virtualAccountNo,$amount,$coreReferenceNo,$transactionDate){
+    public function store_payment(
+    $latestTransactionStatus,
+    $transactionStatusDesc,
+    $virtualAccountNo,
+    $amount,
+    $coreReferenceNo,
+    $transactionDate
+) {
     $this->db = db_connect();
-    $builder = $this->db->table('transaksi');
+    $builder  = $this->db->table('transaksi');
+
+    // Check if this coreReferenceNo already exists
+    $exists = $builder->where('coreReferenceNo', $coreReferenceNo)->countAllResults();
+
+    if ($exists > 0) {
+        // Duplicate found → skip insert, still success
+        return true;
+    }
+
     $data = [
         'latestTransactionStatus' => $latestTransactionStatus,
         'transactionStatusDesc'   => $transactionStatusDesc,
@@ -100,15 +116,20 @@ class Sisparma extends BaseController
         'coreReferenceNo'         => $coreReferenceNo,
         'transaksi_tanggal'       => $transactionDate
     ];
-    $builder->insert($data);
 
-    // Get the inserted ID
+    // Insert new record
+    $builder->insert($data);
     $id = $this->db->insertID();
 
-    // Call sendKonfirmasi with new ID
-    $transaksi = new \App\Controllers\Transaksi();
-    $result = $transaksi->send_konfirmasi($id);
+    if ($id) {
+        // Call konfirmasi only for new records
+        $transaksi = new \App\Controllers\Transaksi();
+        $transaksi->send_konfirmasi($id);
+    }
+
+    return true;
 }
+
 
 
     function signature_service($method, $url, $requestBody, $accessToken){
