@@ -119,7 +119,7 @@ class Jatim
         // $customerNo = $_POST["custNo"];
         // $vaNo = $_POST["vaNo"];
         // $vaName = $_POST["vaName"];
-         $value = "1100.00";
+         $value = "1000.00";
         // $expired = $_POST['expired'];
         // $vaEmail = $_POST['vaEmail'];
         // $vaPhone = $_POST['hp'];
