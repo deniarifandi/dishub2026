@@ -174,7 +174,8 @@ return view('va_owner/form', $data);
             'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
             'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
             'va_owner_hp'        => $this->request->getPost('va_owner_hp'),
-            'va_owner_expired'   => $formattedTanggal
+            'va_owner_expired'   => $formattedTanggal,
+            'va_owner_email'    => $this->request->getPost('va_owner_email')
         ];
 
         // Update via external API
