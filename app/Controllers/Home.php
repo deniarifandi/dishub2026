@@ -141,7 +141,7 @@ class Home extends BaseController
         ->select("(SUM(senin+selasa+rabu+kamis+jumat+sabtu+minggu)*4 + mingguan*4 + bulanan) AS potensi")
         ->get()
         ->getRowArray();
-
+        print_r($potensiTotal);
     }
 
    
