@@ -148,7 +148,7 @@ class Transaksi extends BaseController
       ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
       ->join('dishub_titpar','dishub_titpargrup.titpargrup_titparid = dishub_titpar.titpar_id')
       ->get()->getResult();
-      // print_r($builder);
+      print_r($builder);
 
         setlocale(LC_TIME, 'id_ID.utf8'); // Use Indonesian locale
         $tanggal = strftime('%e %B %Y', strtotime($builder[0]->transaksi_tanggal));
