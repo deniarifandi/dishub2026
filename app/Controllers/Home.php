@@ -138,7 +138,7 @@ $tahunIni = date('Y');
 
 $potensiTotal = $db->table('potensi')
     ->select("SUM((senin+selasa+rabu+kamis+jumat+sabtu+minggu)*4 + mingguan*4 + bulanan) AS potensi")
-    ->where('tahun', $tahunIni) // optional if you have a year column
+   
     ->get()
     ->getRowArray();
 
