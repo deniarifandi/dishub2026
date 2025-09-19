@@ -20,4 +20,5 @@ class VaOwnerModel extends Model
         'va_owner_expired',
         'va_owner_email'
     ];
+    protected $useSoftDeletes = false;         
 }
