@@ -11,8 +11,9 @@ class Sisparma extends BaseController
     public function va_notify(){
             //  $clientID = "6992973c-c890-468e-9f14-c436c71bf5e2"; // 
             // $secretKey = "59242d81-0b43-4062-a393-1543cb97c934";
-            $clientID = "2147b512-df9f-4b82-b768-c09192160fd8"; // 
-            $secretKey = "e92860b0-4096-4654-b89b-d33307c509f0";
+            $clientID = "6992973c-c890-468e-9f14-c436c71bf5e2"; // 
+            $secretKey = "59242d81-0b43-4062-a393-1543cb97c934";
+            //$partnerID = "46ec5f21-6b31-4bd8-81ed-5a79e323655a";
 
                 header("Content-Type: application/json");
 
@@ -45,7 +46,8 @@ class Sisparma extends BaseController
     $sts = $clientID . "|" . $timestamp;
     $expectedSignature = $this->encryptWithHmacSHA512($sts,$secretKey);
 
-    //echo $expectedSignature;
+    // echo $expectedSignature;
+    // exit;
 
     if ($headers['X-SIGNATURE'] !== $expectedSignature) {
         http_response_code(401);
