@@ -132,6 +132,10 @@ class Home extends BaseController
         return $builder->total ?? 0; // return 0 kalau null
     }
 
+    public function getPotensiCek(){
+        
+    }
+
    
 public function targetSetoranBulanan()
 {
