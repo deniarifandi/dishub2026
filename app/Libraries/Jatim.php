@@ -55,7 +55,7 @@ class Jatim
         //trying
 
         // $this->serverUrl = "localhost/sisparmacustom/public";
-        $this->value = "1000.00";
+        $this->value = "10000.00";
     }
     
     ///////////////////////////////////////
