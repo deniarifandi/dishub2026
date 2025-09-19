@@ -261,8 +261,8 @@ class Jatim
         $tokenArray = json_decode($response, true);
         print_r($response);
         
-        $this->accessToken = $tokenArray['accessToken'];
-        return $tokenArray['accessToken'];
+        //$this->accessToken = $tokenArray['accessToken'];
+        //return $tokenArray['accessToken'];
         
     }
 
