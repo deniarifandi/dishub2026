@@ -75,7 +75,7 @@ class Jatim
         //$vaEmail = "testemail@mail.test";
         //$vaPhone = "081805173445";
 
-        $value = "100000000.00";
+        $value = "1000.00";
         $accessToken = $this->get_access_token();
 
         $requestBody = [
