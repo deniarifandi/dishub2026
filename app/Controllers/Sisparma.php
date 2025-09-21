@@ -115,14 +115,14 @@ class Sisparma extends BaseController
         $builder->insert($data);
         $id = $this->db->insertID();
 
-        if ($id) {
-            try {
-                $transaksi = new \App\Controllers\Transaksi();
-                $transaksi->send_konfirmasi($id);
-            } catch (\Exception $e) {
-                log_message('error', 'Failed to send konfirmasi: ' . $e->getMessage());
-            }
-        }
+        // if ($id) {
+        //     try {
+        //         $transaksi = new \App\Controllers\Transaksi();
+        //         $transaksi->send_konfirmasi($id);
+        //     } catch (\Exception $e) {
+        //         log_message('error', 'Failed to send konfirmasi: ' . $e->getMessage());
+        //     }
+        // }
 
         return true;
 }
