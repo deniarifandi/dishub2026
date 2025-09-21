@@ -97,37 +97,34 @@ class Sisparma extends BaseController
     $coreReferenceNo,
     $transactionDate
 ) {
-    $this->db = db_connect();
-    $builder  = $this->db->table('transaksi');
+            $this->db = db_connect();
+            $builder  = $this->db->table('transaksi');
 
-    // Check if this coreReferenceNo already exists
-    $exists = $builder->where('coreReferenceNo', $coreReferenceNo)->countAllResults();
+            $exists = $builder->where('coreReferenceNo', $coreReferenceNo)->get()->getRow();
+        if ($exists) return true;
 
-    if ($exists > 0) {
-        // Duplicate found → skip insert, still success
+        $data = [
+            'latestTransactionStatus' => $latestTransactionStatus,
+            'transactionStatusDesc'   => $transactionStatusDesc,
+            'transaksi_va'            => $virtualAccountNo,
+            'transaksi_nominal'       => is_array($amount) ? $amount['value'] : $amount,
+            'coreReferenceNo'         => $coreReferenceNo,
+            'transaksi_tanggal'       => $transactionDate
+        ];
+
+        $builder->insert($data);
+        $id = $this->db->insertID();
+
+        if ($id) {
+            try {
+                $transaksi = new \App\Controllers\Transaksi();
+                $transaksi->send_konfirmasi($id);
+            } catch (\Exception $e) {
+                log_message('error', 'Failed to send konfirmasi: ' . $e->getMessage());
+            }
+        }
+
         return true;
-    }
-
-    $data = [
-        'latestTransactionStatus' => $latestTransactionStatus,
-        'transactionStatusDesc'   => $transactionStatusDesc,
-        'transaksi_va'            => $virtualAccountNo,
-        'transaksi_nominal'       => $amount['value'],
-        'coreReferenceNo'         => $coreReferenceNo,
-        'transaksi_tanggal'       => $transactionDate
-    ];
-
-    // Insert new record
-    $builder->insert($data);
-    $id = $this->db->insertID();
-
-    if ($id) {
-        // Call konfirmasi only for new records
-        $transaksi = new \App\Controllers\Transaksi();
-        $transaksi->send_konfirmasi($id);
-    }
-
-    return true;
 }
 
 
