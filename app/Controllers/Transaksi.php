@@ -92,10 +92,10 @@ class Transaksi extends BaseController
     public function data(){
         $db = db_connect();
         $builder = $db->table('transaksi')->select('*')
-        ->join('va_owner','va_owner.va_owner_va = transaksi.transaksi_va')
-        ->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
-        ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
-        ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
+        ->join('va_owner','va_owner.va_owner_va = transaksi.transaksi_va','left')
+        ->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id','left')
+        ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id','left')
+        ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid','left')
         ->groupBy('transaksi_id')
         ->orderBy('transaksi_id','desc');
     
