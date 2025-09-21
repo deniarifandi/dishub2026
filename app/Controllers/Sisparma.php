@@ -76,7 +76,7 @@ class Sisparma extends BaseController
 
     $data['transactionDate'] = (new \DateTime())->format(\DateTime::ATOM);
 
-    $this->store_payment($data['latestTransactionStatus'], $data['transactionStatusDesc'], $data['virtualAccountNo'], $data['amount'], $data['coreReferenceNo'], $data['transactionDate']);
+    //$this->store_payment($data['latestTransactionStatus'], $data['transactionStatusDesc'], $data['virtualAccountNo'], $data['amount'], $data['coreReferenceNo'], $data['transactionDate']);
 
     $responseCode = "2000000";
     $responseMessage = "Request has been processed successfully";
