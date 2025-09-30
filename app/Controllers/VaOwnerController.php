@@ -237,7 +237,7 @@ return view('va_owner/form', $data);
                 if ($result['responseMessage'] == "Invalid . Virtual Account") {
                     $this->vaModel->delete($id);    
                 }
-                session()->setFlashdata('message', $result['responseMessage']."va deleted");
+                session()->setFlashdata('message', $result['responseMessage'].", Internal va deleted");
                 return redirect()->back()->withInput();
             }
         } else {
