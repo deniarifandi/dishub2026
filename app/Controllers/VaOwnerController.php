@@ -230,11 +230,14 @@ return view('va_owner/form', $data);
 
             if ($result['responseMessage'] == "Success") {
                 
-                $this->vaModel->delete($id);
+                
                 session()->setFlashdata('message', $result['responseMessage']);
                 return redirect()->to('/va-owner');
             } else {
-                session()->setFlashdata('message', $result['responseMessage']);
+                if ($result['responseMessage'] == "Invalid . Virtual Account") {
+                    $this->vaModel->delete($id);    
+                }
+                session()->setFlashdata('message', $result['responseMessage']."va deleted");
                 return redirect()->back()->withInput();
             }
         } else {
