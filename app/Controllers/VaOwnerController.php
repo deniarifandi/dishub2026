@@ -7,6 +7,7 @@ use App\Models\DishubAnggotaModel;
 use App\Libraries\DataTable;
 use App\Libraries\Jatim;
 use App\Controllers\VaController;
+use DB;
 
 class VaOwnerController extends BaseController
 {
@@ -21,8 +22,8 @@ class VaOwnerController extends BaseController
 
     public function index()
     {
-        $data['owners'] = $this->vaModel->findAll();
-        return view('va_owner/index', $data);
+      
+        return view('va_owner/index');
     }
 
     public function getaccesstoken(){
@@ -35,10 +36,10 @@ class VaOwnerController extends BaseController
         $anggotaModel = new DishubAnggotaModel();
        // $data['va_owner'] = $model->find($id);
         $data['anggota'] = $anggotaModel
-        ->select('anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat')
+        ->select('anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat,titpar_id')
         ->where('anggota_status', 3)
-        ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
-        ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
+        ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id','left')
+        ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid','left')
         ->findAll();
         return view('va_owner/form', $data);
     }
@@ -47,8 +48,10 @@ class VaOwnerController extends BaseController
     {
         $model = new VaOwnerModel();
         $tanggal = $this->request->getPost('va_owner_expired'); // example: 2025-12-31
-        list($anggotaId, $anggotaNama) = explode(';', $this->request->getPost('va_owner_anggota'));
+        list($anggotaId, $anggotaNama,$titpar_id) = explode(';', $this->request->getPost('va_owner_anggota'));
 
+        // echo $this->request->getPost('va_owner_anggota');
+        // exit();
         // handle tanggal
         if (!empty($tanggal)) {
             $dt = new \DateTime($tanggal, new \DateTimeZone('Asia/Jakarta'));
@@ -61,6 +64,7 @@ class VaOwnerController extends BaseController
         $data = [
             'va_owner_id'        => $this->request->getPost('va_owner_id'),
             'va_owner_anggotaid' => $anggotaId,
+            'va_owner_titparid'  => $titpar_id,
             'va_owner_va'        => $this->request->getPost('va_owner_va'),
             'va_owner_nama'      => $anggotaNama,
             'va_owner_berita_1'  => $this->request->getPost('va_owner_berita_1'),
@@ -71,16 +75,17 @@ class VaOwnerController extends BaseController
         ];
 
         //HERE
-        $jatimresult = $this->jatim->createVA(
-            $anggotaId,
-            $data['va_owner_va'],
-            $anggotaNama,
-            $tanggal,
-            $this->request->getPost('va_owner_email'),
-            $data['va_owner_hp']
-        );
+        // $jatimresult = $this->jatim->createVA(
+        //     $anggotaId,
+        //     $data['va_owner_va'],
+        //     $anggotaNama,
+        //     $tanggal,
+        //     $this->request->getPost('va_owner_email'),
+        //     $data['va_owner_hp']
+        // );
 
-        $result = json_decode($jatimresult,true);
+        // $result = json_decode($jatimresult,true);
+        $result['responseMessage'] = "Success";
         
         if ($result['responseMessage'] == "Success") {
             $model->save($data);
@@ -117,11 +122,13 @@ if (!empty($data['va_owner']['va_owner_expired'])) {
 
 // Get anggota list
 $data['anggota'] = $anggotaModel
-    ->select('anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat, va_owner_hp, va_owner_expired')
+    ->select('anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat, dishub_titpar.titpar_id as titpar_id, va_owner_hp, va_owner_expired')
     ->where('anggota_status', 3)
     ->join('dishub_titpargrup', 'dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
     ->join('dishub_titpar', 'dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
     ->join('va_owner', 'va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
+    ->groupBy('titpar_id')
+    // ->like('anggota_nama','%MUHAMMAT AZIZ%')
     ->findAll();
 
 // Convert expired date for anggota list
@@ -159,17 +166,21 @@ return view('va_owner/form', $data);
         // Handle anggota safely
         $anggotaRaw = $this->request->getPost('va_owner_anggota');
         if (!empty($anggotaRaw) && strpos($anggotaRaw, ';') !== false) {
-            list($anggotaId, $anggotaNama) = explode(';', $anggotaRaw);
+            // list($anggotaId, $anggotaNama,$titpar_id) = explode(';', $anggotaRaw);
+             list($anggotaId, $anggotaNama,$titpar_id) = explode(';', $anggotaRaw);
         } else {
             $anggotaId = null;
             $anggotaNama = null;
+            $titpar_id = null;
         }
 
+        
         $data = [
             'va_owner_id'        => $this->request->getPost('va_owner_id'),
             'va_owner_anggotaid' => $anggotaId,
             'va_owner_va'        => $this->request->getPost('va_owner_va'),
             'va_owner_nama'      => $anggotaNama,
+            'va_owner_titparid'  => $titpar_id,
             'va_owner_berita_1'  => $this->request->getPost('va_owner_berita_1'),
             'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
             'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
@@ -179,16 +190,17 @@ return view('va_owner/form', $data);
         ];
 
         // Update via external API
-        $jatimresult = $this->jatim->updateVA(
-            $anggotaId,
-            $data['va_owner_va'],
-            $anggotaNama,
-            $formattedTanggal,
-            $this->request->getPost('va_owner_email'),
-            $data['va_owner_hp']
-        );
+        // $jatimresult = $this->jatim->updateVA(
+        //     $anggotaId,
+        //     $data['va_owner_va'],
+        //     $anggotaNama,
+        //     $formattedTanggal,
+        //     $this->request->getPost('va_owner_email'),
+        //     $data['va_owner_hp']
+        // );
 
-        $result = json_decode($jatimresult, true);
+        // $result = json_decode($jatimresult, true);
+        $result['responseMessage'] = "Success";
 
         if ($result['responseMessage'] == "Success") {
             $model->update($id, $data);
@@ -234,12 +246,11 @@ return view('va_owner/form', $data);
     //custom
     public function data(){
             $db = db_connect();
-        $builder = $db->table('va_owner')->select('*')
-        ->join('dishub_anggota', 'dishub_anggota.anggota_id = va_owner.va_owner_anggotaid')
-        ->join('dishub_titpargrup','va_owner.va_owner_anggotaid = dishub_titpargrup.titpargrup_anggotaid')
-        ->join('dishub_titpar','dishub_titpargrup.titpargrup_titparid = dishub_titpar.titpar_id')
-        // ->where('va_owner_nama','YUDI ARIF HIDAYAT')
-        ->groupBy('va_owner_va');
+        $builder = $db->table('va_owner')->select('anggota_nama, anggota_id, va_owner.*, titpar_namatempat, titpar_lokasi')
+        ->join('dishub_anggota', 'dishub_anggota.anggota_id = va_owner.va_owner_anggotaid','left')
+        ->join('dishub_titpar','dishub_titpar.titpar_id =va_owner.va_owner_titparid','left');
+        // $builder->like('va_owner_nama', 'MUHAMMAT AZIZ'); 
+        $builder->groupBy('va_owner_va');
     
 
         // Columns to apply search on

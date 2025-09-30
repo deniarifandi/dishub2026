@@ -24,15 +24,16 @@
     <label class="col-sm-3 col-form-label">Anggota Jukir</label>
     <div class="col-sm-9">
         <select class="form-select select2" data-placeholder="-- Pilih Anggota --"
-                name="va_owner_anggota" <?= isset($va_owner) ? 'disabled' : '' ?>>
+                name="va_owner_anggota" <?= isset($va_owner) ? '' : '' ?>>
             <option value="">-- Pilih Anggota --</option>
             <?php foreach ($anggota as $a): ?>
                 <?php 
-                    $optValue = $a['anggota_id'].';'.$a['anggota_nama'];
+                    $optValue = $a['anggota_id'].';'.$a['anggota_nama'].';'.$a['titpar_id'];
+
 
                     // Prefer old() if exists, otherwise use $va_owner
                     $currentValue = old('va_owner_anggota') 
-                        ?: (isset($va_owner) ? $va_owner['va_owner_anggotaid'].';'.$va_owner['va_owner_nama'] : '');
+                        ?: (isset($va_owner) ? $va_owner['va_owner_anggotaid'].';'.$va_owner['va_owner_nama'].';'.$a['titpar_id'] : '');
 
                     $selected = ($currentValue === $optValue) ? 'selected' : '';
                 ?>
@@ -44,8 +45,7 @@
 
         <?php if (isset($va_owner)): ?>
             <!-- Hidden supaya value tetap terkirim -->
-            <input type="hidden" name="va_owner_anggota" 
-                   value="<?= $va_owner['va_owner_anggotaid'].';'.$va_owner['va_owner_nama'] ?>">
+           
         <?php endif; ?>
     </div>
 </div>

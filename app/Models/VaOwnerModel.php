@@ -11,6 +11,7 @@ class VaOwnerModel extends Model
     protected $allowedFields = [
         'va_owner_anggotaid',
         'titpargrup_titparid',
+        'va_owner_titparid',
         'va_owner_va',
         'va_owner_nama',
         'va_owner_berita_1',
