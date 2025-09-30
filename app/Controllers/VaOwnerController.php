@@ -75,17 +75,17 @@ class VaOwnerController extends BaseController
         ];
 
         //HERE
-        // $jatimresult = $this->jatim->createVA(
-        //     $anggotaId,
-        //     $data['va_owner_va'],
-        //     $anggotaNama,
-        //     $tanggal,
-        //     $this->request->getPost('va_owner_email'),
-        //     $data['va_owner_hp']
-        // );
+        $jatimresult = $this->jatim->createVA(
+            $anggotaId,
+            $data['va_owner_va'],
+            $anggotaNama,
+            $tanggal,
+            $this->request->getPost('va_owner_email'),
+            $data['va_owner_hp']
+        );
 
-        // $result = json_decode($jatimresult,true);
-        $result['responseMessage'] = "Success";
+        $result = json_decode($jatimresult,true);
+        // $result['responseMessage'] = "Success";
         
         if ($result['responseMessage'] == "Success") {
             $model->save($data);
@@ -190,17 +190,17 @@ return view('va_owner/form', $data);
         ];
 
         // Update via external API
-        // $jatimresult = $this->jatim->updateVA(
-        //     $anggotaId,
-        //     $data['va_owner_va'],
-        //     $anggotaNama,
-        //     $formattedTanggal,
-        //     $this->request->getPost('va_owner_email'),
-        //     $data['va_owner_hp']
-        // );
+        $jatimresult = $this->jatim->updateVA(
+            $anggotaId,
+            $data['va_owner_va'],
+            $anggotaNama,
+            $formattedTanggal,
+            $this->request->getPost('va_owner_email'),
+            $data['va_owner_hp']
+        );
 
-        // $result = json_decode($jatimresult, true);
-        $result['responseMessage'] = "Success";
+        $result = json_decode($jatimresult, true);
+        // $result['responseMessage'] = "Success";
 
         if ($result['responseMessage'] == "Success") {
             $model->update($id, $data);
