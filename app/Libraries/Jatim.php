@@ -30,16 +30,16 @@ class Jatim
         // $this->partnerServiceId = "   11111";
 
         //Prod
-        $this->clientID = "6fa131de-dd46-41d5-8046-238ca5b468d2";
-        $this->clientSecret = "b9cc47be-3174-4b2b-82c5-e85ad3648501";
-        $this->partnerID = "382465f8-a134-43eb-bbe0-03a50683b5aa";
-        $this->partnerServiceId = "   10325";
+        // $this->clientID = "6fa131de-dd46-41d5-8046-238ca5b468d2";
+        // $this->clientSecret = "b9cc47be-3174-4b2b-82c5-e85ad3648501";
+        // $this->partnerID = "382465f8-a134-43eb-bbe0-03a50683b5aa";
+        // $this->partnerServiceId = "   10325";
 
         //Prod 22
-        // $this->clientID = "0b9fb46e-93cb-43a1-b36c-d16058109104";
-        // $this->clientSecret = "4f97ceb6-7f36-4af2-9898-4e4432202371";
-        // $this->partnerID = "382465f8-a134-43eb-bbe0-03a50683b5aa";
-        // $this->partnerServiceId = "   15088";
+        $this->clientID = "0b9fb46e-93cb-43a1-b36c-d16058109104";
+        $this->clientSecret = "4f97ceb6-7f36-4af2-9898-4e4432202371";
+        $this->partnerID = "382465f8-a134-43eb-bbe0-03a50683b5aa";
+        $this->partnerServiceId = "   15088";
 
         
         $this->getTimestamp();
