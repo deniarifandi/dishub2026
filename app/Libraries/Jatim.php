@@ -35,12 +35,11 @@ class Jatim
         // $this->partnerID = "382465f8-a134-43eb-bbe0-03a50683b5aa";
         // $this->partnerServiceId = "   10325";
 
-        //Prod 22
-        $this->clientID = "0b9fb46e-93cb-43a1-b36c-d16058109104";
-        $this->clientSecret = "4f97ceb6-7f36-4af2-9898-4e4432202371";
-        $this->partnerID = "382465f8-a134-43eb-bbe0-03a50683b5aa";
-        $this->partnerServiceId = "   15088";
-
+        // //Prod 22
+        // $this->clientID = "0b9fb46e-93cb-43a1-b36c-d16058109104";
+        // $this->clientSecret = "4f97ceb6-7f36-4af2-9898-4e4432202371";
+        // $this->partnerID = "382465f8-a134-43eb-bbe0-03a50683b5aa";
+        // $this->partnerServiceId = "   15088";
         
         $this->getTimestamp();
 
@@ -55,13 +54,37 @@ class Jatim
         //trying
 
         // $this->serverUrl = "localhost/sisparmacustom/public";
-        $this->value = "10000.00";
+        $this->value = "1000000000.00";
+    }
+
+    ////////////////// prefix checker
+
+    public function prefix_checker($va){
+        if (substr($va, 0, 5) === "15088") {
+            // do something if first 5 chars are 15088
+            $this->clientID = "0b9fb46e-93cb-43a1-b36c-d16058109104";
+            $this->clientSecret = "4f97ceb6-7f36-4af2-9898-4e4432202371";
+            $this->partnerID = "382465f8-a134-43eb-bbe0-03a50683b5aa";
+            $this->partnerServiceId = "   15088";
+        } elseif (substr($va, 0, 5) === "10325") {
+            // do something if first 5 chars are 10325
+
+            $this->clientID = "6fa131de-dd46-41d5-8046-238ca5b468d2";
+            $this->clientSecret = "b9cc47be-3174-4b2b-82c5-e85ad3648501";
+            $this->partnerID = "382465f8-a134-43eb-bbe0-03a50683b5aa";
+            $this->partnerServiceId = "   10325";
+        }else{
+             return "wrong prefix";
+        }
+
     }
     
     ///////////////////////////////////////
 
    // public function createVA($customerNo, $vaNo, $vaName, $expired, $vaEmail, $vaPhone){
     public function createVA($customerNo, $vaNo, $vaName, $expired, $vaEmail,$vaPhone){
+
+        $this->prefix_checker($vaNo);
 
         $method = "POST";
         $url = "/api/v1.0/transfer-va/create-va";
@@ -75,7 +98,7 @@ class Jatim
         //$vaEmail = "testemail@mail.test";
         //$vaPhone = "081805173445";
 
-       
+        
         $accessToken = $this->get_access_token();
 
         $requestBody = [
