@@ -57,10 +57,24 @@
         <i class="bi bi-cash-stack smart-icon mb-2 text-danger fs-4"></i>
         <h6 class="fw-bold mb-1">Potensi X Realisasi</h6>
         <p class="text-muted small mb-2">Data Tagihan</p>
-        <a href="potensi/realisasi" class="btn btn-smart btn-sm w-100">Buka</a>
+        <a href="potensi/realisasi" class="btn btn-smart btn-sm w-100">
+         <i class="bi bi-box-arrow-up-right me-1"></i> Buka
+       </a>
       </div>
     </div>
+   <div class="col-md-3">
+    <div class="card smart-card text-center p-2 shadow-sm border-0 animate-card">
+      <i class="bi bi-ticket-perforated smart-icon mb-2 text-primary fs-4"></i>
+      <h6 class="fw-bold mb-1">Tiket</h6>
+      <p class="text-muted small mb-2">Kelola Tiket Anda</p>
+      <a href="tiket" class="btn btn-primary btn-sm w-100">
+        <i class="bi bi-box-arrow-up-right me-1"></i> Buka Tiket
+      </a>
+    </div>
   </div>
+  </div>
+
+  <!-- Secondary Cards -->
 
 
 <?php echo view('footer'); ?>

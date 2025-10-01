@@ -66,6 +66,10 @@ $routes->get('potensi/invoice/(:segment)', 'Potensi::invoice/$1');
 $routes->get('potensi/realisasi', 'Potensi::realisasi');
 $routes->post('potensi/datatagihan', 'Potensi::datatagihan');
 
+//Tiket
+$routes->get('tiket', 'Tiket::index');
+$routes->post('tiket/data','Tiket::data');
+
 //API Jatim
 $routes->get('api/jatim/getaccesstoken','JatimController::get_access_token');
 $routes->get('api/jatim/signatureaccesstoken','JatimController::signature_access_token');
