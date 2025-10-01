@@ -287,11 +287,18 @@ class Jatim
         ];
 
         $response = $this->callApi($url, $headers, $method, $data);
-        $tokenArray = json_decode($response, true);
+        $result = json_decode($response, true);
         //print_r($response);
         
-        $this->accessToken = $tokenArray['accessToken'];
-        return $tokenArray['accessToken'];
+        if (isset($result['accessToken'])) {
+            $this->accessToken = $result['accessToken'];
+            return $result['accessToken'];
+        } else {
+            print_r($response);
+            exit();
+            return $result["responseMessage"];
+        }
+        
         
     }
 

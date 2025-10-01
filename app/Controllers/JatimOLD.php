@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Libraries\DataTable;
 
 
-class Jatim extends BaseController
+class Jatiem extends BaseController
 {
 
     private $db = null;
