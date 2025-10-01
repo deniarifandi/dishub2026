@@ -294,7 +294,7 @@ class Jatim
             $this->accessToken = $result['accessToken'];
             return $result['accessToken'];
         } else {
-            throw new \Exception("Failed to get access token: " . $response);
+            //throw new \Exception("Failed to get access token: " . $response);
             return $result["responseMessage"];
         }
         
@@ -313,15 +313,9 @@ class Jatim
 
     function signature_access_token(){
 
-        // $this->timestamp = "2025-10-1T08:36:01+07:00";
-        // $this->clientID = "6fa131de-dd46-41d5-8046-238ca5b468d2";
-        // $this->clientSecret = "b9cc47be-3174-4b2b-82c5-e85ad3648501";
-        // $this->partnerID = "382465f8-a134-43eb-bbe0-03a50683b5aa";
-        // $this->partnerServiceId = "   10325";
         $stringtosign = $this->clientID."|".$this->timestamp;
         $signature_access_token = $this->encryptWithHmacSHA512($stringtosign, $this->clientSecret);
-        // echo $signature_access_token;
-        // exit();
+      
         return $signature_access_token;
     }
 
