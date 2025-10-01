@@ -23,8 +23,8 @@
               <th>Nominal</th>
               <th>Tangal</th>
               <th>HP</th>
-              <th>Status WA</th>
-              <th>Action</th>
+              <th>Core Reference No</th>
+              <!-- <th>Action</th> -->
             </tr>
           </thead>
         </table>
@@ -63,40 +63,7 @@
           return data; // raw date for sorting
         }},
         {data: 'va_owner_hp'},
-        {
-          data: 'wa_konfirmasi',
-          render: function(data, type, row) {
-            if (data === 'accepted') {
-              return '<span class="badge bg-success">Accepted</span>';
-            } else {
-              return '<span class="badge bg-warning text-dark">' + data + '</span>';
-            }
-          }
-        },
-       {
-        data: null,
-        orderable: false,
-        render: function(data, type, row) {
-          // If accepted → disabled button
-          if (row.wa_konfirmasi === 'accepted') {
-            return `
-              <a class="btn btn-success btn-sm disabled" 
-                 href="javascript:void(0)" 
-                 tabindex="-1" 
-                 aria-disabled="true">
-                 Kirim Pesan Ulang
-              </a>
-            `;
-          } else {
-            return `
-              <a class="btn btn-success btn-sm sendBtn" 
-                 href="<?= base_url('transaksi/send/') ?>${row.transaksi_id}">
-                 Kirim Pesan Ulang
-              </a>
-            `;
-          }
-        }
-      }
+        {data: 'coreReferenceNo'}
 
       ]
     });
