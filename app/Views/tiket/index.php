@@ -29,7 +29,7 @@
   $(document).ready(function() {
     $('#usersTable').DataTable({
       processing: true,
-      serverSide: true,
+      serverSide: false,
       order: [[0, 'desc']],
       ajax: {
         url: "<?= site_url('tiket/data') ?>",
