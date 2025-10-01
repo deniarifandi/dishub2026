@@ -135,6 +135,8 @@ class Jatim
 
     function updateVA($customerNo, $vaNo, $vaName, $expired, $vaEmail,$vaPhone){
 
+         $this->prefix_checker($vaNo);
+
         $url = "/api/v1.0/transfer-va/update-va";
         $baseUrl = $this->serverUrl.$url;
         $method = "PUT";
