@@ -264,9 +264,9 @@ class Potensi extends BaseController
     ", false);
 
     $builder->join('potensi','va_owner.va_owner_va = potensi.potensi_va','left');
-    $builder->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id');
-    $builder->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id');
-    $builder->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid');
+    $builder->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id','left');
+    $builder->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id','left');
+    $builder->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid','left');
 
     // join transaksi with/without filter
     if ($reset == '1') {
