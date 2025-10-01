@@ -233,6 +233,10 @@ return view('va_owner/form', $data);
       
         if ($message === "Success") {
             session()->setFlashdata('message', $message);
+            $this->vaModel->delete($id);
+            $rows = $this->vaModel->db->affectedRows();
+
+            $extra = $rows > 0 ? "& Internal va deleted" : "& Internal Delete Failed";
             return redirect()->to('/va-owner');
         }
 
