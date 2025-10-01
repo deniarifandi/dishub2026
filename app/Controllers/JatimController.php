@@ -35,5 +35,23 @@ class JatimController extends BaseController
             return redirect()->back()->withInput();
         }
     }
+
+
+    public function signature_access_token(){
+        $jatimresult = $this->jatim->signature_access_token();
+
+        // $result = json_decode($jatimresult, true);
+        // $result['responseMessage'] = "Success";
+        echo $jatimresult;
+        exit();
+        if ($result['responseMessage'] == "Success") {
+            
+            session()->setFlashdata('message', $result['responseMessage']);
+            return redirect()->to('/va-owner');
+        } else {
+            session()->setFlashdata('message', $result['responseMessage']);
+            return redirect()->back()->withInput();
+        }
+    }
     
   }

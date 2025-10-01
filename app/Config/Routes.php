@@ -68,7 +68,7 @@ $routes->post('potensi/datatagihan', 'Potensi::datatagihan');
 
 //API Jatim
 $routes->get('api/jatim/getaccesstoken','JatimController::get_access_token');
-$routes->get('api/jatim/signatureaccesstoken','Jatim::signature_access_token');
+$routes->get('api/jatim/signatureaccesstoken','JatimController::signature_access_token');
 $routes->get('api/jatim/getsignature','Jatim::getSignature');
 
 $routes->get('api/jatim/inquiry-va','Jatim::inquiryva');
