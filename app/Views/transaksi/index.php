@@ -36,8 +36,8 @@
   $(document).ready(function() {
     $('#usersTable').DataTable({
       processing: true,
-      serverSide: true,
-      order: [[5, 'desc']],
+      serverSide: false,
+      
       ajax: {
         url: "<?= site_url('transaksi/data') ?>",
         type: "POST"
