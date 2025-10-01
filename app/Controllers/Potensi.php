@@ -87,22 +87,29 @@ class Potensi extends BaseController
 
     public function edit($va)
     {
-           // $model = new VaOwnerModel();
-        $anggotaModel = new DishubAnggotaModel();
-       // $data['va_owner'] = $model->find($id);
-        $data['va_owner'] = $anggotaModel
-        ->select('va_owner_id,va_owner_va,anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat, titpar_lokasi, titpar_id, senin, selasa, rabu, kamis, jumat, sabtu, minggu, mingguan, bulanan, tahunan')
-        ->where('anggota_status', 3)
-        ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
-        ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
-        ->join('va_owner','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
-        ->join('potensi','potensi.potensi_va = va_owner.va_owner_va','left')
-        ->where('va_owner_va',$va)
-        ->groupBy('va_owner_va')
-        ->findAll();
+        $db      = \Config\Database::connect();
+        $builder = $db->table('va_owner');
 
-        // print_r($data['va_owner'][0]);
-        return view('potensi/form', ['data' => $data['va_owner'][0]]);
+        $query = $builder
+            ->select('va_owner_id, va_owner_va, anggota_nama, anggota_id, titpargrup_titparid, 
+            titpar_namatempat, titpar_lokasi, titpar_id, 
+            senin, selasa, rabu, kamis, jumat, sabtu, minggu, mingguan, bulanan, tahunan')
+            // ->select('*')
+            ->join('dishub_anggota', 'va_owner.va_owner_anggotaid = dishub_anggota.anggota_id', 'left')
+            ->join('dishub_titpargrup', 'dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id', 'left')
+            ->join('dishub_titpar', 'dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid', 'left')
+            ->join('potensi', 'potensi.potensi_va = va_owner.va_owner_va', 'left')
+            ->where('va_owner_va', $va)
+            ->get();
+
+        $data = $query->getRowArray(); // get one row as array
+
+        if ($data) {
+             return view('potensi/form', ['data' => $data]);
+        } else {
+            echo "Data tidak ditemukan.";
+        }
+
     }
 
     public function update($va)
@@ -139,7 +146,7 @@ class Potensi extends BaseController
     public function data(){
         $db = db_connect();
         // $builder = $db->table('va_owner')->select('va_owner_va,anggota_id,anggota_nama, titpar_namatempat, titpar_lokasi, senin, selasa, rabu, kamis, jumat, sabtu, minggu, mingguan, bulanan, tahunan')
-         $builder = $db->table('va_owner')->select('*')
+         $builder = $db->table('va_owner')->select('va_owner_va ,anggota_nama ,anggota_id ,titpar_namatempat ,titpar_lokasi ,senin ,selasa ,rabu ,kamis ,jumat ,sabtu ,minggu ,mingguan ,bulanan ,tahunan')
         ->join('potensi','va_owner.va_owner_va = potensi.potensi_va','left')
         ->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id','left')
         ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id','left')

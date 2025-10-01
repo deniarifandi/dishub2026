@@ -71,7 +71,8 @@ class VaOwnerController extends BaseController
             'va_owner_berita_2'  => $this->request->getPost('va_owner_berita_2'),
             'va_owner_berita_3'  => $this->request->getPost('va_owner_berita_3'),
             'va_owner_hp'        => $this->request->getPost('va_owner_hp'),
-            'va_owner_expired'   => $tanggal
+            'va_owner_expired'   => $tanggal,
+            'va_owner_email'    => $this->request->getPost('va_owner_email')
         ];
 
         //HERE
@@ -122,7 +123,7 @@ if (!empty($data['va_owner']['va_owner_expired'])) {
 
 // Get anggota list
 $data['anggota'] = $anggotaModel
-    ->select('anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat, dishub_titpar.titpar_id as titpar_id, va_owner_hp, va_owner_expired')
+    ->select('anggota_nama, anggota_id, titpargrup_titparid, titpar_namatempat, dishub_titpar.titpar_id as titpar_id, va_owner_hp, va_owner_expired, va_owner_email')
     ->where('anggota_status', 3)
     ->join('dishub_titpargrup', 'dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
     ->join('dishub_titpar', 'dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')

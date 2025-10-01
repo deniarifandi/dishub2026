@@ -16,7 +16,7 @@
     <div class="card-body">
        
        <div class="container mt-4">
-    <h4 class="mb-4">Pencatatan VA</h4>
+    <h4 class="mb-4">Pembuatan VA</h4>
    <form action="<?= isset($va_owner) ? base_url('/va-owner/update/'.$va_owner['va_owner_id']) : base_url('/va-owner/store') ?>" method="post">
     <?= csrf_field() ?>
     
@@ -24,7 +24,7 @@
     <label class="col-sm-3 col-form-label">Anggota Jukir</label>
     <div class="col-sm-9">
         <select class="form-select select2" data-placeholder="-- Pilih Anggota --"
-                name="va_owner_anggota" <?= isset($va_owner) ? '' : '' ?>>
+                name="va_owner_anggota" <?= isset($va_owner) ? '' : '' ?> required>
             <option value="">-- Pilih Anggota --</option>
             <?php foreach ($anggota as $a): ?>
                 <?php 
@@ -38,7 +38,7 @@
                     $selected = ($currentValue === $optValue) ? 'selected' : '';
                 ?>
                 <option value="<?= $optValue ?>" <?= $selected ?>>
-                    <?= esc($a['anggota_nama']) ?> -- <?= esc($a['titpar_namatempat']) ?>
+                    <?= esc($a['anggota_nama']) ?> (<?= esc($a['anggota_id']) ?>) -- <?= esc($a['titpar_namatempat']) ?> (<?= esc($a['titpar_id']) ?>)
                 </option>
             <?php endforeach; ?>
         </select>
@@ -69,7 +69,7 @@
                pattern="^(0|62)[0-9]+$"
                inputmode="numeric"
                title="Nomor HP harus dimulai dengan 0 atau 62 dan hanya angka"
-               value="<?= old('va_owner_hp', isset($va_owner) ? esc($va_owner['va_owner_hp']) : '') ?>">
+               value="<?= old('va_owner_hp', isset($va_owner) ? esc($va_owner['va_owner_hp']) : '') ?>" required>
     </div>
 </div>
 
@@ -77,7 +77,8 @@
     <label class="col-sm-3 col-form-label">Email</label>
     <div class="col-sm-9">
         <input type="text" name="va_owner_email" class="form-control" 
-               value="<?= old('va_owner_email', isset($va_owner) ? esc($va_owner['va_owner_email']) : 'example@gmail.com') ?>">
+                value="<?= old('va_owner_email', isset($va_owner) ? esc($va_owner['va_owner_email']) : 'example@gmail.com') ?>" 
+               required>
     </div>
 </div>
 
@@ -85,7 +86,7 @@
     <label class="col-sm-3 col-form-label">Tanggal</label>
     <div class="col-sm-9">
         <input type="date" name="va_owner_expired" class="form-control" 
-               value="<?= old('va_owner_expired', $va_owner['va_owner_expired'] ?? date('Y-m-d', strtotime('+1 year'))) ?>">
+               value="<?= old('va_owner_expired', $va_owner['va_owner_expired'] ?? date('Y-m-d', strtotime('+1 year'))) ?>" required>
     </div>
 </div>
 

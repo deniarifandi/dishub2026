@@ -52,7 +52,7 @@
             return `
               
                  <a class="btn btn-warning btn-sm" href="<?= base_url('va-owner/edit/') ?>${row.va_owner_id}">Edit</a> |
-                <a class="btn btn-danger btn-sm" href="<?= base_url('va-owner/delete/') ?>${row.va_owner_id}" onclick="return confirm('Delete?')">Delete</a>
+                <a class="btn btn-danger btn-sm" href="<?= base_url('va-owner/delete/') ?>${row.va_owner_id}" onclick="return confirm('Yakin Untuk Hapus Data? Data yang terhapus tidak dapat Dikembalikan ataupun didaftarkan ulang.')">Delete</a>
       
             `;
           }
