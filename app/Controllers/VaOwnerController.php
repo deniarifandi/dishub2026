@@ -237,7 +237,7 @@ return view('va_owner/form', $data);
         }
 
 
-        if ($message === "Invalid . Virtual Account") {
+        if ($message === "Invalid . Virtual Account" || $message === "Invalid Bill/Virtual Account. Virtual Account Number Unknown") {
             $this->vaModel->delete($id);
             $rows = $this->vaModel->db->affectedRows();
 
