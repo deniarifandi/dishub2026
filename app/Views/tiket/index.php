@@ -19,6 +19,11 @@
               <th>Nama</th>
               <th>Saldo</th>
               <th>Motor</th>
+              <th>Mobil</th>
+              <th>Truk</th>
+              <th>Motor Insidentil</th>
+              <th>Mobil Insidentil</th>
+              <th>Truk Insidentil</th>
             </tr>
           </thead>
         </table>
@@ -40,8 +45,12 @@
         { data: 'va_owner_va' },
         { data: 'va_owner_nama' },
         { data: 'total_transaksi'},
-        { data: 'tiket_motor'}
-        
+        { data: 'tiket_motor'},
+        { data: 'tiket_mobil'},
+        { data: 'tiket_truk'},
+        { data: 'tiket_motor_in'},
+        { data: 'tiket_mobil_in'},
+        { data: 'tiket_truk_in'},
       ]
     });
   });

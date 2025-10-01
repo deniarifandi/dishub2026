@@ -37,7 +37,7 @@
     $('#usersTable').DataTable({
       processing: true,
       serverSide: false,
-      
+      order: [[5, 'desc']],
       ajax: {
         url: "<?= site_url('transaksi/data') ?>",
         type: "POST"
