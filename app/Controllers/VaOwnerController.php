@@ -217,41 +217,39 @@ return view('va_owner/form', $data);
     public function delete($id)
     {
         $record = $this->vaModel->find($id);
-        if ($record) {
-            $recordId = $record['va_owner_id'];       // primary key
-            $vaOwnerVa = $record['va_owner_va'];      // VA value
 
-            $jatimresult = $this->jatim->deleteVA(
-                $recordId,
-                $vaOwnerVa
-            );
-
-            $result = json_decode($jatimresult, true);
-
-            if ($result['responseMessage'] == "Success") {
-                
-                
-                session()->setFlashdata('message', $result['responseMessage']);
-                return redirect()->to('/va-owner');
-            } else {
-                if ($result['responseMessage'] == "Invalid . Virtual Account") {
-                    $this->vaModel->delete($id);
-
-                    if ($this->vaModel->db->affectedRows() > 0) {
-                        session()->setFlashdata('message', $result['responseMessage'].", Internal va deleted");
-                    } else {
-                        session()->setFlashdata('message', $result['responseMessage'].", Internal Delete Failed");
-                    }
-                }else{
-                    session()->setFlashdata('message', $result['responseMessage']);
-                }
-               
-                return redirect()->back()->withInput();
-            }
-        } else {
+        if (! $record) {
             session()->setFlashdata('message', 'Data tidak ditemukan atau gagal dihapus.');
+            return redirect()->to('/va-owner');
         }
-          return redirect()->to('/va-owner');
+
+        $recordId  = $record['va_owner_id'];  // primary key
+        $vaOwnerVa = $record['va_owner_va'];  // VA value
+
+        $jatimresult = $this->jatim->deleteVA($recordId, $vaOwnerVa);
+        $result      = json_decode($jatimresult, true);
+        $message     = $result['responseMessage'] ?? 'Unknown response';
+
+      
+        if ($message === "Success") {
+            session()->setFlashdata('message', $message);
+            return redirect()->to('/va-owner');
+        }
+
+
+        if ($message === "Invalid . Virtual Account") {
+            $this->vaModel->delete($id);
+            $rows = $this->vaModel->db->affectedRows();
+
+            $extra = $rows > 0 ? "Internal va deleted" : "Internal Delete Failed";
+            session()->setFlashdata('message', $message . ", " . $extra);
+
+            return redirect()->back()->withInput();
+        }
+
+
+        session()->setFlashdata('message', $message);
+        return redirect()->back()->withInput();
     }
 
     //custom
