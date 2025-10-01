@@ -295,7 +295,7 @@ class Jatim
             return $result['accessToken'];
         } else {
             //throw new \Exception("Failed to get access token: " . $response);
-            return $result["responseMessage"];
+            return $response;
         }
         
         
