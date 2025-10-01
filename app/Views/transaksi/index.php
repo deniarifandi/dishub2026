@@ -21,7 +21,7 @@
               <th>Nama Tempat</th>
               <th>Kode</th>
               <th>Nominal</th>
-              <th>Tangal</th>
+              <th style="text-align: right;">Tangal</th>
               <th>HP</th>
               <th>Core Reference No</th>
               <!-- <th>Action</th> -->
@@ -50,18 +50,31 @@
         { data: 'transaksi_nominal',
           render: $.fn.dataTable.render.number(',', '.', 0, 'Rp ') },
         {
-        data: 'transaksi_tanggal',
-        render: function (data, type, row) {
-          if (type === 'display' || type === 'filter') {
-            const date = new Date(data);
-            return date.toLocaleDateString('en-GB', {
-              day: '2-digit',
-              month: 'short',
-              year: 'numeric'
-            }); // e.g., "08 Sep 2024"
+          data: 'transaksi_tanggal',
+          className: 'dt-body-right',
+          render: function (data, type, row) {
+            if (type === 'display' || type === 'filter') {
+              const date = new Date(data);
+
+              // Format date like "1 Jan 25"
+              const datePart = date.toLocaleDateString('en-GB', {
+                day: 'numeric',
+                month: 'short',
+                year: '2-digit'
+              });
+
+              // Format time like "15:20"
+              const timePart = date.toLocaleTimeString('en-GB', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+              });
+
+              return `${datePart} - ${timePart}`;
+            }
+            return data; // raw date for sorting
           }
-          return data; // raw date for sorting
-        }},
+        },
         {data: 'va_owner_hp'},
         {data: 'coreReferenceNo'}
 
