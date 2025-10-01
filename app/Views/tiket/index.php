@@ -17,7 +17,8 @@
             <tr>
               <th>VA</th>
               <th>Nama</th>
-              <th>Setoran</th>
+              <th>Saldo</th>
+              <th>Motor</th>
             </tr>
           </thead>
         </table>
@@ -30,7 +31,7 @@
     $('#usersTable').DataTable({
       processing: true,
       serverSide: false,
-      order: [[0, 'desc']],
+      order: [[2, 'desc']],
       ajax: {
         url: "<?= site_url('tiket/data') ?>",
         type: "POST"
@@ -38,7 +39,8 @@
       columns: [
         { data: 'va_owner_va' },
         { data: 'va_owner_nama' },
-        { data: 'total_nominal'}
+        { data: 'total_transaksi'},
+        { data: 'tiket_motor'}
         
       ]
     });
