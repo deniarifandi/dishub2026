@@ -74,7 +74,7 @@ class Sisparma extends BaseController
 
     // Process the request (add your logic here)
 
-    $data['transactionDate'] = (new \DateTime())->format(\DateTime::ATOM);
+    //$data['transactionDate'] = (new \DateTime())->format(\DateTime::ATOM);
 
     $this->store_payment($data['latestTransactionStatus'], $data['transactionStatusDesc'], $data['virtualAccountNo'], $data['amount'], $data['coreReferenceNo'], $data['transactionDate']);
 
