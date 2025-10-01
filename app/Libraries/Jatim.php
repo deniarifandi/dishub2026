@@ -194,6 +194,8 @@ class Jatim
 
     function deleteVA($customerNo, $vaNo){
 
+         $this->prefix_checker($vaNo);
+
         $url = "/api/v1.0/transfer-va/delete-va";
         $baseUrl = $this->serverUrl.$url;
         $method = "DELETE";
