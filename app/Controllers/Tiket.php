@@ -28,7 +28,7 @@ class Tiket extends BaseController
     ->join('transaksi', 'transaksi.transaksi_va = va_owner.va_owner_va', 'left')
     ->groupBy('va_owner.va_owner_va, va_owner.va_owner_nama');
 
-    $columns = ['va_owner_va', 'va_owner_name', 'total_nominal']; // harus sesuai alias
+    $columns = ['va_owner_va', 'va_owner_nama', 'total_nominal']; // harus sesuai alias
 
     $dt = new DataTable($builder, $columns);
     $result = $dt->generate();
