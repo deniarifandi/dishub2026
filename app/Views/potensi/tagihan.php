@@ -154,7 +154,7 @@
         width: '100px',
         orderable: true,
         render: (data, type, row) =>
-          `<a class="btn btn-warning btn-sm" href="<?= base_url('potensi/edit/') ?>${row.va_owner_va}">Detail</a>`
+          `<a class="btn btn-warning btn-sm" href="<?= base_url('transaksi') ?>">Detail</a>`
       }
     ],
     });
