@@ -281,7 +281,7 @@ class Potensi extends BaseController
         );
     }
 
-    $builder->groupBy('va_owner.va_owner_va, dishub_anggota.anggota_id, dishub_anggota.anggota_nama, dishub_titpar.titpar_namatempat, dishub_titpar.titpar_lokasi, potensi.potensi_id');
+    $builder->groupBy('va_owner.va_owner_va');
 
     $columns = ['potensi_va','anggota_nama','titpar_namatempat'];
     $dt = new \App\Libraries\DataTable($builder, $columns);
