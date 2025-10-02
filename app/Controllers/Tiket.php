@@ -87,7 +87,7 @@ public function data(){
 
     }
 
-   public function print($va)
+   public function print($id)
     {
 
 
@@ -95,10 +95,10 @@ public function data(){
         $builder = $db->table('tiket')
                       ->select('tiket.*, va_owner.*, titpar_namatempat, titpar_lokasi')
                       ->join('va_owner','va_owner.va_owner_va = tiket.tiket_va','left')
-                      ->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id')
-                      ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id')
-                      ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid')
-                      ->where('tiket.tiket_id', $va);
+                      ->join('dishub_anggota','va_owner.va_owner_anggotaid = dishub_anggota.anggota_id','left')
+                      ->join('dishub_titpargrup','dishub_titpargrup.titpargrup_anggotaid = dishub_anggota.anggota_id','left')
+                      ->join('dishub_titpar','dishub_titpar.titpar_id = dishub_titpargrup.titpargrup_titparid','left')
+                      ->where('tiket.tiket_id', $id);
 
         $tiket = $builder->get()->getRow(); // ambil 1 row
 
