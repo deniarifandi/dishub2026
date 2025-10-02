@@ -48,6 +48,7 @@
         { data: 'titpar_namatempat'},
         {data: 'jenis'},
         { data: 'transaksi_nominal',
+          className: 'dt-body-right',
           render: $.fn.dataTable.render.number(',', '.', 0, 'Rp ') },
         {
           data: 'transaksi_tanggal',

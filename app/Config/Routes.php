@@ -69,6 +69,8 @@ $routes->post('potensi/datatagihan', 'Potensi::datatagihan');
 //Tiket
 $routes->get('tiket', 'Tiket::index');
 $routes->post('tiket/data','Tiket::data');
+$routes->get('tiket/pesan/(:any)','Tiket::pesan/$1');
+$routes->post('tiket/store','Tiket::store');
 
 //API Jatim
 $routes->get('api/jatim/getaccesstoken','JatimController::get_access_token');

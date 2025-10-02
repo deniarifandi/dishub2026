@@ -8,7 +8,7 @@
 
 <div class="card">
     <div class="card-header">
-        Daftar Tiket 
+        Daftar Saldo
         <!-- <a class="btn btn-primary btn-sm float-end" href="<?= base_url('transaksi/create') ?>">Add New</a> -->
     </div>
     <div class="card-body">
@@ -18,12 +18,14 @@
               <th>VA</th>
               <th>Nama</th>
               <th>Saldo</th>
-              <th>Motor</th>
+             <!--  <th>Motor</th>
               <th>Mobil</th>
               <th>Truk</th>
               <th>Motor Insidentil</th>
               <th>Mobil Insidentil</th>
-              <th>Truk Insidentil</th>
+              <th>Truk Insidentil</th> -->
+              <th>Sisa Saldo</th>
+              <th>Action</th>
             </tr>
           </thead>
         </table>
@@ -36,7 +38,7 @@
     $('#usersTable').DataTable({
       processing: true,
       serverSide: false,
-      order: [[2, 'desc']],
+      order: [[3, 'desc']],
       ajax: {
         url: "<?= site_url('tiket/data') ?>",
         type: "POST"
@@ -44,13 +46,36 @@
       columns: [
         { data: 'va_owner_va' },
         { data: 'va_owner_nama' },
-        { data: 'total_transaksi'},
-        { data: 'tiket_motor'},
-        { data: 'tiket_mobil'},
-        { data: 'tiket_truk'},
-        { data: 'tiket_motor_in'},
-        { data: 'tiket_mobil_in'},
-        { data: 'tiket_truk_in'},
+        { data: 'total_transaksi', 
+          className: 'dt-body-right',
+          render: $.fn.dataTable.render.number(',', '.', 0, 'Rp ')
+        },
+        // { data: 'tiket_motor'},
+        // { data: 'tiket_mobil'},
+        // { data: 'tiket_truk'},
+        // { data: 'tiket_motor_in'},
+        // { data: 'tiket_mobil_in'},
+        // { data: 'tiket_truk_in'},
+        { data: 'sisa_saldo', 
+          className: 'dt-body-right',
+          render: $.fn.dataTable.render.number(',', '.', 0, 'Rp ')
+        },
+        { 
+          data: null,
+          orderable: false,
+          searchable: false,
+          render: function (data, type, row) {
+            let disabled = (row.sisa_saldo == 0) ? 'disabled' : '';
+            return `
+              <a class="btn btn-sm btn-primary proses-tiket ${disabled}" 
+                 href="<?= base_url() ?>tiket/pesan/${row.va_owner_va}" 
+                 data-va="${row.va_owner_va}" 
+                 ${disabled}>
+                Pesan Tiket
+              </a>
+            `;
+          }
+        }
       ]
     });
   });
