@@ -73,7 +73,8 @@ public function data(){
  public function datahistori(){
         $db = db_connect();
         $builder = $db->table('tiket')->select('tiket.*, va_owner.va_owner_nama')
-        ->join('va_owner','va_owner.va_owner_va = tiket.tiket_va','left');
+        ->join('va_owner','va_owner.va_owner_va = tiket.tiket_va','left')
+        ->where('tiket_id >',1);
     
 
         // Columns to apply search on
@@ -89,7 +90,7 @@ public function data(){
    public function print($va)
     {
 
-        
+
         $db = db_connect();
         $builder = $db->table('tiket')
                       ->select('tiket.*, va_owner.*, titpar_namatempat, titpar_lokasi')
