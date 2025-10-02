@@ -89,8 +89,7 @@ public function data(){
    public function print($va)
     {
 
-        echo "test";
-        exit();
+        
         $db = db_connect();
         $builder = $db->table('tiket')
                       ->select('tiket.*, va_owner.*, titpar_namatempat, titpar_lokasi')
