@@ -72,6 +72,11 @@ $routes->post('tiket/data','Tiket::data');
 $routes->get('tiket/pesan/(:any)','Tiket::pesan/$1');
 $routes->post('tiket/store','Tiket::store');
 
+$routes->get('tiket/histori','Tiket::histori');
+$routes->post('tiket/datahistori','Tiket::datahistori');
+
+$routes->get('tiket/print/(:any)','Tiket::print/$1');
+
 //API Jatim
 $routes->get('api/jatim/getaccesstoken','JatimController::get_access_token');
 $routes->get('api/jatim/signatureaccesstoken','JatimController::signature_access_token');
