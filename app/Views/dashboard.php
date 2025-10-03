@@ -19,9 +19,11 @@
     </div>
   </div>
 
+
+
   <!-- Main Feature Cards -->
   <div class="row g-3 mb-4">
-   
+
     <div class="col-md-4">
       <div class="card smart-card text-center p-3 shadow-sm border-0 animate-card">
         <i class="bi bi-people-fill smart-icon mb-2 text-success fs-2"></i>
@@ -52,8 +54,43 @@
 
   <!-- Secondary Cards -->
   <div class="row g-3">
+
+       <div class="col-md-3">
+    <div class="card smart-card text-center p-3 shadow-sm border-0 animate-card">
+      <i class="bi bi-people-fill smart-icon mb-2 text-danger fs-4"></i>
+      <h6 class="fw-bold mb-1">Anggota</h6>
+      <p class="text-muted small mb-2">Data Anggota</p>
+      <a href="anggota" class="btn btn-primary btn-sm w-100">
+        <i class="bi bi-box-arrow-up-right me-1"></i> Buka
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card smart-card text-center p-3 shadow-sm border-0 animate-card">
+      <i class="bi bi-pin-map-fill smart-icon mb-2 text-primary fs-4"></i>
+      <h6 class="fw-bold mb-1">Titik Parkir</h6>
+      <p class="text-muted small mb-2">Kelola Titik Parkir</p>
+      <a href="titpar" class="btn btn-primary btn-sm w-100">
+        <i class="bi bi-box-arrow-up-right me-1"></i> Buka Tiket
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card smart-card text-center p-3 shadow-sm border-0 animate-card">
+      <i class="bi bi-clock-fill smart-icon mb-2 text-info fs-4"></i>
+      <h6 class="fw-bold mb-1">Titpar-Anggota</h6>
+      <p class="text-muted small mb-2">Kelola Titik Parkir x Anggota</p>
+      <a href="titpargrup" class="btn btn-primary btn-sm w-100">
+        <i class="bi bi-box-arrow-up-right me-1"></i> Buka Tiket
+      </a>
+    </div>
+  </div>
+
+
     <div class="col-md-3">
-      <div class="card smart-card text-center p-2 shadow-sm border-0 animate-card">
+      <div class="card smart-card text-center p-3 shadow-sm border-0 animate-card">
         <i class="bi bi-cash-stack smart-icon mb-2 text-danger fs-4"></i>
         <h6 class="fw-bold mb-1">Potensi X Realisasi</h6>
         <p class="text-muted small mb-2">Data Tagihan</p>
@@ -83,9 +120,15 @@
   </div>
 </div>
 
+
   </div>
 
   <!-- Secondary Cards -->
+
+  <hr class="my-4">
+
+  <!-- Secondary Cards -->
+ 
 
 
 <?php echo view('footer'); ?>

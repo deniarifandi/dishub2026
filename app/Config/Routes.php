@@ -77,6 +77,34 @@ $routes->post('tiket/datahistori','Tiket::datahistori');
 
 $routes->get('tiket/print/(:any)','Tiket::print/$1');
 
+
+//Anggota
+$routes->get('anggota','Anggota::index');
+$routes->post('anggota/data','Anggota::data');
+$routes->get('anggota/create','Anggota::create');
+$routes->post('anggota/store','Anggota::store');
+$routes->get('anggota/edit/(:num)', 'Anggota::edit/$1');
+$routes->post('anggota/update/(:num)', 'Anggota::update/$1');
+$routes->get('anggota/delete/(:num)', 'Anggota::delete/$1');
+
+//Titpar
+$routes->get('titpar','Titpar::index');
+$routes->post('titpar/data','Titpar::data');
+$routes->get('titpar/create','Titpar::create');
+$routes->post('titpar/store','Titpar::store');
+$routes->get('titpar/edit/(:num)', 'Titpar::edit/$1');
+$routes->post('titpar/update/(:num)', 'Titpar::update/$1');
+$routes->get('titpar/delete/(:num)', 'Titpar::delete/$1');
+
+//Titpargrup
+$routes->get('titpargrup','Titpargrup::index');
+$routes->post('titpargrup/data','Titpargrup::data');
+$routes->get('titpargrup/create','Titpargrup::create');
+$routes->post('titpargrup/store','Titpargrup::store');
+$routes->get('titpargrup/edit/(:num)', 'Titpargrup::edit/$1');
+$routes->post('titpargrup/update/(:num)', 'Titpargrup::update/$1');
+$routes->get('titpargrup/delete/(:num)', 'Titpargrup::delete/$1');
+
 //API Jatim
 $routes->get('api/jatim/getaccesstoken','JatimController::get_access_token');
 $routes->get('api/jatim/signatureaccesstoken','JatimController::signature_access_token');

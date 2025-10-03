@@ -8,4 +8,5 @@ class DishubAnggotaModel extends Model
     protected $table = 'dishub_anggota';
     protected $primaryKey = 'id';
     protected $allowedFields = ['nama'];
+    protected $keepHistory   = false;
 }
