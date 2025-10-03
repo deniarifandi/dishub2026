@@ -240,4 +240,12 @@ toggle.addEventListener('click', () => {
 </script>
 
 </body>
+
+<script>
+// reload every 1 minute (60000 ms)
+setTimeout(function() {
+   location.reload();
+}, 60000);
+</script>
+
 </html>
