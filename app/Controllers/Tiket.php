@@ -74,6 +74,7 @@ public function data(){
         $db = db_connect();
         $builder = $db->table('tiket')->select('tiket.*, va_owner.va_owner_nama')
         ->join('va_owner','va_owner.va_owner_va = tiket.tiket_va','left')
+        ->where('tiket_id >',1)
         ;
     
 
